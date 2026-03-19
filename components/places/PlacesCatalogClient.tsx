@@ -54,6 +54,8 @@ const initialFilters: Filters = {
   ratings: [],
 };
 
+const PAGE_SIZE = 24; // 4 карточки * 6 рядов
+
 export function PlacesCatalogClient({
   initialItems,
   totalCount,
@@ -69,10 +71,16 @@ export function PlacesCatalogClient({
   const [sortBy, setSortBy] = useState<"rating" | "price">("rating");
   const [filters, setFilters] = useState<Filters>(initialFilters);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // При изменении фильтров/сортировки всегда возвращаемся на 1 страницу.
+  useEffect(() => {
+    setPage(1);
+  }, [filters, sortBy]);
 
   useEffect(() => {
     let isCancelled = false;
@@ -81,6 +89,9 @@ export function PlacesCatalogClient({
       try {
         setLoading(true);
         const supabase = createClient();
+        const from = (page - 1) * PAGE_SIZE;
+        const to = from + PAGE_SIZE - 1;
+
         let query = supabase
           .from("places")
           .select("id,slug,name,category,city,address,rating,entry_price", { count: "exact" });
@@ -92,7 +103,7 @@ export function PlacesCatalogClient({
         if (filters.ratings.length > 0) query = query.gte("rating", Math.min(...filters.ratings.map(Number)));
 
         query = sortBy === "price" ? query.order("entry_price", { ascending: true, nullsFirst: true }) : query.order("rating", { ascending: false });
-        const { data, error, count: nextCount } = await query.limit(100);
+        const { data, error, count: nextCount } = await query.range(from, to);
         if (error) throw error;
 
         if (!isCancelled) {
@@ -114,7 +125,7 @@ export function PlacesCatalogClient({
     return () => {
       isCancelled = true;
     };
-  }, [filters, sortBy]);
+  }, [filters, sortBy, page]);
 
   const chips = useMemo(() => {
     const list: Array<{ key: keyof Filters; label: string }> = [];
@@ -124,6 +135,22 @@ export function PlacesCatalogClient({
     if (filters.ratings.length > 0) list.push({ key: "ratings", label: `Рейтинг: ${filters.ratings.join(", ")}` });
     return list;
   }, [filters]);
+
+  const pageCount = Math.ceil(count / PAGE_SIZE);
+  const canPrev = page > 1;
+  const canNext = pageCount > 0 && page < pageCount;
+
+  const visiblePages = (() => {
+    if (pageCount <= 1) return [] as number[];
+    const maxButtons = 5;
+    const half = Math.floor(maxButtons / 2);
+    let start = Math.max(1, page - half);
+    let end = Math.min(pageCount, start + maxButtons - 1);
+    start = Math.max(1, end - maxButtons + 1);
+    const pages: number[] = [];
+    for (let p = start; p <= end; p++) pages.push(p);
+    return pages;
+  })();
 
   const resetOne = (key: keyof Filters) => setFilters((prev) => ({ ...prev, [key]: initialFilters[key] }));
 
@@ -275,6 +302,27 @@ export function PlacesCatalogClient({
               ))}
             </div>
           ) : null}
+
+          {!loading && items.length > 0 && pageCount > 1 ? (
+            <div className="pagination">
+              <div className="pagesInfo">
+                Страница <strong>{page}</strong> из <strong>{pageCount}</strong>
+              </div>
+              <div className="pageBtns">
+                <button type="button" className="pBtn" disabled={!canPrev} onClick={() => setPage((p) => Math.max(1, p - 1))}>
+                  ‹
+                </button>
+                {visiblePages.map((p) => (
+                  <button key={p} type="button" className={`pBtn ${p === page ? "on" : ""}`} disabled={p === page} onClick={() => setPage(p)}>
+                    {p}
+                  </button>
+                ))}
+                <button type="button" className="pBtn" disabled={!canNext} onClick={() => setPage((p) => Math.min(pageCount, p + 1))}>
+                  ›
+                </button>
+              </div>
+            </div>
+          ) : null}
         </main>
       </div>
 
@@ -322,7 +370,13 @@ export function PlacesCatalogClient({
         .placesCatalog .vBtn.on{background:#181818;color:#fff}
         .placesCatalog .active-chips { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 16px; }
         .placesCatalog .act-chip { display: flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; border-radius: 99px; background: rgba(0,0,0,0.07); font-size: 12px; border: none; cursor: pointer; }
-        .placesCatalog .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+        .placesCatalog .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+        .placesCatalog .pagination{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:18px}
+        .placesCatalog .pagesInfo{font-size:13px;color:#666}
+        .placesCatalog .pageBtns{display:flex;gap:8px;align-items:center}
+        .placesCatalog .pBtn{min-width:34px;height:34px;border-radius:10px;border:1px solid rgba(0,0,0,.1);background:#fff;color:#181818;font-weight:700;cursor:pointer;padding:0 12px}
+        .placesCatalog .pBtn.on{background:#181818;color:#fff}
+        .placesCatalog .pBtn:disabled{opacity:.55;cursor:not-allowed}
         .placesCatalog .card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:20px;overflow:hidden;text-decoration:none;color:inherit}
         .placesCatalog .thumb{height:180px;position:relative}
         .placesCatalog .body{padding:16px}

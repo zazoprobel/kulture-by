@@ -5,15 +5,23 @@ import { createClient } from "@/lib/supabase/server";
 import { VenuesCatalogClient, type VenueItem } from "@/components/venues/VenuesCatalogClient";
 
 export default async function VenuesPage() {
+  const PAGE_SIZE = 24;
   const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("venues")
-    .select("id,slug,name,city,type,rating,capacity_banquet,capacity_buffet,price_from")
-    .order("rating", { ascending: false })
-    .limit(100);
 
-  if (error) console.error("Venues init query error", error.message);
-  const venues = (data ?? []) as VenueItem[];
+  const [venuesResult, countResult] = await Promise.all([
+    supabase
+      .from("venues")
+      .select("id,slug,name,city,type,rating,capacity_banquet,capacity_buffet,price_from")
+      .order("rating", { ascending: false })
+      .limit(PAGE_SIZE),
+    supabase.from("venues").select("*", { count: "exact", head: true }),
+  ]);
+
+  if (venuesResult.error) console.error("Venues init query error", venuesResult.error.message);
+  if (countResult.error) console.error("Venues init count query error", countResult.error.message);
+
+  const venues = (venuesResult.data ?? []) as VenueItem[];
+  const totalCount = countResult.count ?? 0;
 
   return (
     <>
@@ -72,7 +80,7 @@ export default async function VenuesPage() {
               <div className="pbS">Рестораны, лофты, банкетные залы, загородные площадки и отели для мероприятий.</div>
             </div>
           </div>
-          <VenuesCatalogClient initialItems={venues} />
+          <VenuesCatalogClient initialItems={venues} totalCount={totalCount} />
         </div>
       </Container>
       <Footer />

@@ -7,6 +7,7 @@ import { PlacesCatalogClient, type PlaceItem } from "@/components/places/PlacesC
 export default async function PlacesPage() {
   const isDev = process.env.NODE_ENV === "development";
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const PAGE_SIZE = 24;
 
   let places: PlaceItem[] = [];
   let totalCount = 0;
@@ -24,7 +25,7 @@ export default async function PlacesPage() {
         .from("places")
         .select("id,name,slug,category,city,address,rating,entry_price")
         .order("rating", { ascending: false })
-        .limit(100),
+        .limit(PAGE_SIZE),
       supabase.from("places").select("*", { count: "exact", head: true }),
     ]);
 
