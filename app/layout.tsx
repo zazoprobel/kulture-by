@@ -16,6 +16,10 @@ export const metadata: Metadata = {
   title: "Культура События | kulture.by",
   description:
     "Культура События (kulture.by) — портал событий, площадок и подрядчиков по Беларуси.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({
