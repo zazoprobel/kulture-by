@@ -14,8 +14,8 @@ export function Footer() {
               </div>
             </a>
             <p className="fb-about">
-              Главный портал событий, площадок и подрядчиков для праздников по
-              всей Беларуси.
+              Главный портал интересных мест, площадок и маршрутов по всей
+              Беларуси.
             </p>
             <p className="f-contact">
               ✉️ <a href="mailto:hello@kulture.by">hello@kulture.by</a>
@@ -56,19 +56,25 @@ export function Footer() {
             </ul>
           </div>
           <div className="fc">
-            <h4>Подрядчики</h4>
+            <h4>Города</h4>
             <ul>
               <li>
-                <a href="#">Фотографы</a>
+                <a href="#">Минск</a>
               </li>
               <li>
-                <a href="#">Видеографы</a>
+                <a href="#">Брест</a>
               </li>
               <li>
-                <a href="#">Декораторы</a>
+                <a href="#">Гродно</a>
               </li>
               <li>
-                <a href="#">Ведущие и DJ</a>
+                <a href="#">Витебск</a>
+              </li>
+              <li>
+                <a href="#">Гомель</a>
+              </li>
+              <li>
+                <a href="#">Могилёв</a>
               </li>
             </ul>
           </div>
