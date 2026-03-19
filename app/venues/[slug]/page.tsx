@@ -48,6 +48,8 @@ export default async function VenuePage({ params }: PageProps) {
     <>
       <style>{`
         .wrap{margin-top:22px}
+        .breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:#888;padding:0 0 14px;flex-wrap:wrap}
+        .breadcrumb a{color:#888;text-decoration:none}
         .gallery{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:300px 150px;gap:10px;border-radius:20px;overflow:hidden}
         .gMain,.gSm{position:relative}
         .gMain{grid-row:span 2}
@@ -58,11 +60,12 @@ export default async function VenuePage({ params }: PageProps) {
         .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
         .stat{background:#F7F6F2;border-radius:14px;padding:14px;text-align:center}
         .statN{font-family:"Unbounded",sans-serif;font-size:18px}
-        .title{font-family:"Unbounded",sans-serif;font-size:14px;margin-bottom:12px}
+        .title{font-family:"Unbounded",sans-serif;font-size:15px;margin-bottom:12px}
         .halls{display:flex;flex-direction:column;gap:10px}
         .hall{border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:12px}
         .packages{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-        .pkg{border:1px solid rgba(0,0,0,.08);border-radius:14px;padding:14px}
+        .pkg{border:1.5px solid rgba(0,0,0,.08);border-radius:14px;padding:18px;transition:all .2s}
+        .pkg:hover{border-color:#181818;background:#181818;color:#fff}
         .similar{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
         .sCard{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:14px;text-decoration:none;color:inherit}
         .bookingCard{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:20px;padding:22px;position:sticky;top:86px}
@@ -82,8 +85,8 @@ export default async function VenuePage({ params }: PageProps) {
       <Header />
       <Container>
         <div className="wrap">
-          <div style={{ color: "#666", fontSize: "13px" }}>
-            <Link href="/">Главная</Link> · <Link href="/venues">Площадки</Link> · <strong>{venue.name}</strong>
+          <div className="breadcrumb">
+            <Link href="/">Главная</Link><span>›</span><Link href="/venues">Площадки</Link><span>›</span><strong>{venue.name}</strong>
           </div>
 
           <section className="gallery">
@@ -121,6 +124,15 @@ export default async function VenuePage({ params }: PageProps) {
               <div className="box">
                 <h2 className="title">Об площадке</h2>
                 <p style={{ color: "#555", lineHeight: 1.7 }}>{venue.description}</p>
+              </div>
+
+              <div className="box">
+                <h2 className="title">Удобства и сервисы</h2>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "8px" }}>
+                  {["🛁 Баня / сауна", "🅿️ Парковка", "🌿 Территория", "🍽️ Кухня", "🔥 Мангал", "🛏️ Ночёвка", "🎵 Звук", "💡 Свет", "📶 Wi-Fi"].map((item) => (
+                    <div key={item} style={{ background: "#F7F6F2", borderRadius: "12px", padding: "10px 12px", fontSize: "13px" }}>{item}</div>
+                  ))}
+                </div>
               </div>
 
               <div className="box">

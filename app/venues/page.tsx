@@ -41,7 +41,15 @@ export default async function VenuesPage({ searchParams }: PageProps) {
   return (
     <>
       <style>{`
-        .wrap{margin-top:24px}
+        .wrap{margin-top:20px}
+        .breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:#888;padding:0 0 14px}
+        .breadcrumb a{color:#888;text-decoration:none}
+        .pageBanner{background:#E7D4FF;border-radius:20px;padding:32px 40px;display:flex;align-items:center;gap:32px;margin-bottom:20px}
+        .pbIcon{font-size:56px;flex-shrink:0}
+        .pbT{font-family:"Unbounded",sans-serif;font-size:22px;margin-bottom:6px}
+        .pbS{font-size:14px;color:rgba(0,0,0,.5);line-height:1.5}
+        .typeChips{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}
+        .typeChip{display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:99px;background:rgba(0,0,0,.07);font-size:12px}
         .layout{display:grid;grid-template-columns:280px 1fr;gap:28px;align-items:start}
         .sidebar{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:20px;padding:24px;position:sticky;top:86px}
         .sbTitle{font-family:"Unbounded",sans-serif;font-size:14px;margin-bottom:16px}
@@ -73,13 +81,34 @@ export default async function VenuesPage({ searchParams }: PageProps) {
         .vlTitle{font-family:"Unbounded",sans-serif;font-size:14px}
         .vlLoc{margin-top:6px;color:#666;font-size:13px}
         .vlMeta{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:#555}
-        @media (max-width:1024px){.layout{grid-template-columns:1fr}.sidebar{position:static}.venuesGrid{grid-template-columns:repeat(2,1fr)}}
+        @media (max-width:1024px){.layout{grid-template-columns:1fr}.sidebar{position:static}.venuesGrid{grid-template-columns:repeat(2,1fr)}.pageBanner{padding:24px}}
         @media (max-width:767px){.venuesGrid,.vlCard{grid-template-columns:1fr}.vlThumb{height:200px}}
       `}</style>
 
       <Header />
       <Container>
         <div className="wrap">
+          <div className="breadcrumb">
+            <Link href="/">Главная</Link> <span>›</span> <strong>Площадки</strong>
+          </div>
+
+          <div className="pageBanner">
+            <div className="pbIcon">🏡</div>
+            <div>
+              <div className="pbT">Каталог площадок Беларуси</div>
+              <div className="pbS">Рестораны, лофты, банкетные залы, загородные площадки и отели для мероприятий.</div>
+            </div>
+          </div>
+
+          <div className="typeChips">
+            <span className="typeChip" style={{ background: "#181818", color: "#fff" }}>🏡 Все</span>
+            <span className="typeChip">🍽️ Рестораны</span>
+            <span className="typeChip">🏛️ Банкетные залы</span>
+            <span className="typeChip">🖼️ Лофты</span>
+            <span className="typeChip">🏨 Отели</span>
+            <span className="typeChip">🌲 На природе</span>
+          </div>
+
           <div className="layout">
             <aside className="sidebar">
               <div className="sbTitle">Фильтры</div>

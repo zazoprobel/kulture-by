@@ -33,43 +33,51 @@ const typeLabel: Record<string, string> = {
 
 export function VenuesSlider({ venues }: { venues: VenueSlide[] }) {
   const [index, setIndex] = useState(0);
-  const pages = Math.max(1, venues.length);
-  const current = useMemo(() => venues[index], [venues, index]);
+  const safeVenues = venues.slice(0, 12);
+  const pages = Math.max(1, safeVenues.length);
+  const current = useMemo(() => safeVenues, [safeVenues]);
 
-  if (!current) {
+  if (current.length === 0) {
     return <div className="emptyCard">Площадки появятся после добавления данных.</div>;
   }
 
   return (
     <>
-      <div className="sliderSingle">
-        <Link href={`/venues/${current.slug}`} className="vCard">
-          <div className="vThumb">
-            <Image
-              src={venueImages[current.type] ?? venueImages.outdoor}
-              alt={current.name}
-              fill
-              unoptimized
-              style={{ objectFit: "cover" }}
-              sizes="(max-width: 767px) 100vw, 50vw"
-            />
-            <div className="vBadge">
-              от {Math.round(current.price_from ?? 0)} BYN
+      <div className="sliderOuter">
+        <div
+          className="sliderTr"
+          style={{ transform: `translateX(calc(-${index} * (25% + 4px)))` }}
+        >
+          {safeVenues.map((venue) => (
+            <div className="slideItem" key={venue.id}>
+              <Link href={`/venues/${venue.slug}`} className="vCard">
+                <div className="vThumb">
+                  <Image
+                    src={venueImages[venue.type] ?? venueImages.outdoor}
+                    alt={venue.name}
+                    fill
+                    unoptimized
+                    style={{ objectFit: "cover" }}
+                    sizes="(max-width: 767px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  />
+                  <div className="vBadge">от {Math.round(venue.price_from ?? 0)} BYN</div>
+                </div>
+                <div className="vBody">
+                  <div className="vTags">
+                    <span className="vtag">{typeLabel[venue.type] ?? venue.type}</span>
+                    <span className="vtag">{venue.city}</span>
+                  </div>
+                  <div className="vTitle">{venue.name}</div>
+                  <div className="vLoc">📍 {venue.city}</div>
+                  <div className="vFoot">
+                    <div>⭐ {venue.rating ?? 0}</div>
+                    <div>👥 до {venue.capacity_banquet ?? 0}</div>
+                  </div>
+                </div>
+              </Link>
             </div>
-          </div>
-          <div className="vBody">
-            <div className="vTags">
-              <span className="vtag">{typeLabel[current.type] ?? current.type}</span>
-              <span className="vtag">{current.city}</span>
-            </div>
-            <div className="vTitle">{current.name}</div>
-            <div className="vLoc">📍 {current.city}</div>
-            <div className="vFoot">
-              <div>⭐ {current.rating ?? 0}</div>
-              <div>👥 до {current.capacity_banquet ?? 0}</div>
-            </div>
-          </div>
-        </Link>
+          ))}
+        </div>
       </div>
       <div className="sliderCtrl">
         <button
@@ -94,8 +102,11 @@ export function VenuesSlider({ venues }: { venues: VenueSlide[] }) {
       </div>
       <style jsx>{`
         .emptyCard{border:1px solid rgba(0,0,0,.1);background:#fff;padding:18px;border-radius:16px}
-        .sliderSingle{max-width:460px}
-        .vCard{display:block;text-decoration:none;color:inherit;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:20px;overflow:hidden}
+        .sliderOuter{overflow:hidden}
+        .sliderTr{display:flex;gap:16px;transition:transform .4s cubic-bezier(.4,0,.2,1)}
+        .slideItem{min-width:calc(25% - 12px);flex-shrink:0}
+        .vCard{display:block;text-decoration:none;color:inherit;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:20px;overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
+        .vCard:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,.11)}
         .vThumb{height:230px;position:relative}
         .vBadge{position:absolute;bottom:10px;left:10px;border-radius:99px;padding:5px 10px;background:#D2F882;font-size:12px;font-weight:700}
         .vBody{padding:16px}
@@ -107,6 +118,8 @@ export function VenuesSlider({ venues }: { venues: VenueSlide[] }) {
         .sliderCtrl{display:flex;align-items:center;gap:10px;margin-top:14px}
         .sBtn{width:38px;height:38px;border-radius:50%;border:1px solid rgba(0,0,0,.1);background:#fff}
         .sPage{font-size:13px;color:#666}
+        @media (max-width:1024px){.slideItem{min-width:calc(50% - 8px)}}
+        @media (max-width:767px){.slideItem{min-width:100%}}
       `}</style>
     </>
   );
