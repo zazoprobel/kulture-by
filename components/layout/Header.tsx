@@ -6,8 +6,8 @@ export function Header() {
           <a href="/" className="logo">
             <div className="logo-mark">🎉</div>
             <div>
-              <div className="logo-text">ПРАЗДНИК.BY</div>
-              <div className="logo-sub">Беларусь отмечает</div>
+              <div className="logo-text">Культура События</div>
+              <div className="logo-sub">kulture.by</div>
             </div>
           </a>
           <nav>

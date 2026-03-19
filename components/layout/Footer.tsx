@@ -8,9 +8,9 @@ export function Footer() {
               <div className="logo-mark">🎉</div>
               <div>
                 <div className="logo-text" style={{ color: "#fff" }}>
-                  ПРАЗДНИК.BY
+                  Культура События
                 </div>
-                <div className="logo-sub">Беларусь отмечает</div>
+                <div className="logo-sub">kulture.by</div>
               </div>
             </a>
             <p className="fb-about">
@@ -91,7 +91,7 @@ export function Footer() {
           </div>
         </div>
         <div className="fbot">
-          <span>© 2025 ПРАЗДНИК.BY — Маркетплейс праздничных площадок</span>
+          <span>© 2025 Культура События — Маркетплейс праздничных площадок</span>
           <div className="flegal">
             <a href="#">Конфиденциальность</a>
             <a href="#">Правила</a>
