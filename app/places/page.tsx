@@ -3,11 +3,29 @@ import { Header } from "@/components/layout/Header";
 import { Container } from "@/components/layout/Container";
 import { createClient } from "@/lib/supabase/server";
 import { PlacesCatalogClient, type PlaceItem } from "@/components/places/PlacesCatalogClient";
+import { getSiteUrl } from "@/lib/seo/siteUrl";
+import { placesCanonicalPath, placesListingDescription, placesListingTitle, PLACES_PAGE_SIZE } from "@/lib/seo/places";
+
+export async function generateMetadata() {
+  const supabase = await createClient();
+  const { count } = await supabase.from("places").select("*", { count: "exact", head: true });
+
+  const totalCount = count ?? 0;
+  const canonicalPath = placesCanonicalPath({ categoryDb: "all", cityDb: null, page: 1 });
+  const canonical = `${await getSiteUrl()}${canonicalPath}`;
+
+  return {
+    title: placesListingTitle("all", null),
+    description: placesListingDescription("all", null),
+    robots: { index: totalCount >= 12, follow: true },
+    alternates: { canonical },
+  };
+}
 
 export default async function PlacesPage() {
   const isDev = process.env.NODE_ENV === "development";
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const PAGE_SIZE = 24;
+  const PAGE_SIZE = PLACES_PAGE_SIZE;
 
   let places: PlaceItem[] = [];
   let totalCount = 0;
@@ -128,7 +146,12 @@ export default async function PlacesPage() {
               Supabase error: {debugError}
             </div>
           ) : null}
-          <PlacesCatalogClient initialItems={places} totalCount={totalCount} />
+          <PlacesCatalogClient
+            initialItems={places}
+            totalCount={totalCount}
+            initialFilters={{ category: "all", cities: [], entry: "all", ratings: [] }}
+            initialPage={1}
+          />
         </Container>
       </section>
 

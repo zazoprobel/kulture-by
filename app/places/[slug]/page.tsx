@@ -5,6 +5,16 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Container } from "@/components/layout/Container";
 import { createClient } from "@/lib/supabase/server";
+import { PlacesCatalogClient, type PlaceItem } from "@/components/places/PlacesCatalogClient";
+import { fetchPlacesListing, fetchPlacesListingCount } from "@/lib/seo/placesData";
+import { getSiteUrl } from "@/lib/seo/siteUrl";
+import {
+  getPlacesCategoryDbFromUrlSegment,
+  placesCanonicalPath,
+  placesListingDescription,
+  placesListingTitle,
+  PLACES_CATEGORY_LABEL_RU,
+} from "@/lib/seo/places";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -42,6 +52,43 @@ const imageByCategory: Record<string, string> = {
   kids: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=1400",
 };
 
+export async function generateMetadata({ params }: PageProps) {
+  const { slug } = await params;
+  const supabase = await createClient();
+
+  const { data: placeData } = await supabase
+    .from("places")
+    .select("id,slug,name,description,category,city")
+    .eq("slug", slug)
+    .single();
+
+  const place = placeData as Place | null;
+
+  if (place) {
+    const canonical = `${await getSiteUrl()}/places/${place.slug}`;
+    return {
+      title: `${place.name} — места Беларуси | kulture.by`,
+      description: place.description?.slice(0, 160) ?? place.name,
+      alternates: { canonical },
+      robots: { index: true, follow: true },
+    };
+  }
+
+  const categoryDb = getPlacesCategoryDbFromUrlSegment(slug);
+  if (!categoryDb) return {};
+
+  const totalCount = await fetchPlacesListingCount({ categoryDb, cityDb: null });
+  const canonicalPath = placesCanonicalPath({ categoryDb, cityDb: null, page: 1 });
+  const canonical = `${await getSiteUrl()}${canonicalPath}`;
+
+  return {
+    title: placesListingTitle(categoryDb, null),
+    description: placesListingDescription(categoryDb, null),
+    robots: { index: totalCount >= 12, follow: true },
+    alternates: { canonical },
+  };
+}
+
 export default async function PlacePage({ params }: PageProps) {
   const { slug } = await params;
   const supabase = await createClient();
@@ -53,7 +100,69 @@ export default async function PlacePage({ params }: PageProps) {
     .single();
 
   const place = placeData as Place | null;
-  if (!place) notFound();
+  if (!place) {
+    const categoryDb = getPlacesCategoryDbFromUrlSegment(slug);
+    if (!categoryDb) notFound();
+
+    const { items, totalCount } = await fetchPlacesListing({
+      categoryDb,
+      cityDb: null,
+      page: 1,
+    });
+
+    const heroTitle = PLACES_CATEGORY_LABEL_RU[categoryDb] ?? categoryDb;
+    const heroSubtitle = "Каталог локаций для прогулок, поездок и открытий";
+
+    return (
+      <>
+        <style>{`
+          @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Onest:wght@300;400;500;600;700&display=swap');
+          :root { --lavender:#E7D4FF; --bg:#F7F6F2; --dark:#181818; --font-h:'Unbounded',sans-serif; --font-b:'Onest',sans-serif; }
+          body{font-family:var(--font-b);background:var(--bg);color:var(--dark)}
+          :global(.container){max-width:1280px;margin:0 auto;padding:0 40px}
+          .section{margin-top:60px}
+          .hero{background:var(--lavender);border-radius:20px;padding:34px;display:flex;justify-content:space-between;gap:20px;align-items:flex-end}
+          .hero h1{font-family:var(--font-h);font-size:44px;line-height:1.08}
+          .heroCount{font-family:var(--font-h);font-size:44px;line-height:1;text-align:right}
+          .heroCountSub{font-size:13px;color:rgba(0,0,0,.55);margin-top:6px}
+          @media (max-width: 1024px){.hero h1{font-size:36px}}
+          @media (max-width: 767px){
+            :global(.container){padding:0 20px}
+            .section{margin-top:40px}
+            .hero{padding:24px;flex-direction:column;align-items:flex-start}
+            .hero h1{font-size:30px}
+            .heroCount{text-align:left;font-size:36px}
+          }
+        `}</style>
+        <Header />
+        <section className="section">
+          <Container>
+            <div className="hero">
+              <div>
+                <h1>{heroTitle} Беларуси</h1>
+                <p>{heroSubtitle}</p>
+              </div>
+              <div>
+                <div className="heroCount">{totalCount}</div>
+                <div className="heroCountSub">мест в каталоге</div>
+              </div>
+            </div>
+          </Container>
+        </section>
+        <section className="section">
+          <Container>
+            <PlacesCatalogClient
+              initialItems={items as PlaceItem[]}
+              totalCount={totalCount}
+              initialFilters={{ category: categoryDb, cities: [], entry: "all", ratings: [] }}
+              initialPage={1}
+            />
+          </Container>
+        </section>
+        <Footer />
+      </>
+    );
+  }
 
   const { data: similarData } = await supabase
     .from("places")

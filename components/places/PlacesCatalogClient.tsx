@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
+import { getPlacesCategoryUrlSegment, getPlacesCityUrlSegment } from "@/lib/seo/places";
 
 export type PlaceItem = {
   id: string;
@@ -59,26 +61,65 @@ const PAGE_SIZE = 24; // 4 карточки * 6 рядов
 export function PlacesCatalogClient({
   initialItems,
   totalCount,
+  initialFilters: initialFiltersFromSeo,
+  initialPage,
 }: {
   initialItems: PlaceItem[];
   totalCount: number;
+  initialFilters?: Filters;
+  initialPage?: number;
 }) {
-  const [mounted, setMounted] = useState(false);
   const [items, setItems] = useState<PlaceItem[]>(initialItems);
   const [count, setCount] = useState(totalCount);
   const [loading, setLoading] = useState(false);
   const [view, setView] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState<"rating" | "price">("rating");
-  const [filters, setFilters] = useState<Filters>(initialFilters);
+  const [filters, setFilters] = useState<Filters>(initialFiltersFromSeo ?? initialFilters);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(initialPage ?? 1);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const router = useRouter();
+  const skipPageResetRef = useRef(false);
+  const didMountOnceRef = useRef(false);
+
+  const stripNonSeoFilters = (f: Filters): Filters => ({
+    ...f,
+    entry: "all",
+    ratings: [],
+  });
+
+  const buildSeoBasePath = (f: Filters): string => {
+    const catSeg = getPlacesCategoryUrlSegment(f.category);
+    if (!catSeg) return "/places";
+
+    const cityDb = f.cities.length > 0 ? f.cities[0] : null;
+    if (!cityDb) return `/places/${catSeg}`;
+
+    const citySeg = getPlacesCityUrlSegment(cityDb);
+    return citySeg ? `/places/${catSeg}/${citySeg}` : `/places/${catSeg}`;
+  };
+
+  const navToSeoPage = (nextFilters: Filters, nextPage: number) => {
+    const seoFilters = stripNonSeoFilters(nextFilters);
+    const basePath = buildSeoBasePath(seoFilters);
+    const href = nextPage <= 1 ? basePath : `${basePath}/page/${nextPage}`;
+
+    skipPageResetRef.current = true;
+    setFilters(seoFilters);
+    setPage(nextPage);
+    router.push(href);
+  };
 
   // При изменении фильтров/сортировки всегда возвращаемся на 1 страницу.
   useEffect(() => {
+    if (!didMountOnceRef.current) {
+      didMountOnceRef.current = true;
+      return;
+    }
+    if (skipPageResetRef.current) {
+      skipPageResetRef.current = false;
+      return;
+    }
     setPage(1);
   }, [filters, sortBy]);
 
@@ -152,13 +193,20 @@ export function PlacesCatalogClient({
     return pages;
   })();
 
-  const resetOne = (key: keyof Filters) => setFilters((prev) => ({ ...prev, [key]: initialFilters[key] }));
+  const resetOne = (key: keyof Filters) => {
+    const next: Filters = { ...filters, [key]: initialFilters[key] } as Filters;
+    if (key === "category" || key === "cities") {
+      navToSeoPage(next, 1);
+      return;
+    }
+    setFilters(next);
+  };
 
   const sidebar = (
     <aside className="sidebar">
       <div className="sbTitleRow">
         <div className="sb-title">Фильтры</div>
-        <button type="button" className="sb-reset" onClick={() => setFilters(initialFilters)}>Сбросить всё</button>
+        <button type="button" className="sb-reset" onClick={() => navToSeoPage(initialFilters, 1)}>Сбросить всё</button>
       </div>
 
       <div className="sb-group">
@@ -169,7 +217,16 @@ export function PlacesCatalogClient({
               type="radio"
               name="place-category"
               checked={filters.category === item.value}
-              onChange={() => setFilters((p) => ({ ...p, category: item.value }))}
+              onChange={() =>
+                navToSeoPage(
+                  {
+                    ...filters,
+                    category: item.value,
+                    cities: item.value === "all" ? [] : filters.cities,
+                  },
+                  1,
+                )
+              }
             />
             {item.label}
           </label>
@@ -184,10 +241,14 @@ export function PlacesCatalogClient({
               type="checkbox"
               checked={filters.cities.includes(city)}
               onChange={(e) =>
-                setFilters((p) => ({
-                  ...p,
-                  cities: e.target.checked ? [...p.cities, city] : p.cities.filter((v) => v !== city),
-                }))
+                navToSeoPage(
+                  {
+                    ...filters,
+                    cities: filters.category === "all" ? [] : e.target.checked ? [city] : [],
+                    category: filters.category,
+                  },
+                  1,
+                )
               }
             />
             {city}
@@ -232,10 +293,6 @@ export function PlacesCatalogClient({
       <button type="button" className="sb-apply">Применить фильтры</button>
     </aside>
   );
-
-  if (!mounted) {
-    return <div className="empty">Загрузка фильтров...</div>;
-  }
 
   return (
     <div className="placesCatalog">
@@ -309,15 +366,31 @@ export function PlacesCatalogClient({
                 Страница <strong>{page}</strong> из <strong>{pageCount}</strong>
               </div>
               <div className="pageBtns">
-                <button type="button" className="pBtn" disabled={!canPrev} onClick={() => setPage((p) => Math.max(1, p - 1))}>
+                <button
+                  type="button"
+                  className="pBtn"
+                  disabled={!canPrev}
+                  onClick={() => navToSeoPage(filters, Math.max(1, page - 1))}
+                >
                   ‹
                 </button>
                 {visiblePages.map((p) => (
-                  <button key={p} type="button" className={`pBtn ${p === page ? "on" : ""}`} disabled={p === page} onClick={() => setPage(p)}>
+                  <button
+                    key={p}
+                    type="button"
+                    className={`pBtn ${p === page ? "on" : ""}`}
+                    disabled={p === page}
+                    onClick={() => navToSeoPage(filters, p)}
+                  >
                     {p}
                   </button>
                 ))}
-                <button type="button" className="pBtn" disabled={!canNext} onClick={() => setPage((p) => Math.min(pageCount, p + 1))}>
+                <button
+                  type="button"
+                  className="pBtn"
+                  disabled={!canNext}
+                  onClick={() => navToSeoPage(filters, Math.min(pageCount, page + 1))}
+                >
                   ›
                 </button>
               </div>
