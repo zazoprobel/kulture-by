@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { Container } from "@/components/layout/Container";
@@ -30,6 +31,19 @@ const categories: CategoryOption[] = [
   { key: "activity", label: "Активный отдых", dbValue: "activity" },
   { key: "kids", label: "С детьми", dbValue: "kids" },
 ];
+
+const placeImageByCategory: Record<string, string> = {
+  history: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=400",
+  nature: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400",
+  castles: "https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=400",
+  museums: "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=400",
+  gastro: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400",
+  activity: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=400",
+  kids: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400",
+};
+
+const defaultPlaceImage =
+  "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=400";
 
 type PageProps = {
   searchParams: Promise<{ category?: string }>;
@@ -111,7 +125,7 @@ export default async function PlacesPage({ searchParams }: PageProps) {
         .tab.active{background:#181818;color:#fff;border-color:#181818}
         .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
         .card{background:#fff;border:1px solid var(--border);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
-        .thumb{height:190px;background:linear-gradient(135deg,#2c2c2c,#595959);display:flex;align-items:center;justify-content:center;font-size:46px;color:#fff}
+        .thumb{height:190px;position:relative;overflow:hidden;background:#ececec}
         .body{padding:16px}
         .top{display:flex;align-items:center;justify-content:space-between;gap:8px}
         .category{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--gray)}
@@ -197,7 +211,16 @@ export default async function PlacesPage({ searchParams }: PageProps) {
             <div className="grid">
               {places.map((place) => (
                 <Link key={place.id} href={`/places/${place.slug}`} className="card">
-                  <div className="thumb">📍</div>
+                  <div className="thumb">
+                    <Image
+                      src={placeImageByCategory[place.category] ?? defaultPlaceImage}
+                      alt={place.name}
+                      fill
+                      unoptimized
+                      sizes="(max-width: 767px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      style={{ objectFit: "cover" }}
+                    />
+                  </div>
                   <div className="body">
                     <div className="top">
                       <div className="category">{place.category}</div>
