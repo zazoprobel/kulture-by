@@ -22,44 +22,56 @@ type Venue = {
 const guideCities = ["Минск", "Гродно", "Брест", "Витебск", "Гомель", "Могилёв"] as const;
 
 export default async function HomePage() {
-  const supabase = await createClient();
+  let places: Place[] = [];
+  let venues: Venue[] = [];
+  let cityRows: Array<{ city: string | null }> = [];
+  let placesCount = 0;
+  let venuesCount = 0;
 
-  const [placesQuery, venuesQuery, placesCountQuery, venuesCountQuery, citiesQuery] =
-    await Promise.all([
-      supabase
-        .from("places")
-        .select("id,name,city,category,rating")
-        .order("created_at", { ascending: false })
-        .limit(4),
-      supabase
-        .from("venues")
-        .select("id,name,city,type,rating")
-        .order("created_at", { ascending: false })
-        .limit(3),
-      supabase.from("places").select("*", { count: "exact", head: true }),
-      supabase.from("venues").select("*", { count: "exact", head: true }),
-      supabase.from("places").select("city"),
-    ]);
+  try {
+    const supabase = await createClient();
 
-  if (
-    placesQuery.error ||
-    venuesQuery.error ||
-    placesCountQuery.error ||
-    venuesCountQuery.error ||
-    citiesQuery.error
-  ) {
-    console.error("Supabase home data error", {
-      places: placesQuery.error?.message ?? null,
-      venues: venuesQuery.error?.message ?? null,
-      placesCount: placesCountQuery.error?.message ?? null,
-      venuesCount: venuesCountQuery.error?.message ?? null,
-      cities: citiesQuery.error?.message ?? null,
-    });
+    const [placesQuery, venuesQuery, placesCountQuery, venuesCountQuery, citiesQuery] =
+      await Promise.all([
+        supabase
+          .from("places")
+          .select("id,name,city,category,rating")
+          .order("created_at", { ascending: false })
+          .limit(4),
+        supabase
+          .from("venues")
+          .select("id,name,city,type,rating")
+          .order("created_at", { ascending: false })
+          .limit(3),
+        supabase.from("places").select("*", { count: "exact", head: true }),
+        supabase.from("venues").select("*", { count: "exact", head: true }),
+        supabase.from("places").select("city"),
+      ]);
+
+    if (
+      placesQuery.error ||
+      venuesQuery.error ||
+      placesCountQuery.error ||
+      venuesCountQuery.error ||
+      citiesQuery.error
+    ) {
+      console.error("Supabase home data error", {
+        places: placesQuery.error?.message ?? null,
+        venues: venuesQuery.error?.message ?? null,
+        placesCount: placesCountQuery.error?.message ?? null,
+        venuesCount: venuesCountQuery.error?.message ?? null,
+        cities: citiesQuery.error?.message ?? null,
+      });
+    }
+
+    places = (placesQuery.data ?? []) as Place[];
+    venues = (venuesQuery.data ?? []) as Venue[];
+    cityRows = citiesQuery.data ?? [];
+    placesCount = placesCountQuery.count ?? 0;
+    venuesCount = venuesCountQuery.count ?? 0;
+  } catch (error) {
+    console.error("Home page initialization error", error);
   }
-
-  const places = (placesQuery.data ?? []) as Place[];
-  const venues = (venuesQuery.data ?? []) as Venue[];
-  const cityRows = citiesQuery.data ?? [];
 
   const cityCounts = guideCities.map((city) => ({
     city,
@@ -67,8 +79,8 @@ export default async function HomePage() {
   }));
 
   const stats = [
-    { label: "Места", value: placesCountQuery.count ?? 0, color: "var(--yellow)" },
-    { label: "Площадки", value: venuesCountQuery.count ?? 0, color: "var(--lavender)" },
+    { label: "Места", value: placesCount, color: "var(--yellow)" },
+    { label: "Площадки", value: venuesCount, color: "var(--lavender)" },
     { label: "Города", value: guideCities.length, color: "var(--mint)" },
     { label: "Маршруты", value: 24, color: "var(--peach)" },
   ];

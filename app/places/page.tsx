@@ -36,36 +36,61 @@ type PageProps = {
 };
 
 export default async function PlacesPage({ searchParams }: PageProps) {
+  const isDev = process.env.NODE_ENV === "development";
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const params = await searchParams;
   const selectedCategoryKey =
     categories.find((item) => item.key === params.category)?.key ?? "all";
   const selectedCategory = categories.find((item) => item.key === selectedCategoryKey);
 
-  const supabase = await createClient();
+  let places: Place[] = [];
+  let totalCount = 0;
+  let debugError: string | null = null;
 
-  let query = supabase
-    .from("places")
-    .select("id,name,slug,category,city,address,rating")
-    .order("created_at", { ascending: false });
+  try {
+    if (isDev) {
+      console.log("[places] Supabase URL:", supabaseUrl ?? "<empty>");
+    }
 
-  if (selectedCategory?.dbValue) {
-    query = query.eq("category", selectedCategory.dbValue);
+    const supabase = await createClient();
+
+    let query = supabase
+      .from("places")
+      .select("id,name,slug,category,city,address,rating")
+      .order("created_at", { ascending: false });
+
+    if (selectedCategory?.dbValue) {
+      query = query.eq("category", selectedCategory.dbValue);
+    }
+
+    const [placesResult, countResult] = await Promise.all([
+      query.limit(24),
+      supabase.from("places").select("*", { count: "exact", head: true }),
+    ]);
+
+    if (placesResult.error || countResult.error) {
+      console.error("Places page supabase query error", {
+        places: placesResult.error?.message ?? null,
+        count: countResult.error?.message ?? null,
+      });
+      debugError = placesResult.error?.message ?? countResult.error?.message ?? null;
+    }
+
+    places = (placesResult.data ?? []) as Place[];
+    totalCount = countResult.count ?? 0;
+
+    if (isDev) {
+      console.log("[places] Query result:", {
+        selectedCategory: selectedCategory?.dbValue ?? "all",
+        placesCount: places.length,
+        totalCount,
+        sample: places.slice(0, 2),
+      });
+    }
+  } catch (error) {
+    console.error("Places page initialization error", error);
+    debugError = error instanceof Error ? error.message : "Unknown Supabase error";
   }
-
-  const [placesResult, countResult] = await Promise.all([
-    query.limit(24),
-    supabase.from("places").select("*", { count: "exact", head: true }),
-  ]);
-
-  if (placesResult.error || countResult.error) {
-    console.error("Places page supabase error", {
-      places: placesResult.error?.message ?? null,
-      count: countResult.error?.message ?? null,
-    });
-  }
-
-  const places = (placesResult.data ?? []) as Place[];
-  const totalCount = countResult.count ?? 0;
 
   return (
     <>
@@ -128,6 +153,21 @@ export default async function PlacesPage({ searchParams }: PageProps) {
 
       <section className="section">
         <Container>
+          {isDev && debugError ? (
+            <div
+              style={{
+                marginBottom: "16px",
+                padding: "12px 14px",
+                borderRadius: "12px",
+                border: "1px solid #f19999",
+                background: "#fff1f1",
+                color: "#7d1f1f",
+                fontSize: "14px",
+              }}
+            >
+              Supabase error: {debugError}
+            </div>
+          ) : null}
           <div className="tabs">
             {categories.map((category) => {
               const href =
@@ -161,14 +201,9 @@ export default async function PlacesPage({ searchParams }: PageProps) {
                   <div className="body">
                     <div className="top">
                       <div className="category">{place.category}</div>
-                      <button
-                        className="favBtn"
-                        type="button"
-                        aria-label="Добавить в избранное"
-                        onClick={(event) => event.preventDefault()}
-                      >
+                      <span className="favBtn" aria-hidden="true" title="Добавить в избранное">
                         ♡
-                      </button>
+                      </span>
                     </div>
                     <div className="title">{place.name}</div>
                     <div className="meta">
