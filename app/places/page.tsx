@@ -1,63 +1,14 @@
-import Link from "next/link";
-import Image from "next/image";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { Container } from "@/components/layout/Container";
 import { createClient } from "@/lib/supabase/server";
+import { PlacesCatalogClient, type PlaceItem } from "@/components/places/PlacesCatalogClient";
 
-type Place = {
-  id: string;
-  name: string;
-  slug: string;
-  category: string;
-  city: string;
-  address: string | null;
-  rating: number | null;
-};
-
-type CategoryOption = {
-  key: string;
-  label: string;
-  dbValue?: string;
-};
-
-const categories: CategoryOption[] = [
-  { key: "all", label: "Все" },
-  { key: "nature", label: "Природа", dbValue: "nature" },
-  { key: "history", label: "История", dbValue: "history" },
-  { key: "castles", label: "Замки", dbValue: "castles" },
-  { key: "museums", label: "Музеи", dbValue: "museums" },
-  { key: "gastro", label: "Гастро", dbValue: "gastro" },
-  { key: "activity", label: "Активный отдых", dbValue: "activity" },
-  { key: "kids", label: "С детьми", dbValue: "kids" },
-];
-
-const placeImageByCategory: Record<string, string> = {
-  history: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=400",
-  nature: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400",
-  castles: "https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=400",
-  museums: "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=400",
-  gastro: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400",
-  activity: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=400",
-  kids: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400",
-};
-
-const defaultPlaceImage =
-  "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=400";
-
-type PageProps = {
-  searchParams: Promise<{ category?: string }>;
-};
-
-export default async function PlacesPage({ searchParams }: PageProps) {
+export default async function PlacesPage() {
   const isDev = process.env.NODE_ENV === "development";
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const params = await searchParams;
-  const selectedCategoryKey =
-    categories.find((item) => item.key === params.category)?.key ?? "all";
-  const selectedCategory = categories.find((item) => item.key === selectedCategoryKey);
 
-  let places: Place[] = [];
+  let places: PlaceItem[] = [];
   let totalCount = 0;
   let debugError: string | null = null;
 
@@ -68,17 +19,12 @@ export default async function PlacesPage({ searchParams }: PageProps) {
 
     const supabase = await createClient();
 
-    let query = supabase
-      .from("places")
-      .select("id,name,slug,category,city,address,rating")
-      .order("created_at", { ascending: false });
-
-    if (selectedCategory?.dbValue) {
-      query = query.eq("category", selectedCategory.dbValue);
-    }
-
     const [placesResult, countResult] = await Promise.all([
-      query.limit(24),
+      supabase
+        .from("places")
+        .select("id,name,slug,category,city,address,rating,entry_price")
+        .order("rating", { ascending: false })
+        .limit(100),
       supabase.from("places").select("*", { count: "exact", head: true }),
     ]);
 
@@ -90,12 +36,11 @@ export default async function PlacesPage({ searchParams }: PageProps) {
       debugError = placesResult.error?.message ?? countResult.error?.message ?? null;
     }
 
-    places = (placesResult.data ?? []) as Place[];
+    places = (placesResult.data ?? []) as PlaceItem[];
     totalCount = countResult.count ?? 0;
 
     if (isDev) {
       console.log("[places] Query result:", {
-        selectedCategory: selectedCategory?.dbValue ?? "all",
         placesCount: places.length,
         totalCount,
         sample: places.slice(0, 2),
@@ -182,63 +127,7 @@ export default async function PlacesPage({ searchParams }: PageProps) {
               Supabase error: {debugError}
             </div>
           ) : null}
-          <div className="tabs">
-            {categories.map((category) => {
-              const href =
-                category.key === "all"
-                  ? "/places"
-                  : `/places?category=${encodeURIComponent(category.key)}`;
-              const isActive = selectedCategoryKey === category.key;
-              return (
-                <Link
-                  key={category.key}
-                  href={href}
-                  className={`tab ${isActive ? "active" : ""}`}
-                >
-                  {category.label}
-                </Link>
-              );
-            })}
-          </div>
-        </Container>
-      </section>
-
-      <section className="section">
-        <Container>
-          {places.length === 0 ? (
-            <div className="empty">По выбранной категории пока нет мест.</div>
-          ) : (
-            <div className="grid">
-              {places.map((place) => (
-                <Link key={place.id} href={`/places/${place.slug}`} className="card">
-                  <div className="thumb">
-                    <Image
-                      src={placeImageByCategory[place.category] ?? defaultPlaceImage}
-                      alt={place.name}
-                      fill
-                      unoptimized
-                      sizes="(max-width: 767px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      style={{ objectFit: "cover" }}
-                    />
-                  </div>
-                  <div className="body">
-                    <div className="top">
-                      <div className="category">{place.category}</div>
-                      <span className="favBtn" aria-hidden="true" title="Добавить в избранное">
-                        ♡
-                      </span>
-                    </div>
-                    <div className="title">{place.name}</div>
-                    <div className="meta">
-                      {place.city}
-                      {place.address ? ` · ${place.address}` : ""}
-                    </div>
-                    <div className="rating">⭐ {place.rating ?? 0}</div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
+          <PlacesCatalogClient initialItems={places} totalCount={totalCount} />
         </Container>
       </section>
 

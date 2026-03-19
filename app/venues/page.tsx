@@ -1,42 +1,19 @@
-import Link from "next/link";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Container } from "@/components/layout/Container";
 import { createClient } from "@/lib/supabase/server";
-import { VenuesResults, type VenueCard } from "@/components/venues/VenuesResults";
+import { VenuesCatalogClient, type VenueItem } from "@/components/venues/VenuesCatalogClient";
 
-type PageProps = {
-  searchParams: Promise<{
-    type?: string;
-    minGuests?: string;
-    maxPrice?: string;
-    amenities?: string;
-  }>;
-};
-
-export default async function VenuesPage({ searchParams }: PageProps) {
-  const params = await searchParams;
+export default async function VenuesPage() {
   const supabase = await createClient();
-
-  let query = supabase
+  const { data, error } = await supabase
     .from("venues")
     .select("id,slug,name,city,type,rating,capacity_banquet,capacity_buffet,price_from")
-    .order("rating", { ascending: false });
+    .order("rating", { ascending: false })
+    .limit(100);
 
-  if (params.type) query = query.eq("type", params.type);
-  if (params.minGuests) query = query.gte("capacity_banquet", Number(params.minGuests));
-  if (params.maxPrice) query = query.lte("price_from", Number(params.maxPrice));
-
-  const { data, error } = await query.limit(60);
-  if (error) console.error("Venues query error", error.message);
-  const venues = (data ?? []) as VenueCard[];
-
-  const chips = [
-    params.type ? `Тип: ${params.type}` : null,
-    params.minGuests ? `Гостей от: ${params.minGuests}` : null,
-    params.maxPrice ? `Бюджет до: ${params.maxPrice}` : null,
-    params.amenities ? `Удобства: ${params.amenities}` : null,
-  ].filter(Boolean) as string[];
+  if (error) console.error("Venues init query error", error.message);
+  const venues = (data ?? []) as VenueItem[];
 
   return (
     <>
@@ -88,10 +65,6 @@ export default async function VenuesPage({ searchParams }: PageProps) {
       <Header />
       <Container>
         <div className="wrap">
-          <div className="breadcrumb">
-            <Link href="/">Главная</Link> <span>›</span> <strong>Площадки</strong>
-          </div>
-
           <div className="pageBanner">
             <div className="pbIcon">🏡</div>
             <div>
@@ -99,53 +72,7 @@ export default async function VenuesPage({ searchParams }: PageProps) {
               <div className="pbS">Рестораны, лофты, банкетные залы, загородные площадки и отели для мероприятий.</div>
             </div>
           </div>
-
-          <div className="typeChips">
-            <span className="typeChip" style={{ background: "#181818", color: "#fff" }}>🏡 Все</span>
-            <span className="typeChip">🍽️ Рестораны</span>
-            <span className="typeChip">🏛️ Банкетные залы</span>
-            <span className="typeChip">🖼️ Лофты</span>
-            <span className="typeChip">🏨 Отели</span>
-            <span className="typeChip">🌲 На природе</span>
-          </div>
-
-          <div className="layout">
-            <aside className="sidebar">
-              <div className="sbTitle">Фильтры</div>
-              <div className="sbGroup">
-                <div className="sbLabel">Тип</div>
-                <Link className="sbLink" href="/venues?type=restaurant">Рестораны</Link>
-                <Link className="sbLink" href="/venues?type=banquet">Банкетные залы</Link>
-                <Link className="sbLink" href="/venues?type=loft">Лофты</Link>
-                <Link className="sbLink" href="/venues?type=outdoor">На природе</Link>
-                <Link className="sbLink" href="/venues?type=hotel">Отели</Link>
-              </div>
-              <div className="sbGroup">
-                <div className="sbLabel">Гости</div>
-                <Link className="sbLink" href="/venues?minGuests=20">до 20</Link>
-                <Link className="sbLink" href="/venues?minGuests=50">50+</Link>
-                <Link className="sbLink" href="/venues?minGuests=100">100+</Link>
-              </div>
-              <div className="sbGroup">
-                <div className="sbLabel">Бюджет</div>
-                <Link className="sbLink" href="/venues?maxPrice=500">до 500 BYN</Link>
-                <Link className="sbLink" href="/venues?maxPrice=1000">до 1000 BYN</Link>
-                <Link className="sbLink" href="/venues?maxPrice=2500">до 2500 BYN</Link>
-              </div>
-              <div className="sbGroup" style={{ marginBottom: 0 }}>
-                <div className="sbLabel">Удобства</div>
-                <Link className="sbLink" href="/venues?amenities=parking">Парковка</Link>
-                <Link className="sbLink" href="/venues?amenities=accommodation">Ночёвка</Link>
-                <Link className="sbLink" href="/venues?amenities=outdoor">Территория</Link>
-              </div>
-            </aside>
-            <main className="content">
-              <div className="chips">
-                {chips.length === 0 ? <span className="chip">Все площадки</span> : chips.map((chip) => <span key={chip} className="chip">{chip}</span>)}
-              </div>
-              <VenuesResults venues={venues} />
-            </main>
-          </div>
+          <VenuesCatalogClient initialItems={venues} />
         </div>
       </Container>
       <Footer />
