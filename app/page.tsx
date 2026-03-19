@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { Container } from "@/components/layout/Container";
@@ -18,6 +19,15 @@ type Venue = {
 };
 
 const cities = ["Минск", "Гродно", "Брест", "Витебск", "Гомель", "Могилёв"] as const;
+const placeImages: Record<string, string> = {
+  history: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=900",
+  nature: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=900",
+  castles: "https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=900",
+  museums: "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=900",
+  gastro: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900",
+  activity: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=900",
+  kids: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=900",
+};
 
 export default async function HomePage() {
   let places: Place[] = [];
@@ -71,8 +81,9 @@ export default async function HomePage() {
         .heroH{font-family:"Unbounded",sans-serif;font-size:34px;font-weight:900;line-height:1.08;margin-bottom:16px}
         .heroP{font-size:15px;color:rgba(0,0,0,.58);line-height:1.55;margin-bottom:28px;max-width:420px}
         .heroCta{display:inline-flex;align-items:center;gap:10px;background:#181818;color:#fff;font-size:14px;font-weight:700;padding:14px 28px;border-radius:99px;text-decoration:none;width:fit-content}
-        .heroImgRow{margin-top:auto;display:flex;gap:12px}
-        .heroPhoto{flex:1;height:160px;border-radius:14px 14px 0 0;display:flex;align-items:center;justify-content:center;font-size:48px}
+        .ctaRow{margin-top:auto;display:flex;align-items:flex-end;gap:12px;flex-wrap:nowrap}
+        .heroImgRow{display:flex;gap:12px;flex:1;min-width:0}
+        .heroPhoto{flex:1;height:100px;border-radius:14px 14px 0 0;position:relative;overflow:hidden;background:rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:38px}
         .heroRight{display:flex;flex-direction:column;gap:16px}
         .heroStatRow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
         .stat{border-radius:20px;padding:28px 24px}
@@ -90,10 +101,10 @@ export default async function HomePage() {
         .chips{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
         .chip{height:32px;padding:0 13px;border-radius:99px;border:1.5px solid var(--border);background:transparent;color:#666;font-size:12px}
         .chip.on{background:#181818;color:#fff;border-color:#181818}
-        .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+        .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
         .card{background:#fff;border-radius:20px;border:1.5px solid var(--border);overflow:hidden;transition:transform .2s,box-shadow .2s;text-decoration:none;color:inherit}
         .card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,.11)}
-        .thumb{height:170px;background:linear-gradient(135deg,#1a1a2e,#16213e);display:flex;align-items:center;justify-content:center;font-size:44px}
+        .thumb{height:170px;position:relative;overflow:hidden;background:linear-gradient(135deg,#1a1a2e,#16213e)}
         .cardB{padding:14px}
         .cat{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
         .title{font-family:"Unbounded",sans-serif;font-size:13px;line-height:1.3;margin-bottom:5px}
@@ -107,7 +118,8 @@ export default async function HomePage() {
         .bento{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
         .bentoW{grid-column:span 2}
         .bentoT{grid-row:span 2}
-        .bentoC{border-radius:20px;padding:26px;min-height:190px;display:flex;flex-direction:column;text-decoration:none;color:inherit}
+        .bentoC{border-radius:20px;padding:26px;min-height:190px;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s}
+        .bentoC:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.12)}
         .bentoEm{font-size:36px;margin-bottom:10px}
         .bentoT2{font-family:"Unbounded",sans-serif;font-size:16px;margin-bottom:6px}
         .bentoS{font-size:12px;opacity:.55;line-height:1.4;flex:1}
@@ -120,7 +132,7 @@ export default async function HomePage() {
         .mpin:nth-child(1){top:28%;left:38%}.mpin:nth-child(2){top:52%;left:60%;animation-delay:.5s}.mpin:nth-child(3){top:18%;left:68%;animation-delay:1s}.mpin:nth-child(4){top:68%;left:22%;animation-delay:1.5s}
         @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
         .regions{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
-        .region{border-radius:16px;padding:18px 10px;text-align:center;transition:transform .2s}
+        .region{border-radius:16px;padding:18px 10px;text-align:center;transition:transform .2s;min-height:94px;display:flex;flex-direction:column;align-items:center;justify-content:center}
         .region:hover{transform:translateY(-3px)}
         .how{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
         .howCard{background:var(--cream);border-radius:20px;padding:28px 24px}
@@ -139,7 +151,7 @@ export default async function HomePage() {
         .nlForm input{height:48px;width:260px;border-radius:12px;border:1.5px solid rgba(0,0,0,.1);background:rgba(255,255,255,.6);padding:0 16px}
         .nlForm button{height:48px;padding:0 22px;border-radius:12px;border:none;background:#181818;color:#fff;font-weight:700}
         @media (max-width:1024px){.hero,.cards,.reviews,.how{grid-template-columns:1fr 1fr}.occGrid{grid-template-columns:repeat(3,1fr)}.regions{grid-template-columns:repeat(3,1fr)}.bento{grid-template-columns:1fr 1fr}.bentoT{grid-row:span 1}.mapPromo{flex-direction:column;align-items:flex-start}}
-        @media (max-width:767px){.hero,.cards,.reviews,.how,.bento,.occGrid{grid-template-columns:1fr}.heroMain{padding:26px 26px 0}.heroH{font-size:28px}.regions{grid-template-columns:repeat(2,1fr)}.newsletter{flex-direction:column;align-items:stretch;padding:28px}.nlForm{flex-direction:column}.nlForm input{width:100%}}
+        @media (max-width:767px){.hero,.cards,.reviews,.how,.bento,.occGrid{grid-template-columns:1fr}.heroMain{padding:26px 26px 0}.heroH{font-size:28px}.regions{grid-template-columns:repeat(2,1fr)}.newsletter{flex-direction:column;align-items:stretch;padding:28px}.nlForm{flex-direction:column}.nlForm input{width:100%}.ctaRow{align-items:center}.heroImgRow{max-width:46%}.heroPhoto{height:78px}}
       `}</style>
 
       <Header />
@@ -150,10 +162,30 @@ export default async function HomePage() {
             <div className="heroLabel"><span className="heroLabelDot">✨</span>Главный гид по местам Беларуси</div>
             <h1 className="heroH">Беларусь — это культура и открытия каждый день</h1>
             <p className="heroP">Интересные места, маршруты и площадки. Планируй поездки, сохраняй любимые точки и открывай страну по-новому.</p>
-            <Link href="/places" className="heroCta">Открыть места →</Link>
-            <div className="heroImgRow">
-              <div className="heroPhoto" style={{ background: "linear-gradient(135deg,rgba(0,0,0,.15),rgba(0,0,0,.08))", flex: 1.4 }}>🏰</div>
-              <div className="heroPhoto" style={{ background: "linear-gradient(135deg,rgba(0,0,0,.12),rgba(0,0,0,.06))", flex: 1 }}>🗺️</div>
+            <div className="ctaRow">
+              <Link href="/places" className="heroCta">Открыть места →</Link>
+              <div className="heroImgRow">
+                <div className="heroPhoto" style={{ flex: 1.4 }}>
+                  <Image
+                    src="https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=700"
+                    alt="Замок Беларуси"
+                    fill
+                    unoptimized
+                    sizes="180px"
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
+                <div className="heroPhoto" style={{ flex: 1 }}>
+                  <Image
+                    src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=700"
+                    alt="Карта путешествия"
+                    fill
+                    unoptimized
+                    sizes="160px"
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
           <div className="heroRight">
@@ -185,7 +217,16 @@ export default async function HomePage() {
           <div className="cards">
             {places.map((place) => (
               <Link key={place.id} href={`/places/${place.slug}`} className="card">
-                <div className="thumb">📍</div>
+                <div className="thumb">
+                  <Image
+                    src={placeImages[place.category] ?? "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=900"}
+                    alt={place.name}
+                    fill
+                    unoptimized
+                    sizes="(max-width: 767px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
                 <div className="cardB">
                   <div className="cat">{place.category} · {place.city}</div>
                   <div className="title">{place.name}</div>
