@@ -136,9 +136,17 @@ export function VenuesCatalogClient({ initialItems }: { initialItems: VenueItem[
 
       <div className="sbGroup">
         <div className="sbLabel">Тип</div>
-        <select className="field" value={filters.type} onChange={(e) => setFilters((p) => ({ ...p, type: e.target.value }))}>
-          {typeOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
-        </select>
+        {typeOptions.map((option) => (
+          <label className="sbOpt" key={option.value}>
+            <input
+              type="radio"
+              name="venue-type"
+              checked={filters.type === option.value}
+              onChange={() => setFilters((p) => ({ ...p, type: option.value }))}
+            />
+            {option.label}
+          </label>
+        ))}
       </div>
 
       <div className="sbGroup">
@@ -159,18 +167,30 @@ export function VenuesCatalogClient({ initialItems }: { initialItems: VenueItem[
 
       <div className="sbGroup">
         <div className="sbLabel">Город</div>
-        <select className="field" value={filters.city} onChange={(e) => setFilters((p) => ({ ...p, city: e.target.value }))}>
-          <option value="all">Все</option>
-          {cityOptions.map((city) => <option key={city} value={city}>{city}</option>)}
-        </select>
+        <label className="sbOpt">
+          <input type="radio" name="venue-city" checked={filters.city === "all"} onChange={() => setFilters((p) => ({ ...p, city: "all" }))} />
+          Все
+        </label>
+        {cityOptions.map((city) => (
+          <label className="sbOpt" key={city}>
+            <input type="radio" name="venue-city" checked={filters.city === city} onChange={() => setFilters((p) => ({ ...p, city }))} />
+            {city}
+          </label>
+        ))}
       </div>
 
       <div className="sbGroup" style={{ marginBottom: 0, paddingBottom: 0, borderBottom: "none" }}>
         <div className="sbLabel">Рейтинг</div>
-        <select className="field" value={filters.ratingFrom} onChange={(e) => setFilters((p) => ({ ...p, ratingFrom: e.target.value }))}>
-          <option value="">Все</option>
-          {ratingOptions.map((rating) => <option key={rating} value={rating}>от {rating}</option>)}
-        </select>
+        <label className="sbOpt">
+          <input type="radio" name="venue-rating" checked={filters.ratingFrom === ""} onChange={() => setFilters((p) => ({ ...p, ratingFrom: "" }))} />
+          Все
+        </label>
+        {ratingOptions.map((rating) => (
+          <label className="sbOpt" key={rating}>
+            <input type="radio" name="venue-rating" checked={filters.ratingFrom === rating} onChange={() => setFilters((p) => ({ ...p, ratingFrom: rating }))} />
+            от {rating}
+          </label>
+        ))}
       </div>
     </aside>
   );
@@ -271,6 +291,8 @@ export function VenuesCatalogClient({ initialItems }: { initialItems: VenueItem[
         .fieldRow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
         .field{width:100%;height:38px;border-radius:9px;border:1.5px solid rgba(0,0,0,.1);padding:0 10px;background:#fff;font-size:12px}
         .field:focus{outline:none;border-color:rgba(0,0,0,.3)}
+        .sbOpt{display:flex;align-items:center;gap:8px;padding:5px 0;cursor:pointer;font-size:13px}
+        .sbOpt input{width:16px;height:16px;accent-color:#181818;cursor:pointer;flex-shrink:0}
         .topRow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
         .count{font-size:14px;color:#666}
         .controls{display:flex;align-items:center;gap:8px}

@@ -131,34 +131,61 @@ export function PlacesCatalogClient({
 
       <div className="sbGroup">
         <div className="sbLabel">Категория</div>
-        <select className="field" value={filters.category} onChange={(e) => setFilters((p) => ({ ...p, category: e.target.value }))}>
-          {categories.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}
-        </select>
+        {categories.map((item) => (
+          <label className="sbOpt" key={item.value}>
+            <input
+              type="radio"
+              name="place-category"
+              checked={filters.category === item.value}
+              onChange={() => setFilters((p) => ({ ...p, category: item.value }))}
+            />
+            {item.label}
+          </label>
+        ))}
       </div>
 
       <div className="sbGroup">
         <div className="sbLabel">Город</div>
-        <select className="field" value={filters.city} onChange={(e) => setFilters((p) => ({ ...p, city: e.target.value }))}>
-          <option value="all">Все</option>
-          {cities.map((city) => <option key={city} value={city}>{city}</option>)}
-        </select>
+        <label className="sbOpt">
+          <input type="radio" name="place-city" checked={filters.city === "all"} onChange={() => setFilters((p) => ({ ...p, city: "all" }))} />
+          Все
+        </label>
+        {cities.map((city) => (
+          <label className="sbOpt" key={city}>
+            <input type="radio" name="place-city" checked={filters.city === city} onChange={() => setFilters((p) => ({ ...p, city }))} />
+            {city}
+          </label>
+        ))}
       </div>
 
       <div className="sbGroup">
         <div className="sbLabel">Вход</div>
-        <select className="field" value={filters.entry} onChange={(e) => setFilters((p) => ({ ...p, entry: e.target.value as Filters["entry"] }))}>
-          <option value="all">Все</option>
-          <option value="free">Бесплатно</option>
-          <option value="paid">Платно</option>
-        </select>
+        <label className="sbOpt">
+          <input type="radio" name="place-entry" checked={filters.entry === "all"} onChange={() => setFilters((p) => ({ ...p, entry: "all" }))} />
+          Все
+        </label>
+        <label className="sbOpt">
+          <input type="radio" name="place-entry" checked={filters.entry === "free"} onChange={() => setFilters((p) => ({ ...p, entry: "free" }))} />
+          Бесплатно
+        </label>
+        <label className="sbOpt">
+          <input type="radio" name="place-entry" checked={filters.entry === "paid"} onChange={() => setFilters((p) => ({ ...p, entry: "paid" }))} />
+          Платно
+        </label>
       </div>
 
       <div className="sbGroup" style={{ marginBottom: 0, paddingBottom: 0, borderBottom: "none" }}>
         <div className="sbLabel">Рейтинг</div>
-        <select className="field" value={filters.ratingFrom} onChange={(e) => setFilters((p) => ({ ...p, ratingFrom: e.target.value }))}>
-          <option value="">Все</option>
-          {ratings.map((rating) => <option key={rating} value={rating}>от {rating}</option>)}
-        </select>
+        <label className="sbOpt">
+          <input type="radio" name="place-rating" checked={filters.ratingFrom === ""} onChange={() => setFilters((p) => ({ ...p, ratingFrom: "" }))} />
+          Все
+        </label>
+        {ratings.map((rating) => (
+          <label className="sbOpt" key={rating}>
+            <input type="radio" name="place-rating" checked={filters.ratingFrom === rating} onChange={() => setFilters((p) => ({ ...p, ratingFrom: rating }))} />
+            от {rating}
+          </label>
+        ))}
       </div>
     </aside>
   );
@@ -257,6 +284,8 @@ export function PlacesCatalogClient({
         .sbLabel{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#888;margin-bottom:10px}
         .field{width:100%;height:38px;border-radius:9px;border:1.5px solid rgba(0,0,0,.1);padding:0 10px;background:#fff;font-size:12px}
         .field:focus{outline:none;border-color:rgba(0,0,0,.3)}
+        .sbOpt{display:flex;align-items:center;gap:8px;padding:5px 0;cursor:pointer;font-size:13px}
+        .sbOpt input{width:16px;height:16px;accent-color:#181818;cursor:pointer;flex-shrink:0}
         .topRow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
         .count{font-size:14px;color:#666}
         .controls{display:flex;align-items:center;gap:8px}
