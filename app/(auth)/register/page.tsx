@@ -1,12 +1,11 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const supabase = useMemo(() => createClient(), []);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -20,6 +19,7 @@ export default function RegisterPage() {
     setError("");
     setSuccess("");
     setLoading(true);
+    const supabase = createClient();
 
     const { data, error: signUpError } = await supabase.auth.signUp({
       email,

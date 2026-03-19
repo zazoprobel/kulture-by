@@ -1,12 +1,11 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 export default function LoginPage() {
   const router = useRouter();
-  const supabase = useMemo(() => createClient(), []);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,6 +18,7 @@ export default function LoginPage() {
     setError("");
     setSuccess("");
     setLoading("password");
+    const supabase = createClient();
 
     const { error: signInError } = await supabase.auth.signInWithPassword({
       email,
@@ -40,6 +40,7 @@ export default function LoginPage() {
     setError("");
     setSuccess("");
     setLoading("otp");
+    const supabase = createClient();
 
     const { error: otpError } = await supabase.auth.signInWithOtp({
       email,
