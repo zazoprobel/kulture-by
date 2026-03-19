@@ -79,7 +79,7 @@ export function Header() {
             <input
               type="text"
               className="gs-inp"
-              placeholder="Мероприятие, площадка, ведущий…"
+              placeholder="Найти место, город, маршрут..."
             />
           </div>
           <select className="gs-sel" defaultValue="📍 Вся Беларусь">
@@ -95,37 +95,6 @@ export function Header() {
             Найти →
           </button>
         </div>
-      </div>
-
-      <div className="cat-row">
-        <button className="cat-b on" type="button">
-          <span className="cat-ic">🎭</span>
-          <span className="cat-lb">Все</span>
-        </button>
-        <button className="cat-b" type="button">
-          <span className="cat-ic">🎶</span>
-          <span className="cat-lb">Концерты</span>
-        </button>
-        <button className="cat-b" type="button">
-          <span className="cat-ic">🎪</span>
-          <span className="cat-lb">Фестивали</span>
-        </button>
-        <button className="cat-b" type="button">
-          <span className="cat-ic">🎨</span>
-          <span className="cat-lb">Выставки</span>
-        </button>
-        <button className="cat-b" type="button">
-          <span className="cat-ic">🎬</span>
-          <span className="cat-lb">Кино</span>
-        </button>
-        <button className="cat-b" type="button">
-          <span className="cat-ic">🍽️</span>
-          <span className="cat-lb">Гастро</span>
-        </button>
-        <button className="cat-b" type="button">
-          <span className="cat-ic">💃</span>
-          <span className="cat-lb">Вечеринки</span>
-        </button>
       </div>
     </>
   );
