@@ -261,14 +261,16 @@ export function VenuesCatalogClient({ initialItems }: { initialItems: VenueItem[
       <style jsx>{`
         .layout{display:grid;grid-template-columns:280px 1fr;gap:28px;align-items:start}
         .content{min-width:0}
-        .sidebar{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:20px;padding:24px;position:sticky;top:86px}
-        .sbTitleRow{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-        .sbTitle{font-family:"Unbounded",sans-serif;font-size:14px}
-        .resetBtn{background:none;border:none;color:#666;font-size:12px}
-        .sbGroup{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid rgba(0,0,0,.08)}
-        .sbLabel{font-size:11px;text-transform:uppercase;color:#888;margin-bottom:8px}
+        .sidebar{background:#fff;border:1.5px solid rgba(0,0,0,.08);border-radius:20px;padding:24px;position:sticky;top:86px}
+        .sbTitleRow{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+        .sbTitle{font-family:"Unbounded",sans-serif;font-size:14px;font-weight:700}
+        .resetBtn{background:none;border:none;color:#888;font-size:12px;font-weight:500;cursor:pointer}
+        .resetBtn:hover{color:#181818}
+        .sbGroup{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid rgba(0,0,0,.08)}
+        .sbLabel{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#888;margin-bottom:10px}
         .fieldRow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-        .field{width:100%;height:38px;border-radius:10px;border:1px solid rgba(0,0,0,.1);padding:0 10px;background:#fff}
+        .field{width:100%;height:38px;border-radius:9px;border:1.5px solid rgba(0,0,0,.1);padding:0 10px;background:#fff;font-size:12px}
+        .field:focus{outline:none;border-color:rgba(0,0,0,.3)}
         .topRow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
         .count{font-size:14px;color:#666}
         .controls{display:flex;align-items:center;gap:8px}
@@ -301,7 +303,7 @@ export function VenuesCatalogClient({ initialItems }: { initialItems: VenueItem[
           .layout{grid-template-columns:1fr}
           .desktopOnly{display:none}
           .mobileFiltersTriggerWrap{display:flex;justify-content:flex-end;margin-bottom:10px}
-          .mobileFiltersBtn{height:38px;padding:0 14px;border-radius:10px;border:1px solid rgba(0,0,0,.1);background:#fff}
+        .mobileFiltersBtn{height:38px;padding:0 14px;border-radius:10px;border:1.5px solid rgba(0,0,0,.1);background:#fff;font-weight:600}
           .grid,.listCard{grid-template-columns:1fr}
           .listThumb{height:200px}
         }
