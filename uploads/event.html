@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>«Ляпис 98» — Воссоединение — ПРАЗДНИК.BY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Onest:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--lime:#D2F882;--yellow:#FFF57D;--lavender:#E7D4FF;--peach:#FFBD7B;--mint:#E2F8D0;--sky:#D1E4F8;--cream:#FFF5E4;--bg:#F7F6F2;--white:#FFFFFF;--dark:#181818;--gray:#888;--lgray:#C8C8C8;--border:rgba(0,0,0,.08);--r:20px;--trans:.2s cubic-bezier(.4,0,.2,1);--font-h:'Unbounded',sans-serif;--font-b:'Onest',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--bg);color:var(--dark);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button{font-family:var(--font-b);cursor:pointer}
+
+/* HEADER */
+.site-header{position:sticky;top:0;z-index:200;background:rgba(247,246,242,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.h-inner{max-width:1320px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;gap:36px}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{width:38px;height:38px;background:var(--dark);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.logo-text{font-family:var(--font-h);font-weight:800;font-size:14px;line-height:1.1}
+.logo-sub{font-size:9px;font-weight:400;color:var(--gray);letter-spacing:.05em;display:block;margin-top:1px}
+nav{display:flex;align-items:center;gap:2px;flex:1}
+.na{font-size:13.5px;font-weight:500;padding:7px 13px;border-radius:99px;transition:background var(--trans)}
+.na:hover{background:rgba(0,0,0,.06)}.na.on{background:var(--dark);color:#fff}
+.h-right{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.btn-ico{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:transparent;display:flex;align-items:center;justify-content:center;font-size:15px;transition:background var(--trans)}
+.btn-ico:hover{background:rgba(0,0,0,.06)}
+.btn-login{height:36px;padding:0 16px;border-radius:99px;border:1.5px solid var(--border);background:transparent;font-size:13px;font-weight:500;transition:background var(--trans)}
+.btn-login:hover{background:rgba(0,0,0,.06)}
+
+.wrap{max-width:1320px;margin:0 auto;padding:0 32px}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--gray);padding:20px 0 0;flex-wrap:wrap}
+.breadcrumb a{color:var(--gray)}.breadcrumb a:hover{color:var(--dark)}.breadcrumb-sep{opacity:.4}
+
+/* ── EVENT HERO ── */
+.event-hero{background:var(--dark);border-radius:var(--r);overflow:hidden;margin-top:20px;display:grid;grid-template-columns:1fr 440px;min-height:360px;position:relative}
+.event-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(210,248,130,.12),transparent 60%);pointer-events:none}
+.eh-left{padding:48px;display:flex;flex-direction:column;gap:16px;position:relative;z-index:1}
+.eh-cats{display:flex;gap:6px;flex-wrap:wrap}
+.eh-cat{height:26px;padding:0 12px;border-radius:99px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-size:11px;font-weight:600;display:flex;align-items:center;border:none;cursor:default}
+.eh-cat.accent{background:var(--lime);color:var(--dark)}
+.eh-title{font-family:var(--font-h);font-size:30px;font-weight:900;color:#fff;line-height:1.1}
+.eh-subtitle{font-size:15px;color:rgba(255,255,255,.5);line-height:1.5}
+.eh-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.eh-meta-item{background:rgba(255,255,255,.07);border-radius:12px;padding:12px 14px}
+.eh-meta-label{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:4px}
+.eh-meta-val{font-size:13px;font-weight:600;color:#fff}
+.eh-actions{display:flex;gap:8px;margin-top:4px}
+.btn-share-w{height:38px;padding:0 18px;border-radius:99px;border:1.5px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.7);font-size:13px;font-weight:500;display:flex;align-items:center;gap:6px;transition:all var(--trans)}
+.btn-share-w:hover{background:rgba(255,255,255,.08);color:#fff}
+.btn-fav-w{height:38px;padding:0 18px;border-radius:99px;border:1.5px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.7);font-size:13px;font-weight:500;display:flex;align-items:center;gap:6px;transition:all var(--trans)}
+.btn-fav-w:hover,.btn-fav-w.active{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.4)}
+
+/* BIG POSTER AREA */
+.eh-right{position:relative;overflow:hidden;background:linear-gradient(135deg,#1a0533,#2d1b69,#1a1a5e);display:flex;align-items:center;justify-content:center}
+.eh-poster-emoji{font-size:110px;opacity:.9;filter:drop-shadow(0 10px 30px rgba(0,0,0,.5))}
+.eh-poster-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(100,60,200,.4),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)}
+.eh-rating-pill{position:absolute;top:20px;right:20px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1.5px solid rgba(255,255,255,.12);border-radius:99px;padding:6px 14px;display:flex;align-items:center;gap:6px;color:#fff;font-size:13px;font-weight:700}
+.eh-age-badge{position:absolute;bottom:20px;left:20px;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);border-radius:10px;padding:6px 12px;color:rgba(255,255,255,.8);font-family:var(--font-h);font-size:13px;font-weight:700}
+
+/* CONTENT LAYOUT */
+.event-layout{display:grid;grid-template-columns:1fr 360px;gap:32px;margin-top:32px;align-items:start}
+
+/* SEC BLOCK */
+.sec-block{margin-bottom:20px;background:var(--white);border-radius:var(--r);padding:24px;border:1.5px solid var(--border)}
+.sec-block-t{font-family:var(--font-h);font-size:14px;font-weight:700;margin-bottom:16px}
+
+/* DESCRIPTION */
+.event-desc{font-size:14px;line-height:1.75;color:rgba(0,0,0,.65)}
+.event-desc p{margin-bottom:12px}.event-desc p:last-child{margin-bottom:0}
+.event-desc strong{color:var(--dark);font-weight:600}
+
+/* PROGRAMME */
+.programme{display:flex;flex-direction:column;gap:0}
+.prog-item{display:grid;grid-template-columns:64px 1fr;gap:0;position:relative}
+.prog-item::before{content:'';position:absolute;left:21px;top:32px;bottom:-8px;width:2px;background:var(--border)}
+.prog-item:last-child::before{display:none}
+.prog-time{padding-top:6px}
+.prog-time-v{font-family:var(--font-h);font-size:11px;font-weight:700;color:var(--gray)}
+.prog-dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--dark);background:var(--white);margin:4px 0 0 16px;flex-shrink:0}
+.prog-content{padding:4px 0 20px 12px}
+.prog-title{font-weight:700;font-size:14px;margin-bottom:3px}
+.prog-desc{font-size:12px;color:var(--gray);line-height:1.4}
+
+/* MAP BLOCK */
+.map-block{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-radius:16px;height:180px;display:flex;align-items:center;justify-content:center;font-size:60px;position:relative;overflow:hidden;cursor:pointer}
+.map-overlay{position:absolute;inset:0;background:rgba(0,0,0,.02)}
+.map-label{position:absolute;bottom:14px;left:14px;background:rgba(255,255,255,.9);border-radius:10px;padding:8px 14px;font-size:12px;font-weight:600;backdrop-filter:blur(6px)}
+.map-open-btn{position:absolute;bottom:14px;right:14px;background:var(--dark);color:#fff;border-radius:10px;padding:8px 14px;font-size:12px;font-weight:600;border:none;cursor:pointer;transition:opacity var(--trans)}
+.map-open-btn:hover{opacity:.82}
+
+/* ORGANISER */
+.org-card{display:flex;align-items:center;gap:14px}
+.org-ava{width:52px;height:52px;border-radius:50%;background:var(--lime);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.org-name{font-family:var(--font-h);font-size:13px;font-weight:700;margin-bottom:3px}
+.org-meta{font-size:12px;color:var(--gray)}
+.org-meta span{margin-right:10px}
+.org-contact{margin-left:auto;display:flex;gap:7px}
+.org-contact a{height:34px;padding:0 14px;border-radius:99px;border:1.5px solid var(--border);background:transparent;font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px;transition:all var(--trans);color:var(--dark)}
+.org-contact a:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
+
+/* REVIEWS */
+.rev-list{display:flex;flex-direction:column;gap:12px}
+.rev-c{background:var(--bg);border-radius:16px;padding:16px}
+.rev-h{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.rev-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.rev-name{font-weight:600;font-size:13px;margin-bottom:1px}
+.rev-date{font-size:11px;color:var(--gray)}
+.rev-stars{color:#f59e0b;font-size:12px;margin-bottom:7px;letter-spacing:1px}
+.rev-txt{font-size:13px;line-height:1.6;color:rgba(0,0,0,.65)}
+
+/* SIMILAR EVENTS */
+.sim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:0}
+.sim-card{background:var(--white);border-radius:var(--r);border:1.5px solid var(--border);overflow:hidden;cursor:pointer;transition:transform var(--trans),box-shadow var(--trans);display:block;text-decoration:none;color:inherit}
+.sim-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.09)}
+.sim-thumb{height:130px;display:flex;align-items:center;justify-content:center;font-size:40px;position:relative}
+.sim-body{padding:12px}
+.sim-cat{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.sim-title{font-family:var(--font-h);font-size:12px;font-weight:700;line-height:1.2;margin-bottom:3px}
+.sim-loc{font-size:11px;color:var(--gray);margin-bottom:6px}
+.sim-foot{display:flex;align-items:center;justify-content:space-between;font-size:11px}
+.sim-price{font-weight:700}
+.sim-date{color:var(--gray)}
+
+/* ── TICKET SIDEBAR ── */
+.ticket-card{background:var(--white);border-radius:var(--r);padding:24px;border:1.5px solid var(--border);position:sticky;top:80px}
+.tk-price{font-family:var(--font-h);font-size:24px;font-weight:900;margin-bottom:3px}
+.tk-price-note{font-size:12px;color:var(--gray);margin-bottom:20px}
+
+/* TICKET TYPE SELECTOR */
+.tk-types{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.tk-type{border-radius:14px;border:1.5px solid var(--border);padding:12px 16px;cursor:pointer;transition:all var(--trans);display:flex;align-items:center;gap:10px}
+.tk-type:hover{border-color:rgba(0,0,0,.2)}
+.tk-type.on{border-color:var(--dark);background:rgba(0,0,0,.02)}
+.tk-type-info{flex:1}
+.tk-type-name{font-weight:700;font-size:13px;margin-bottom:2px}
+.tk-type-desc{font-size:11px;color:var(--gray)}
+.tk-type-price{font-family:var(--font-h);font-size:14px;font-weight:900;text-align:right;flex-shrink:0}
+.tk-radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all var(--trans)}
+.tk-type.on .tk-radio{border-color:var(--dark);background:var(--dark)}
+.tk-type.on .tk-radio::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff;display:block}
+
+/* DATE PICKER */
+.tk-lbl{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gray);margin-bottom:8px;margin-top:16px}
+.tk-date-sel{width:100%;height:46px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);font-family:var(--font-b);font-size:13px;padding:0 14px;outline:none;appearance:none;transition:border-color var(--trans)}
+.tk-date-sel:focus{border-color:var(--dark)}
+
+/* QUANTITY */
+.tk-qty-row{display:flex;align-items:center;justify-content:space-between;background:var(--bg);border-radius:12px;padding:10px 14px;margin-top:0;border:1.5px solid var(--border)}
+.tk-qty-lbl{font-size:13px;font-weight:500}
+.tk-qty-lbl span{display:block;font-size:10px;color:var(--gray)}
+.qty-btns{display:flex;align-items:center;gap:10px}
+.qty-btn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border);background:transparent;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all var(--trans)}
+.qty-btn:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
+.qty-val{font-size:16px;font-weight:700;min-width:22px;text-align:center}
+
+/* TOTAL */
+.tk-total{background:var(--bg);border-radius:14px;padding:14px 16px;margin-top:14px}
+.tk-total-row{display:flex;justify-content:space-between;font-size:13px;color:var(--gray);margin-bottom:7px}
+.tk-total-row:last-child{margin-bottom:0;font-weight:700;color:var(--dark);font-size:15px;border-top:1px solid var(--border);padding-top:10px;margin-top:8px}
+
+.tk-buy-btn{width:100%;height:52px;border-radius:14px;border:none;background:var(--lime);color:var(--dark);font-family:var(--font-b);font-size:16px;font-weight:700;margin-top:14px;transition:opacity var(--trans)}
+.tk-buy-btn:hover{opacity:.88}
+.tk-note{font-size:11px;color:var(--gray);text-align:center;margin-top:9px;line-height:1.5}
+
+/* AVAILABILITY */
+.tk-avail{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:12px;color:var(--gray)}
+.avail-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0}
+.avail-dot.warn{background:#f59e0b}
+
+/* CONTACTS BLOCK */
+.tk-contacts{background:var(--dark);border-radius:14px;padding:16px;margin-top:12px}
+.tk-contacts-t{font-family:var(--font-h);font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.tk-contact-row{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.7);margin-bottom:7px}
+.tk-contact-row:last-child{margin-bottom:0}
+.tk-contact-row a{color:var(--lime);text-decoration:none}
+.tk-contact-row a:hover{text-decoration:underline}
+
+/* SHARE ROW */
+.share-row{display:flex;gap:7px;margin-top:12px}
+.share-btn{flex:1;height:38px;border-radius:11px;border:1.5px solid var(--border);background:transparent;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;transition:all var(--trans)}
+.share-btn:hover{background:rgba(0,0,0,.04)}
+
+/* FOOTER */
+.site-footer{background:var(--dark);color:#fff;margin-top:64px;padding:40px 0 24px}
+.fi{max-width:1320px;margin:0 auto;padding:0 32px}
+.fg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;margin-bottom:32px}
+.fb-about{font-size:13px;color:rgba(255,255,255,.38);margin-top:12px;line-height:1.65;max-width:210px}
+.f-contact{font-size:13px;color:rgba(255,255,255,.5);margin-top:8px;display:flex;align-items:center;gap:6px}
+.f-contact a{color:var(--lime)}
+.f-soc{display:flex;gap:8px;margin-top:14px}
+.fsoc{width:34px;height:34px;border-radius:9px;border:1.5px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:12px;text-decoration:none;color:#fff;transition:background var(--trans)}
+.fsoc:hover{background:rgba(255,255,255,.1)}
+.fc h4{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px}
+.fc ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.fc ul li a{font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;transition:color var(--trans)}
+.fc ul li a:hover{color:#fff}
+.fbot{padding-top:20px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.25)}
+.fbot a{color:rgba(255,255,255,.32);text-decoration:none}
+.flegal{display:flex;gap:14px}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fadeUp .45s ease both}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="h-inner">
+    <a href="index.html" class="logo"><div class="logo-mark">🎉</div><div><div class="logo-text">ПРАЗДНИК.BY</div><div class="logo-sub">Беларусь отмечает</div></div></a>
+    <nav>
+      <a href="afisha.html" class="na on">Афиша</a>
+      <a href="venues.html" class="na">Площадки</a>
+      <a href="#" class="na">Подрядчики</a>
+      <a href="#" class="na">Блог</a>
+      <a href="#" class="na">О нас</a>
+    </nav>
+    <div class="h-right">
+      <button class="btn-ico">♡</button>
+      <button class="btn-login">Войти</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="breadcrumb">
+    <a href="index.html">Главная</a><span class="breadcrumb-sep">›</span>
+    <a href="afisha.html">Афиша</a><span class="breadcrumb-sep">›</span>
+    <a href="afisha.html">Концерты</a><span class="breadcrumb-sep">›</span>
+    <strong>«Ляпис 98» — Воссоединение</strong>
+  </div>
+
+  <!-- HERO -->
+  <div class="event-hero fu">
+    <div class="eh-left">
+      <div class="eh-cats">
+        <span class="eh-cat accent">🎶 Концерт</span>
+        <span class="eh-cat">Рок</span>
+        <span class="eh-cat">18+</span>
+        <span class="eh-cat">Минск</span>
+      </div>
+      <h1 class="eh-title">«Ляпис 98»<br>Воссоединение</h1>
+      <p class="eh-subtitle">Легендарная группа снова вместе. Полная программа главных хитов — от «Ау» до «Яблони».</p>
+      <div class="eh-meta-grid">
+        <div class="eh-meta-item">
+          <div class="eh-meta-label">Дата и время</div>
+          <div class="eh-meta-val">21 марта 2025, 19:00</div>
+        </div>
+        <div class="eh-meta-item">
+          <div class="eh-meta-label">Место</div>
+          <div class="eh-meta-val">Falcon Club, Минск</div>
+        </div>
+        <div class="eh-meta-item">
+          <div class="eh-meta-label">Продолжительность</div>
+          <div class="eh-meta-val">~2,5 часа</div>
+        </div>
+        <div class="eh-meta-item">
+          <div class="eh-meta-label">Цена</div>
+          <div class="eh-meta-val" style="color:var(--lime)">от 25 BYN</div>
+        </div>
+      </div>
+      <div class="eh-actions">
+        <button class="btn-share-w">↗ Поделиться</button>
+        <button class="btn-fav-w" id="favBtn">♡ В избранное</button>
+      </div>
+    </div>
+    <div class="eh-right">
+      <div class="eh-poster-glow"></div>
+      <div class="eh-poster-emoji">🎸</div>
+      <div class="eh-rating-pill">⭐ 4.9 · 312 отзывов</div>
+      <div class="eh-age-badge">18+</div>
+    </div>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="event-layout">
+    <!-- LEFT COLUMN -->
+    <div>
+      <!-- DESCRIPTION -->
+      <div class="sec-block fu">
+        <div class="sec-block-t">О мероприятии</div>
+        <div class="event-desc">
+          <p>Спустя 15 лет одна из самых любимых белорусских групп <strong>«Ляпис 98»</strong> собирается снова. Воссоединение, которого ждали тысячи поклонников — это не просто концерт, это праздник памяти и ностальгии по лучшим временам белорусского рока.</p>
+          <p>В программе — полный сет хитов всех альбомов: от ранних «Ау», «Яблони», «Голубой вагон» до культовых «Ты кинула» и «Капитал». На сцене — оригинальный состав плюс специальные гости.</p>
+          <p>Это больше, чем ностальгия. Это живая история белорусской музыки. Приходите с теми, с кем вы слушали эти песни в юности — это будет незабываемый вечер.</p>
+        </div>
+      </div>
+
+      <!-- PROGRAMME -->
+      <div class="sec-block fu">
+        <div class="sec-block-t">Программа вечера</div>
+        <div class="programme">
+          <div class="prog-item">
+            <div class="prog-time"><div class="prog-time-v">18:30</div></div>
+            <div style="display:flex;gap:0;align-items:flex-start">
+              <div class="prog-dot"></div>
+              <div class="prog-content">
+                <div class="prog-title">Открытие дверей</div>
+                <div class="prog-desc">Зал открывается, работает бар и фудкорт</div>
+              </div>
+            </div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-time"><div class="prog-time-v">19:00</div></div>
+            <div style="display:flex;gap:0;align-items:flex-start">
+              <div class="prog-dot"></div>
+              <div class="prog-content">
+                <div class="prog-title">Support act — группа «Дай Дарогу»</div>
+                <div class="prog-desc">30 минут разогрева от молодой минской рок-группы</div>
+              </div>
+            </div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-time"><div class="prog-time-v">19:45</div></div>
+            <div style="display:flex;gap:0;align-items:flex-start">
+              <div class="prog-dot"></div>
+              <div class="prog-content">
+                <div class="prog-title">Перерыв</div>
+                <div class="prog-desc">20 минут</div>
+              </div>
+            </div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-time"><div class="prog-time-v">20:00</div></div>
+            <div style="display:flex;gap:0;align-items:flex-start">
+              <div class="prog-dot" style="border-color:var(--lime);background:var(--lime)"></div>
+              <div class="prog-content">
+                <div class="prog-title">«Ляпис 98» — главный концерт</div>
+                <div class="prog-desc">Полная программа, 25+ песен, специальные гости. Завершение около 22:00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOCATION -->
+      <div class="sec-block fu">
+        <div class="sec-block-t">Место проведения</div>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
+          <div style="width:46px;height:46px;border-radius:12px;background:var(--lime);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">🏟️</div>
+          <div>
+            <div style="font-weight:700;font-size:15px;margin-bottom:2px">Falcon Club</div>
+            <div style="font-size:13px;color:var(--gray)">пр-т Победителей, 65, Минск · Вместимость: 2 000 чел.</div>
+          </div>
+          <a href="venue.html" style="margin-left:auto;height:36px;padding:0 16px;border-radius:99px;border:1.5px solid var(--border);background:transparent;font-size:12px;font-weight:600;display:flex;align-items:center;color:var(--dark);transition:all .2s">О площадке →</a>
+        </div>
+        <div class="map-block">
+          <div class="map-overlay"></div>
+          🗺️
+          <div class="map-label">📍 пр-т Победителей, 65</div>
+          <button class="map-open-btn">Открыть карту →</button>
+        </div>
+        <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+          <div style="background:var(--bg);border-radius:10px;padding:8px 14px;font-size:12px;display:flex;align-items:center;gap:6px">🚇 м. Пушкинская — 5 мин пешком</div>
+          <div style="background:var(--bg);border-radius:10px;padding:8px 14px;font-size:12px;display:flex;align-items:center;gap:6px">🅿️ Парковка на 200 мест</div>
+          <div style="background:var(--bg);border-radius:10px;padding:8px 14px;font-size:12px;display:flex;align-items:center;gap:6px">🚌 Авт. 28, 47, 101С</div>
+        </div>
+      </div>
+
+      <!-- ORGANISER -->
+      <div class="sec-block fu">
+        <div class="sec-block-t">Организатор</div>
+        <div class="org-card">
+          <div class="org-ava">🎪</div>
+          <div>
+            <div class="org-name">EventPro Belarus</div>
+            <div class="org-meta">
+              <span>⭐ 4.8</span>
+              <span>142 мероприятия</span>
+              <span>С 2015 года</span>
+            </div>
+          </div>
+          <div class="org-contact">
+            <a href="mailto:hello@prazdnik.by">✉️ Написать</a>
+            <a href="https://t.me/prazdnikby_bot">✈️ Telegram</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- REVIEWS -->
+      <div class="sec-block fu">
+        <div class="sec-block-t" style="display:flex;align-items:center;justify-content:space-between">
+          <span>Отзывы <span style="color:var(--gray);font-weight:400;font-size:12px">(312)</span></span>
+          <span style="font-size:13px;color:var(--gray);font-weight:400">⭐ 4.9 в среднем</span>
+        </div>
+        <div class="rev-list">
+          <div class="rev-c">
+            <div class="rev-h"><div class="rev-av" style="background:var(--lime)">😊</div><div><div class="rev-name">Алексей Морозов</div><div class="rev-date">15 марта 2025</div></div></div>
+            <div class="rev-stars">★★★★★</div>
+            <div class="rev-txt">Был на концерте Ляписов 15 лет назад — и вот снова! Энергетика сумасшедшая. Зал пел каждую песню хором, атмосфера была невероятная. Звук в Falcon Club отменный. Обязательно идите, если есть возможность!</div>
+          </div>
+          <div class="rev-c">
+            <div class="rev-h"><div class="rev-av" style="background:var(--peach)">👩</div><div><div class="rev-name">Марина Климова</div><div class="rev-date">15 марта 2025</div></div></div>
+            <div class="rev-stars">★★★★★</div>
+            <div class="rev-txt">Взяла билеты за месяц — всё прошло отлично! Организация на высоте, очередей почти нет. Сет-лист огонь, сыграли всё самое любимое. Сопгруппа тоже порадовала.</div>
+          </div>
+          <div class="rev-c">
+            <div class="rev-h"><div class="rev-av" style="background:var(--sky)">👨</div><div><div class="rev-name">Дмитрий Власов</div><div class="rev-date">14 марта 2025</div></div></div>
+            <div class="rev-stars">★★★★☆</div>
+            <div class="rev-txt">Концерт классный, но в начале немного подтупил звук в первые 10 минут. Потом всё выровнялось и был полный кайф. Минус звёздочка только за это.</div>
+          </div>
+        </div>
+        <button style="width:100%;height:40px;border-radius:12px;border:1.5px solid var(--border);background:transparent;font-family:var(--font-b);font-size:13px;font-weight:500;margin-top:14px;cursor:pointer;transition:background .2s" onmouseover="this.style.background='rgba(0,0,0,.04)'" onmouseout="this.style.background='transparent'">Показать все 312 отзывов</button>
+      </div>
+    </div>
+
+    <!-- TICKET SIDEBAR -->
+    <div>
+      <div class="ticket-card">
+        <div class="tk-price">от 25 BYN</div>
+        <div class="tk-price-note">за билет · есть в наличии</div>
+
+        <!-- TICKET TYPES -->
+        <div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gray);margin-bottom:10px">Тип билета</div>
+        <div class="tk-types">
+          <div class="tk-type on" onclick="selectTicket(this)">
+            <div class="tk-radio"></div>
+            <div class="tk-type-info">
+              <div class="tk-type-name">Стандарт</div>
+              <div class="tk-type-desc">Партер, стоячий</div>
+            </div>
+            <div class="tk-type-price">25 BYN</div>
+          </div>
+          <div class="tk-type" onclick="selectTicket(this)">
+            <div class="tk-radio"></div>
+            <div class="tk-type-info">
+              <div class="tk-type-name">Сектор A</div>
+              <div class="tk-type-desc">Сидячий, хороший обзор</div>
+            </div>
+            <div class="tk-type-price">40 BYN</div>
+          </div>
+          <div class="tk-type" onclick="selectTicket(this)">
+            <div class="tk-radio"></div>
+            <div class="tk-type-info">
+              <div class="tk-type-name">VIP</div>
+              <div class="tk-type-desc">Первый ряд + backstage pass</div>
+            </div>
+            <div class="tk-type-price">120 BYN</div>
+          </div>
+        </div>
+
+        <div class="tk-lbl">Дата</div>
+        <select class="tk-date-sel">
+          <option>📅 21 марта 2025, 19:00</option>
+          <option>📅 22 марта 2025, 19:00 (доп. концерт)</option>
+        </select>
+
+        <div class="tk-lbl">Количество билетов</div>
+        <div class="tk-qty-row">
+          <div class="tk-qty-lbl">Билеты<span>Осталось: 48 мест</span></div>
+          <div class="qty-btns">
+            <button class="qty-btn" onclick="changeQty(-1)">−</button>
+            <span class="qty-val" id="qtyCnt">2</span>
+            <button class="qty-btn" onclick="changeQty(1)">+</button>
+          </div>
+        </div>
+
+        <div class="tk-total">
+          <div class="tk-total-row"><span>2 × Стандарт</span><span id="subtotal">50 BYN</span></div>
+          <div class="tk-total-row"><span>Сервисный сбор</span><span>2 BYN</span></div>
+          <div class="tk-total-row"><span>Итого</span><span id="totalVal">52 BYN</span></div>
+        </div>
+
+        <button class="tk-buy-btn" id="buyBtn">Купить билеты →</button>
+        <div class="tk-note">Билеты придут на email · Оплата картой или через Telegram-бот</div>
+
+        <div class="tk-avail">
+          <div class="avail-dot warn"></div>
+          Осталось мало мест на стандарт. Бронируйте сейчас!
+        </div>
+
+        <div class="tk-contacts">
+          <div class="tk-contacts-t">Остались вопросы?</div>
+          <div class="tk-contact-row">✉️ <a href="mailto:hello@prazdnik.by">hello@prazdnik.by</a></div>
+          <div class="tk-contact-row">✈️ Telegram-бот: <a href="https://t.me/prazdnikby_bot">@prazdnikby_bot</a></div>
+        </div>
+
+        <div class="share-row" style="margin-top:14px">
+          <button class="share-btn">VK</button>
+          <button class="share-btn">TG</button>
+          <button class="share-btn">📋 Скопировать ссылку</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIMILAR EVENTS -->
+  <div style="font-family:var(--font-h);font-size:19px;font-weight:700;margin:40px 0 16px">Похожие события</div>
+  <div class="sim-grid">
+    <a href="event.html" class="sim-card">
+      <div class="sim-thumb" style="background:linear-gradient(135deg,#e3f2fd,#1976d2)">🎸</div>
+      <div class="sim-body">
+        <div class="sim-cat">Концерт · Минск</div>
+        <div class="sim-title">Molchat Doma — большой концерт</div>
+        <div class="sim-loc">📍 Prime Hall</div>
+        <div class="sim-foot"><div class="sim-price">от 30 BYN</div><div class="sim-date">22 МАР</div></div>
+      </div>
+    </a>
+    <a href="event.html" class="sim-card">
+      <div class="sim-thumb" style="background:linear-gradient(135deg,#fff8e1,#f57f17)">🎹</div>
+      <div class="sim-body">
+        <div class="sim-cat">Концерт · Минск</div>
+        <div class="sim-title">Классика под открытым небом</div>
+        <div class="sim-loc">📍 Минск-Арена</div>
+        <div class="sim-foot"><div class="sim-price">от 20 BYN</div><div class="sim-date">28 МАР</div></div>
+      </div>
+    </a>
+    <a href="event.html" class="sim-card">
+      <div class="sim-thumb" style="background:linear-gradient(135deg,#fce4ec,#ad1457)">🎤</div>
+      <div class="sim-body">
+        <div class="sim-cat">Вечеринка · Минск</div>
+        <div class="sim-title">Ретро-дискотека 80-е & 90-е</div>
+        <div class="sim-loc">📍 клуб Re:Public</div>
+        <div class="sim-foot"><div class="sim-price">от 15 BYN</div><div class="sim-date">22 МАР</div></div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div id="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
+  <div style="background:var(--white);border-radius:var(--r);padding:40px;max-width:420px;width:90%;text-align:center;position:relative">
+    <div style="font-size:54px;margin-bottom:16px">🎉</div>
+    <div style="font-family:var(--font-h);font-size:20px;font-weight:800;margin-bottom:10px">Заказ оформлен!</div>
+    <div style="font-size:14px;color:var(--gray);line-height:1.6;margin-bottom:24px">Билеты отправлены на вашу почту. Также вы можете получить их через наш Telegram-бот.</div>
+    <a href="https://t.me/prazdnikby_bot" style="display:inline-flex;align-items:center;gap:8px;background:var(--dark);color:#fff;border-radius:99px;padding:12px 24px;font-weight:700;font-size:14px;margin-bottom:12px">✈️ Открыть в Telegram</a>
+    <br>
+    <button onclick="document.getElementById('modal').style.display='none'" style="background:none;border:none;font-size:13px;color:var(--gray);cursor:pointer;margin-top:8px">Закрыть</button>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="fi">
+    <div class="fg">
+      <div>
+        <a href="index.html" class="logo"><div class="logo-mark">🎉</div><div><div class="logo-text" style="color:#fff">ПРАЗДНИК.BY</div><div class="logo-sub">Беларусь отмечает</div></div></a>
+        <p class="fb-about">Главный портал событий, площадок и подрядчиков для праздников по всей Беларуси.</p>
+        <p class="f-contact">✉️ <a href="mailto:hello@prazdnik.by">hello@prazdnik.by</a></p>
+        <p class="f-contact">✈️ <a href="https://t.me/prazdnikby_bot">@prazdnikby_bot</a></p>
+        <div class="f-soc"><a href="#" class="fsoc">VK</a><a href="#" class="fsoc">TG</a><a href="#" class="fsoc">IG</a></div>
+      </div>
+      <div class="fc"><h4>Афиша</h4><ul><li><a href="#">Концерты</a></li><li><a href="#">Фестивали</a></li><li><a href="#">Выставки</a></li><li><a href="#">Театр</a></li></ul></div>
+      <div class="fc"><h4>Площадки</h4><ul><li><a href="#">Рестораны</a></li><li><a href="#">Усадьбы</a></li><li><a href="#">Банкетные залы</a></li><li><a href="#">Лофты</a></li></ul></div>
+      <div class="fc"><h4>О нас</h4><ul><li><a href="#">О проекте</a></li><li><a href="#">Партнёрам</a></li><li><a href="mailto:hello@prazdnik.by">Написать нам</a></li></ul></div>
+    </div>
+    <div class="fbot">
+      <span>© 2025 ПРАЗДНИК.BY — Маркетплейс событий Беларуси</span>
+      <div class="flegal"><a href="#">Конфиденциальность</a><a href="#">Правила</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('favBtn').addEventListener('click',function(){
+  this.classList.toggle('active');
+  this.textContent=this.classList.contains('active')?'♥ В избранном':'♡ В избранное';
+});
+
+function selectTicket(el){
+  document.querySelectorAll('.tk-type').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  updateTotal();
+}
+
+let qty=2;
+function changeQty(d){
+  qty=Math.max(1,Math.min(10,qty+d));
+  document.getElementById('qtyCnt').textContent=qty;
+  updateTotal();
+}
+
+function updateTotal(){
+  const activeType=document.querySelector('.tk-type.on');
+  const priceText=activeType?activeType.querySelector('.tk-type-price').textContent:'25 BYN';
+  const price=parseInt(priceText)||25;
+  const sub=price*qty;
+  const fee=Math.round(sub*0.04)||2;
+  document.getElementById('subtotal').textContent=sub+' BYN';
+  document.getElementById('totalVal').textContent=(sub+fee)+' BYN';
+}
+
+document.getElementById('buyBtn').addEventListener('click',()=>{
+  const m=document.getElementById('modal');
+  m.style.display='flex';
+});
+</script>
+</body>
+</html>

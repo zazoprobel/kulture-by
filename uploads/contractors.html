@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Фотографы Минска — Подрядчики — ПРАЗДНИК.BY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Onest:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --lime:#D2F882; --yellow:#FFF57D; --lavender:#E7D4FF; --peach:#FFBD7B;
+  --mint:#E2F8D0; --sky:#D1E4F8; --cream:#FFF5E4; --bg:#F7F6F2;
+  --white:#FFFFFF; --dark:#181818; --gray:#888; --lgray:#C8C8C8;
+  --border:rgba(0,0,0,.08); --r:20px;
+  --trans:.2s cubic-bezier(.4,0,.2,1);
+  --font-h:'Unbounded',sans-serif; --font-b:'Onest',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--bg);color:var(--dark);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none} button{font-family:var(--font-b);cursor:pointer}
+
+/* ── HEADER ── */
+.site-header{position:sticky;top:0;z-index:200;background:rgba(247,246,242,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.h-inner{max-width:1320px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;gap:36px}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{width:38px;height:38px;background:var(--dark);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.logo-text{font-family:var(--font-h);font-weight:800;font-size:14px;line-height:1.1}
+.logo-sub{font-size:9px;font-weight:400;color:var(--gray);letter-spacing:.05em;display:block;margin-top:1px}
+nav{display:flex;align-items:center;gap:2px;flex:1}
+.na{font-size:13.5px;font-weight:500;padding:7px 13px;border-radius:99px;transition:background var(--trans)}
+.na:hover{background:rgba(0,0,0,.06)} .na.on{background:var(--dark);color:#fff}
+.h-right{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.btn-ico{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:transparent;display:flex;align-items:center;justify-content:center;font-size:15px;transition:background var(--trans)}
+.btn-ico:hover{background:rgba(0,0,0,.06)}
+.btn-login{height:36px;padding:0 16px;border-radius:99px;border:1.5px solid var(--border);background:transparent;font-size:13px;font-weight:500;transition:background var(--trans)}
+.btn-login:hover{background:rgba(0,0,0,.06)}
+
+/* ── SEARCH BAR ── */
+.gsearch{background:var(--dark);padding:16px 32px}
+.gs-inner{max-width:1320px;margin:0 auto;display:flex;gap:10px;align-items:center}
+.gs-wrap{flex:1;position:relative}
+.gs-ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.4);pointer-events:none}
+.gs-inp{width:100%;height:46px;border-radius:13px;border:none;background:rgba(255,255,255,.1);color:#fff;font-family:var(--font-b);font-size:14px;padding:0 18px 0 44px;outline:none;transition:background var(--trans)}
+.gs-inp::placeholder{color:rgba(255,255,255,.38)} .gs-inp:focus{background:rgba(255,255,255,.15)}
+.gs-sel{height:46px;padding:0 34px 0 14px;border-radius:13px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08) url("data:image/svg+xml,%3Csvg width='10' height='7' viewBox='0 0 10 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center;color:#fff;font-family:var(--font-b);font-size:13px;appearance:none;cursor:pointer;outline:none;min-width:130px}
+.gs-sel option{background:#222}
+.gs-btn{height:46px;padding:0 22px;border-radius:13px;border:none;background:var(--lime);color:var(--dark);font-family:var(--font-b);font-size:13px;font-weight:700;white-space:nowrap;transition:opacity var(--trans)}
+.gs-btn:hover{opacity:.88}
+
+.wrap{max-width:1320px;margin:0 auto;padding:0 32px}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--gray);padding:20px 0 0;flex-wrap:wrap}
+.breadcrumb a{color:var(--gray)} .breadcrumb a:hover{color:var(--dark)} .bc-sep{opacity:.4}
+
+/* ── CATEGORY HERO ── */
+.cat-hero{background:var(--yellow);border-radius:var(--r);padding:36px 44px;margin-top:20px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;overflow:hidden;position:relative}
+.cat-hero::after{content:'';position:absolute;right:180px;top:-60px;width:200px;height:200px;border-radius:50%;background:rgba(0,0,0,.04);pointer-events:none}
+.ch-label{display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,.08);border-radius:99px;padding:5px 14px 5px 5px;font-size:11px;font-weight:700;margin-bottom:12px;width:fit-content;letter-spacing:.02em}
+.ch-label-dot{width:20px;height:20px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff}
+.ch-title{font-family:var(--font-h);font-size:26px;font-weight:900;line-height:1.1;margin-bottom:8px}
+.ch-sub{font-size:14px;color:rgba(0,0,0,.5);line-height:1.5;max-width:460px}
+.ch-stats{display:flex;gap:24px;margin-top:16px}
+.ch-stat-n{font-family:var(--font-h);font-size:22px;font-weight:900;line-height:1}
+.ch-stat-l{font-size:11px;color:rgba(0,0,0,.45);margin-top:3px}
+.ch-emoji{font-size:80px;opacity:.9}
+
+/* ── CAT TABS ── */
+.cat-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:18px 0 0}
+.cat-tabs::-webkit-scrollbar{display:none}
+.ct{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 16px;border-radius:14px;border:1.5px solid var(--border);background:var(--white);cursor:pointer;white-space:nowrap;transition:all var(--trans);min-width:76px}
+.ct:hover{border-color:rgba(0,0,0,.18)} .ct.on{background:var(--dark);color:#fff;border-color:var(--dark)}
+.ct-ic{font-size:20px} .ct-lb{font-size:11px;font-weight:600;text-align:center;line-height:1.2} .ct-cnt{font-size:10px;opacity:.5}
+.ct.on .ct-cnt{opacity:.6}
+
+/* ── PAGE LAYOUT ── */
+.page-layout{display:grid;grid-template-columns:260px 1fr;gap:24px;margin-top:22px;align-items:start}
+
+/* ── SIDEBAR ── */
+.sidebar{background:var(--white);border-radius:var(--r);border:1.5px solid var(--border);padding:22px;position:sticky;top:80px}
+.sb-title{font-family:var(--font-h);font-size:13px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between}
+.sb-reset{font-size:11px;font-weight:500;color:var(--gray);cursor:pointer;font-family:var(--font-b);background:none;border:none;transition:color var(--trans)}
+.sb-reset:hover{color:var(--dark)}
+.sb-group{margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:20px}
+.sb-group:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
+.sb-lbl{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gray);margin-bottom:10px}
+.sb-opt{display:flex;align-items:center;gap:8px;padding:5px 0;cursor:pointer;font-size:13px;transition:color var(--trans)}
+.sb-opt:hover{color:var(--dark)}
+.sb-opt input{width:15px;height:15px;accent-color:var(--dark);cursor:pointer;flex-shrink:0}
+.sb-opt-cnt{margin-left:auto;font-size:11px;color:var(--lgray)}
+.range-row{display:flex;align-items:center;gap:8px;margin-top:8px}
+.range-inp{flex:1;height:38px;border-radius:9px;border:1.5px solid var(--border);background:transparent;font-family:var(--font-b);font-size:12px;padding:0 10px;outline:none;transition:border-color var(--trans);text-align:center;color:var(--dark)}
+.range-inp:focus{border-color:rgba(0,0,0,.3)}
+.range-sep{color:var(--gray);font-size:12px;flex-shrink:0}
+.sb-slider{width:100%;margin:10px 0 0;accent-color:var(--dark)}
+.sb-apply{width:100%;height:40px;border-radius:12px;border:none;background:var(--dark);color:#fff;font-family:var(--font-b);font-size:13px;font-weight:700;margin-top:16px;cursor:pointer;transition:opacity var(--trans)}
+.sb-apply:hover{opacity:.82}
+
+/* ── CONTENT AREA ── */
+.ca-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.ca-count{font-size:13px;color:var(--gray)} .ca-count strong{color:var(--dark);font-weight:700}
+.ca-right{display:flex;align-items:center;gap:8px}
+.sort-sel{height:34px;padding:0 28px 0 12px;border-radius:10px;border:1.5px solid var(--border);background:var(--white) url("data:image/svg+xml,%3Csvg width='10' height='7' viewBox='0 0 10 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 10px center;font-family:var(--font-b);font-size:12px;appearance:none;cursor:pointer;outline:none}
+.view-btns{display:flex;gap:4px}
+.v-btn{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--border);background:transparent;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;transition:all var(--trans)}
+.v-btn.on,.v-btn:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
+
+/* ── ACTIVE CHIPS ── */
+.act-chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.act-chip{display:flex;align-items:center;gap:5px;height:28px;padding:0 10px;border-radius:99px;background:rgba(0,0,0,.07);font-size:12px;border:none;cursor:pointer;transition:background var(--trans)}
+.act-chip:hover{background:rgba(0,0,0,.12)} .act-x{font-size:11px;opacity:.45}
+
+/* ── CONTRACTOR CARD (GRID) ── */
+.contr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cc{background:var(--white);border-radius:var(--r);border:1.5px solid var(--border);overflow:hidden;cursor:pointer;transition:transform var(--trans),box-shadow var(--trans);display:block;text-decoration:none;color:inherit}
+.cc:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,.1)}
+
+/* Portfolio strip */
+.cc-portfolio{display:grid;grid-template-columns:1fr 1fr 1fr;height:130px;gap:2px;position:relative;overflow:hidden}
+.cc-photo{background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:28px;overflow:hidden;position:relative}
+.cc-photo-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .4s ease}
+.cc:hover .cc-photo-bg{transform:scale(1.07)}
+.cc-fav{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.88);border:none;display:flex;align-items:center;justify-content:center;font-size:12px;z-index:2;cursor:pointer;transition:background var(--trans)}
+.cc-fav:hover{background:#fff}
+.cc-badge{position:absolute;bottom:8px;left:8px;border-radius:99px;padding:3px 9px;font-size:10px;font-weight:700;z-index:2}
+
+/* Card body */
+.cc-body{padding:14px 16px}
+.cc-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.cc-ava{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;border:2px solid var(--bg)}
+.cc-name{font-family:var(--font-h);font-size:13px;font-weight:700;line-height:1.2;margin-bottom:2px}
+.cc-spec{font-size:11px;color:var(--gray)}
+.cc-rating{margin-left:auto;display:flex;align-items:center;gap:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.cc-rating span{font-weight:400;color:var(--gray);font-size:11px}
+.cc-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.ctag{font-size:10px;background:rgba(0,0,0,.06);border-radius:6px;padding:3px 7px;color:var(--gray)}
+.cc-foot{display:flex;align-items:center;justify-content:space-between}
+.cc-price{font-size:12px;font-weight:700}
+.cc-avail{font-size:11px;display:flex;align-items:center;gap:4px;color:var(--gray)}
+.avail-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0}
+.avail-dot.busy{background:#f59e0b}
+
+/* ── LIST VIEW ── */
+.contr-list{display:flex;flex-direction:column;gap:12px}
+.cl-card{background:var(--white);border-radius:var(--r);border:1.5px solid var(--border);display:grid;grid-template-columns:200px 1fr;overflow:hidden;cursor:pointer;transition:transform var(--trans),box-shadow var(--trans);text-decoration:none;color:inherit}
+.cl-card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.09)}
+.cl-photos{display:grid;grid-template-rows:1fr 1fr;grid-template-columns:1fr 1fr;height:160px;gap:2px}
+.cl-photo{background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:24px;position:relative;overflow:hidden}
+.cl-photo-bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.cl-body{padding:18px 22px;display:flex;flex-direction:column;gap:8px}
+.cl-head{display:flex;align-items:flex-start;gap:12px}
+.cl-ava{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.cl-name{font-family:var(--font-h);font-size:14px;font-weight:700;line-height:1.2;margin-bottom:2px}
+.cl-spec{font-size:12px;color:var(--gray)}
+.cl-rating{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:13px;font-weight:700;flex-shrink:0}
+.cl-rating span{font-weight:400;color:var(--gray)}
+.cl-tags{display:flex;gap:5px;flex-wrap:wrap}
+.cl-desc{font-size:12px;color:rgba(0,0,0,.55);line-height:1.5;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+.cl-foot{display:flex;align-items:center;gap:14px;margin-top:auto}
+.cl-price{font-size:13px;font-weight:700}
+.cl-avail{font-size:12px;display:flex;align-items:center;gap:4px;color:var(--gray)}
+.cl-btn{margin-left:auto;height:34px;padding:0 16px;border-radius:99px;border:none;background:var(--dark);color:#fff;font-size:12px;font-weight:700;cursor:pointer;transition:opacity var(--trans);flex-shrink:0}
+.cl-btn:hover{opacity:.82}
+
+/* ── TOP BLOCK ── */
+.top-block{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:18px}
+.tb-c{border-radius:16px;padding:18px 20px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:transform var(--trans);text-decoration:none;color:inherit}
+.tb-c:hover{transform:translateY(-2px)}
+.tb-ico{font-size:32px;flex-shrink:0}
+.tb-info{} .tb-name{font-family:var(--font-h);font-size:13px;font-weight:700;margin-bottom:4px;line-height:1.2}
+.tb-cnt{font-size:11px;opacity:.55;font-weight:500}
+.tb-arr{margin-left:auto;font-size:16px;opacity:.4;flex-shrink:0}
+
+/* ── PAGINATION ── */
+.pagination{display:flex;align-items:center;gap:6px;justify-content:center;margin-top:24px}
+.pg-btn{width:36px;height:36px;border-radius:99px;border:1.5px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;cursor:pointer;transition:all var(--trans)}
+.pg-btn:hover,.pg-btn.on{background:var(--dark);color:#fff;border-color:var(--dark)}
+
+/* ── FOOTER ── */
+.site-footer{background:var(--dark);color:#fff;margin-top:64px;padding:40px 0 24px}
+.fi{max-width:1320px;margin:0 auto;padding:0 32px}
+.fg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;margin-bottom:32px}
+.fb-about{font-size:13px;color:rgba(255,255,255,.38);margin-top:12px;line-height:1.65;max-width:210px}
+.f-contact{font-size:13px;color:rgba(255,255,255,.5);margin-top:8px;display:flex;align-items:center;gap:6px}
+.f-contact a{color:var(--lime)}
+.f-soc{display:flex;gap:8px;margin-top:14px}
+.fsoc{width:34px;height:34px;border-radius:9px;border:1.5px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:12px;text-decoration:none;color:#fff;transition:background var(--trans)}
+.fsoc:hover{background:rgba(255,255,255,.1)}
+.fc h4{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px}
+.fc ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.fc ul li a{font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;transition:color var(--trans)}
+.fc ul li a:hover{color:#fff}
+.fbot{padding-top:20px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.25)}
+.fbot a{color:rgba(255,255,255,.32);text-decoration:none}
+.flegal{display:flex;gap:14px}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fadeUp .45s ease both}
+.d1{animation-delay:.06s} .d2{animation-delay:.12s} .d3{animation-delay:.18s} .d4{animation-delay:.24s}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="h-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-mark">🎉</div>
+      <div><div class="logo-text">ПРАЗДНИК.BY</div><div class="logo-sub">Беларусь отмечает</div></div>
+    </a>
+    <nav>
+      <a href="afisha.html" class="na">Афиша</a>
+      <a href="venues.html" class="na">Площадки</a>
+      <a href="contractors.html" class="na on">Подрядчики</a>
+      <a href="#" class="na">Блог</a>
+      <a href="#" class="na">О нас</a>
+    </nav>
+    <div class="h-right">
+      <button class="btn-ico">♡</button>
+      <button class="btn-login">Войти</button>
+    </div>
+  </div>
+</header>
+
+<!-- SEARCH -->
+<div class="gsearch">
+  <div class="gs-inner">
+    <div class="gs-wrap">
+      <svg class="gs-ico" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" class="gs-inp" placeholder="Фотограф, видеограф, декоратор…">
+    </div>
+    <select class="gs-sel">
+      <option>📍 Вся Беларусь</option>
+      <option selected>📍 Минск</option>
+      <option>📍 Брест</option>
+      <option>📍 Гродно</option>
+    </select>
+    <button class="gs-btn">Найти →</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="breadcrumb">
+    <a href="index.html">Главная</a><span class="bc-sep">›</span>
+    <span>Подрядчики</span><span class="bc-sep">›</span>
+    <strong>Фотографы</strong>
+  </div>
+
+  <!-- HERO -->
+  <div class="cat-hero fu">
+    <div>
+      <div class="ch-label"><div class="ch-label-dot">📸</div>Подрядчики для праздника</div>
+      <div class="ch-title">Фотографы Беларуси</div>
+      <div class="ch-sub">Профессиональная съёмка свадеб, корпоративов, вечеринок и любых событий. Реальные портфолио, отзывы и прозрачные цены.</div>
+      <div class="ch-stats">
+        <div><div class="ch-stat-n">186</div><div class="ch-stat-l">фотографов</div></div>
+        <div><div class="ch-stat-n">4.8</div><div class="ch-stat-l">средний рейтинг</div></div>
+        <div><div class="ch-stat-n">2 400+</div><div class="ch-stat-l">выполненных съёмок</div></div>
+      </div>
+    </div>
+    <div class="ch-emoji">📸</div>
+  </div>
+
+  <!-- CATEGORY TABS -->
+  <div class="cat-tabs">
+    <button class="ct on"><span class="ct-ic">📸</span><span class="ct-lb">Фотографы</span><span class="ct-cnt">186</span></button>
+    <button class="ct"><span class="ct-ic">🎬</span><span class="ct-lb">Видеографы</span><span class="ct-cnt">94</span></button>
+    <button class="ct"><span class="ct-ic">💐</span><span class="ct-lb">Декораторы</span><span class="ct-cnt">143</span></button>
+    <button class="ct"><span class="ct-ic">🎙️</span><span class="ct-lb">Ведущие</span><span class="ct-cnt">178</span></button>
+    <button class="ct"><span class="ct-ic">🎧</span><span class="ct-lb">DJ</span><span class="ct-cnt">112</span></button>
+    <button class="ct"><span class="ct-ic">🔊</span><span class="ct-lb">Звук и свет</span><span class="ct-cnt">58</span></button>
+    <button class="ct"><span class="ct-ic">🎂</span><span class="ct-lb">Кондитеры</span><span class="ct-cnt">112</span></button>
+    <button class="ct"><span class="ct-ic">🎪</span><span class="ct-lb">Аниматоры</span><span class="ct-cnt">78</span></button>
+    <button class="ct"><span class="ct-ic">💇</span><span class="ct-lb">Стилисты</span><span class="ct-cnt">64</span></button>
+    <button class="ct"><span class="ct-ic">🌸</span><span class="ct-lb">Флористы</span><span class="ct-cnt">89</span></button>
+    <button class="ct"><span class="ct-ic">🚗</span><span class="ct-lb">Трансфер</span><span class="ct-cnt">47</span></button>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="page-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sb-title">Фильтры <button class="sb-reset">Сбросить</button></div>
+
+      <div class="sb-group">
+        <div class="sb-lbl">Специализация</div>
+        <label class="sb-opt"><input type="checkbox" checked> Свадебная съёмка <span class="sb-opt-cnt">142</span></label>
+        <label class="sb-opt"><input type="checkbox"> Репортажная <span class="sb-opt-cnt">98</span></label>
+        <label class="sb-opt"><input type="checkbox"> Портретная <span class="sb-opt-cnt">76</span></label>
+        <label class="sb-opt"><input type="checkbox"> Корпоративная <span class="sb-opt-cnt">64</span></label>
+        <label class="sb-opt"><input type="checkbox"> Love story <span class="sb-opt-cnt">118</span></label>
+        <label class="sb-opt"><input type="checkbox"> Детская съёмка <span class="sb-opt-cnt">87</span></label>
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-lbl">Стиль</div>
+        <label class="sb-opt"><input type="checkbox" checked> Светлый / воздушный</label>
+        <label class="sb-opt"><input type="checkbox"> Тёмный / плёночный</label>
+        <label class="sb-opt"><input type="checkbox"> Художественный</label>
+        <label class="sb-opt"><input type="checkbox"> Репортаж</label>
+        <label class="sb-opt"><input type="checkbox"> Минимализм</label>
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-lbl">Бюджет (BYN / час)</div>
+        <div class="range-row">
+          <input type="number" class="range-inp" placeholder="от" value="50">
+          <span class="range-sep">—</span>
+          <input type="number" class="range-inp" placeholder="до" value="300">
+        </div>
+        <input type="range" class="sb-slider" min="0" max="600" value="300">
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-lbl">Рейтинг</div>
+        <label class="sb-opt"><input type="radio" name="rat" checked> ★ 4.5 и выше <span class="sb-opt-cnt">112</span></label>
+        <label class="sb-opt"><input type="radio" name="rat"> ★ 4.0 и выше <span class="sb-opt-cnt">158</span></label>
+        <label class="sb-opt"><input type="radio" name="rat"> Любой</label>
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-lbl">Выезд</div>
+        <label class="sb-opt"><input type="checkbox"> За пределы Минска</label>
+        <label class="sb-opt"><input type="checkbox"> По всей Беларуси</label>
+        <label class="sb-opt"><input type="checkbox"> За рубеж</label>
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-lbl">Доп. услуги</div>
+        <label class="sb-opt"><input type="checkbox"> Видеосъёмка в пакете</label>
+        <label class="sb-opt"><input type="checkbox"> Фотокнига в подарок</label>
+        <label class="sb-opt"><input type="checkbox"> Ретушь за 3 дня</label>
+        <label class="sb-opt"><input type="checkbox"> Love story бесплатно</label>
+      </div>
+
+      <button class="sb-apply">Применить фильтры</button>
+    </aside>
+
+    <!-- CONTENT -->
+    <div>
+      <!-- TOP PICKS -->
+      <div class="top-block">
+        <a href="contractor.html" class="tb-c fu d1" style="background:var(--lime)">
+          <div class="tb-ico">🏆</div>
+          <div class="tb-info"><div class="tb-name">Топ месяца</div><div class="tb-cnt">8 фотографов</div></div>
+          <div class="tb-arr">→</div>
+        </a>
+        <a href="contractor.html" class="tb-c fu d2" style="background:var(--lavender)">
+          <div class="tb-ico">💒</div>
+          <div class="tb-info"><div class="tb-name">Свадебная съёмка</div><div class="tb-cnt">142 фотографа</div></div>
+          <div class="tb-arr">→</div>
+        </a>
+        <a href="contractor.html" class="tb-c fu d3" style="background:var(--peach)">
+          <div class="tb-ico">🆓</div>
+          <div class="tb-info"><div class="tb-name">Love story в подарок</div><div class="tb-cnt">34 предложения</div></div>
+          <div class="tb-arr">→</div>
+        </a>
+      </div>
+
+      <div class="ca-head">
+        <div class="ca-count">Найдено <strong>186 фотографов</strong></div>
+        <div class="ca-right">
+          <select class="sort-sel">
+            <option>По рейтингу</option>
+            <option>По популярности</option>
+            <option>Сначала дешевле</option>
+            <option>Сначала дороже</option>
+            <option>Новые сначала</option>
+          </select>
+          <div class="view-btns">
+            <button class="v-btn on" id="gridBtn">⊞</button>
+            <button class="v-btn" id="listBtn">≡</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="act-chips">
+        <button class="act-chip">Свадебная <span class="act-x">✕</span></button>
+        <button class="act-chip">★ 4.5+ <span class="act-x">✕</span></button>
+        <button class="act-chip">Светлый стиль <span class="act-x">✕</span></button>
+        <button class="act-chip">50–300 BYN/ч <span class="act-x">✕</span></button>
+      </div>
+
+      <!-- GRID VIEW -->
+      <div class="contr-grid" id="gridView">
+
+        <a href="contractor.html" class="cc fu">
+          <div class="cc-portfolio">
+            <div class="cc-photo" style="grid-column:span 2;background:linear-gradient(135deg,#e8f4fd,#b3d9f7)">
+              <div class="cc-photo-bg" style="background:linear-gradient(135deg,#d1eaff,#a8d8ea);opacity:.7"></div>
+              <span style="position:relative;z-index:1">🌸</span>
+              <div class="cc-fav">♡</div>
+              <div class="cc-badge" style="background:var(--lime);color:var(--dark)">⭐ Топ месяца</div>
+            </div>
+            <div class="cc-photo" style="background:linear-gradient(135deg,#fff8e1,#ffe082)">
+              <div class="cc-photo-bg" style="background:linear-gradient(135deg,#fff9c4,#ffe57d);opacity:.6"></div>
+              <span style="position:relative;z-index:1;font-size:22px">🌿</span>
+            </div>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top">
+              <div class="cc-ava" style="background:var(--lime)">👩</div>
+              <div>
+                <div class="cc-name">Алина Морозова</div>
+                <div class="cc-spec">Свадебный фотограф</div>
+              </div>
+              <div class="cc-rating">4.9 <span>(148)</span></div>
+            </div>
+            <div class="cc-tags">
+              <span class="ctag">Свадьба</span>
+              <span class="ctag">Love story</span>
+              <span class="ctag">Светлый</span>
+              <span class="ctag">Выезд по РБ</span>
+            </div>
+            <div class="cc-foot">
+              <div class="cc-price">от 150 BYN/час</div>
+              <div class="cc-avail"><div class="avail-dot"></div>Свободна</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="contractor.html" class="cc fu d1">
+          <div class="cc-portfolio">
+            <div class="cc-photo" style="background:linear-gradient(135deg,#1a1a2e,#2d1b69)">
+              <div class="cc-photo-bg" style="background:linear-gradient(135deg,#2d1b69,#1a1a5e);opacity:.8"></div>
+              <span style="position:relative;z-index:1">🎩</span>
+              <div class="cc-fav">♡</div>
+            </div>
+            <div class="cc-photo" style="background:linear-gradient(135deg,#e8d5ff,#c5a3ff)">
+              <span style="position:relative;z-index:1;font-size:20px">💍</span>
+            </div>
+            <div class="cc-photo" style="background:linear-gradient(135deg,#1a1a2e,#4a148c)">
+              <span style="position:relative;z-index:1;font-size:20px">✨</span>
+            </div>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top">
+              <div class="cc-ava" style="background:var(--lavender)">🧔</div>
+              <div>
+                <div class="cc-name">Артём Власов</div>
+                <div class="cc-spec">Арт & свадебный фотограф</div>
+              </div>
+              <div class="cc-rating">4.8 <span>(92)</span></div>
+            </div>
+            <div class="cc-tags">
+              <span class="ctag">Тёмный стиль</span>
+              <span class="ctag">Арт</span>
+              <span class="ctag">Свадьба</span>
+            </div>
+            <div class="cc-foot">
+              <div class="cc-price">от 200 BYN/час</div>
+              <div class="cc-avail"><div class="avail-dot"></div>Свободен</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="contractor.html" class="cc fu d2">
+          <div class="cc-portfolio">
+            <div class="cc-photo" style="background:linear-gradient(135deg,#e8f5e9,#a5d6a7)">
+              <span style="position:relative;z-index:1">🌻</span>
+              <div class="cc-fav">♡</div>
+            </div>
+            <div class="cc-photo" style="background:linear-gradient(135deg,#fff8e1,#f9a825)">
+              <span style="position:relative;z-index:1;font-size:20px">☀️</span>
+            </div>
+            <div class="cc-photo" style="background:linear-gradient(135deg,#c8e6c9,#66bb6a)">
+              <span style="position:relative;z-index:1;font-size:20px">🌾</span>
+            </div>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top">
+              <div class="cc-ava" style="background:var(--mint)">👩</div>
+              <div>
+                <div class="cc-name">Светлана Ковач</div>
+                <div class="cc-spec">Репортажный фотограф</div>
+              </div>
+              <div class="cc-rating">4.7 <span>(67)</span></div>
+            </div>
+            <div class="cc-tags">
+              <span class="ctag">Репортаж</span>
+              <span class="ctag">Корпоратив</span>
+              <span class="ctag">Детская</span>
+            </div>
+            <div class="cc-foot">
+              <div class="cc-price">от 80 BYN/час</div>
+              <div class="cc-avail"><div class="avail-dot busy"></div>Занята до 28 мар</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="contractor.html" class="cc fu d1">
+          <div class="cc-portfolio">
+            <div class="cc-photo" style="grid-column:span 2;background:linear-gradient(135deg,#fce4ec,#e91e63)">
+              <div class="cc-photo-bg" style="background:linear-gradient(135deg,#f48fb1,#e91e63);opacity:.35"></div>
+              <span style="position:relative;z-index:1">💃</span>
+              <div class="cc-fav">♡</div>
+              <div class="cc-badge" style="background:var(--peach);color:var(--dark)">Love story 🎁</div>
+            </div>
+            <div class="cc-photo" style="background:linear-gradient(135deg,#fff9c4,#f57f17)">
+              <span style="position:relative;z-index:1;font-size:22px">🎉</span>
+            </div>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top">
+              <div class="cc-ava" style="background:var(--peach)">👩</div>
+              <div>
+                <div class="cc-name">Наталья Жук</div>
+                <div class="cc-spec">Свадьба & Love story</div>
+              </div>
+              <div class="cc-rating">4.9 <span>(211)</span></div>
+            </div>
+            <div class="cc-tags">
+              <span class="ctag">Свадьба</span>
+              <span class="ctag">Love story</span>
+              <span class="ctag">Воздушный</span>
+            </div>
+            <div class="cc-foot">
+              <div class="cc-price">от 120 BYN/час</div>
+              <div class="cc-avail"><div class="avail-dot"></div>Свободна</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="contractor.html" class="cc fu d2">
+          <div class="cc-portfolio">
+            <div class="cc-photo" style="background:linear-gradient(135deg,#e3f2fd,#1976d2)">
+              <span style="position:relative;z-index:1">🏙️</span>
+              <div class="cc-fav">♡</div>
+            </div>
+            <div class="cc-photo" style="background:linear-gradient(135deg,#e8eaf6,#5c6bc0)">
+              <span style="position:relative;z-index:1;font-size:22px">🌃</span>
+            </div>
+            <div class="cc-photo" style="background:linear-gradient(135deg,#e3f2fd,#0d47a1)">
+              <span style="position:relative;z-index:1;font-size:20px">🎆</span>
+            </div>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top">
+              <div class="cc-ava" style="background:var(--sky)">🧔</div>
+              <div>
+                <div class="cc-name">Игорь Семёнов</div>
+                <div class="cc-spec">Репортаж & корпоратив</div>
+              </div>
+              <div class="cc-rating">4.6 <span>(54)</span></div>
+            </div>
+            <div class="cc-tags">
+              <span class="ctag">Корпоратив</span>
+              <span class="ctag">Репортаж</span>
+              <span class="ctag">Город</span>
+            </div>
+            <div class="cc-foot">
+              <div class="cc-price">от 60 BYN/час</div>
+              <div class="cc-avail"><div class="avail-dot"></div>Свободен</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="contractor.html" class="cc fu d3">
+          <div class="cc-portfolio">
+            <div class="cc-photo" style="background:linear-gradient(135deg,#f3e5f5,#9c27b0)">
+              <span style="position:relative;z-index:1">🎭</span>
+              <div class="cc-fav">♡</div>
+            </div>
+            <div class="cc-photo" style="background:linear-gradient(135deg,#e1bee7,#7b1fa2)">
+              <span style="position:relative;z-index:1;font-size:20px">👑</span>
+            </div>
+            <div class="cc-photo" style="background:linear-gradient(135deg,#f3e5f5,#ab47bc)">
+              <span style="position:relative;z-index:1;font-size:20px">🌙</span>
+            </div>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top">
+              <div class="cc-ava" style="background:var(--lavender)">👩</div>
+              <div>
+                <div class="cc-name">Виктория Лось</div>
+                <div class="cc-spec">Художественная съёмка</div>
+              </div>
+              <div class="cc-rating">4.8 <span>(76)</span></div>
+            </div>
+            <div class="cc-tags">
+              <span class="ctag">Арт</span>
+              <span class="ctag">Портрет</span>
+              <span class="ctag">Вечеринки</span>
+            </div>
+            <div class="cc-foot">
+              <div class="cc-price">от 180 BYN/час</div>
+              <div class="cc-avail"><div class="avail-dot"></div>Свободна</div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- LIST VIEW (hidden) -->
+      <div class="contr-list" id="listView" style="display:none">
+        <a href="contractor.html" class="cl-card">
+          <div class="cl-photos">
+            <div class="cl-photo" style="background:linear-gradient(135deg,#e8f4fd,#b3d9f7)"><div class="cl-photo-bg" style="background:linear-gradient(135deg,#d1eaff,#a8d8ea);opacity:.7"></div><span style="position:relative;z-index:1;font-size:24px">🌸</span></div>
+            <div class="cl-photo" style="background:linear-gradient(135deg,#fff8e1,#ffe082)"><span style="position:relative;z-index:1;font-size:22px">🌿</span></div>
+            <div class="cl-photo" style="background:linear-gradient(135deg,#e8f5e9,#a5d6a7)"><span style="position:relative;z-index:1;font-size:22px">💐</span></div>
+            <div class="cl-photo" style="background:linear-gradient(135deg,#d1eaff,#84c1e8)"><span style="position:relative;z-index:1;font-size:22px">✨</span></div>
+          </div>
+          <div class="cl-body">
+            <div class="cl-head">
+              <div class="cl-ava" style="background:var(--lime)">👩</div>
+              <div>
+                <div class="cl-name">Алина Морозова</div>
+                <div class="cl-spec">Свадебный фотограф · Минск</div>
+              </div>
+              <div class="cl-rating">⭐ 4.9 <span>(148 отзывов)</span></div>
+            </div>
+            <div class="cl-tags">
+              <span class="ctag">Свадьба</span><span class="ctag">Love story</span><span class="ctag">Светлый стиль</span><span class="ctag">Выезд по РБ</span>
+            </div>
+            <div class="cl-desc">Снимаю свадьбы и love story уже 7 лет. Работаю в светлом воздушном стиле, люблю искренние эмоции и живые кадры. Есть опыт выездных свадеб в Польше и Грузии.</div>
+            <div class="cl-foot">
+              <div class="cl-price">от 150 BYN/час</div>
+              <div class="cl-avail"><div class="avail-dot"></div>Свободна</div>
+              <button class="cl-btn">Посмотреть →</button>
+            </div>
+          </div>
+        </a>
+        <a href="contractor.html" class="cl-card">
+          <div class="cl-photos">
+            <div class="cl-photo" style="background:linear-gradient(135deg,#1a1a2e,#2d1b69)"><div class="cl-photo-bg" style="background:linear-gradient(135deg,#2d1b69,#1a1a5e);opacity:.8"></div><span style="position:relative;z-index:1;font-size:24px">🎩</span></div>
+            <div class="cl-photo" style="background:linear-gradient(135deg,#e8d5ff,#c5a3ff)"><span style="position:relative;z-index:1;font-size:22px">💍</span></div>
+            <div class="cl-photo" style="background:linear-gradient(135deg,#1a1a2e,#4a148c)"><span style="position:relative;z-index:1;font-size:22px">✨</span></div>
+            <div class="cl-photo" style="background:linear-gradient(135deg,#3d1c72,#5b2c9e)"><span style="position:relative;z-index:1;font-size:22px">🌙</span></div>
+          </div>
+          <div class="cl-body">
+            <div class="cl-head">
+              <div class="cl-ava" style="background:var(--lavender)">🧔</div>
+              <div>
+                <div class="cl-name">Артём Власов</div>
+                <div class="cl-spec">Арт & свадебный фотограф · Минск</div>
+              </div>
+              <div class="cl-rating">⭐ 4.8 <span>(92 отзыва)</span></div>
+            </div>
+            <div class="cl-tags">
+              <span class="ctag">Тёмный стиль</span><span class="ctag">Арт</span><span class="ctag">Свадьба</span><span class="ctag">Портрет</span>
+            </div>
+            <div class="cl-desc">Создаю кинематографичные образы — тёмный атмосферный стиль с глубокими тенями и контрастом. Идеально для пар, которым надоели «пастельные» фотографии.</div>
+            <div class="cl-foot">
+              <div class="cl-price">от 200 BYN/час</div>
+              <div class="cl-avail"><div class="avail-dot"></div>Свободен</div>
+              <button class="cl-btn">Посмотреть →</button>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="pagination">
+        <button class="pg-btn">←</button>
+        <button class="pg-btn on">1</button>
+        <button class="pg-btn">2</button>
+        <button class="pg-btn">3</button>
+        <span style="font-size:13px;color:var(--gray);padding:0 4px">…</span>
+        <button class="pg-btn">16</button>
+        <button class="pg-btn">→</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="fi">
+    <div class="fg">
+      <div>
+        <a href="index.html" class="logo"><div class="logo-mark">🎉</div><div><div class="logo-text" style="color:#fff">ПРАЗДНИК.BY</div><div class="logo-sub">Беларусь отмечает</div></div></a>
+        <p class="fb-about">Главный портал событий, площадок и подрядчиков для праздников по всей Беларуси.</p>
+        <p class="f-contact">✉️ <a href="mailto:hello@prazdnik.by">hello@prazdnik.by</a></p>
+        <p class="f-contact">✈️ <a href="#">@prazdnikby_bot</a></p>
+        <div class="f-soc"><a href="#" class="fsoc">VK</a><a href="#" class="fsoc">TG</a><a href="#" class="fsoc">IG</a></div>
+      </div>
+      <div class="fc"><h4>Площадки</h4><ul><li><a href="#">Рестораны</a></li><li><a href="#">Усадьбы</a></li><li><a href="#">Банкетные залы</a></li><li><a href="#">Лофты</a></li></ul></div>
+      <div class="fc"><h4>Подрядчики</h4><ul><li><a href="contractors.html">Фотографы</a></li><li><a href="#">Видеографы</a></li><li><a href="#">Декораторы</a></li><li><a href="#">Ведущие и DJ</a></li></ul></div>
+      <div class="fc"><h4>О нас</h4><ul><li><a href="#">О проекте</a></li><li><a href="#">Партнёрам</a></li><li><a href="mailto:hello@prazdnik.by">Написать нам</a></li></ul></div>
+    </div>
+    <div class="fbot">
+      <span>© 2025 ПРАЗДНИК.BY</span>
+      <div class="flegal"><a href="#">Конфиденциальность</a><a href="#">Правила</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.ct').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.ct').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+}));
+document.getElementById('gridBtn').addEventListener('click',()=>{
+  document.getElementById('gridView').style.display='grid';
+  document.getElementById('listView').style.display='none';
+  document.getElementById('gridBtn').classList.add('on');
+  document.getElementById('listBtn').classList.remove('on');
+});
+document.getElementById('listBtn').addEventListener('click',()=>{
+  document.getElementById('listView').style.display='flex';
+  document.getElementById('gridView').style.display='none';
+  document.getElementById('listBtn').classList.add('on');
+  document.getElementById('gridBtn').classList.remove('on');
+});
+document.querySelectorAll('.act-chip').forEach(c=>c.addEventListener('click',()=>c.remove()));
+document.querySelectorAll('.cc-fav').forEach(b=>b.addEventListener('click',e=>{
+  e.preventDefault(); e.stopPropagation();
+  b.textContent=b.textContent==='♡'?'♥':'♡';
+  b.style.color=b.textContent==='♥'?'#e53935':'';
+}));
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}
+}),{threshold:.08});
+document.querySelectorAll('.page-layout,.top-block').forEach(el=>{
+  el.style.opacity='0';el.style.transform='translateY(16px)';
+  el.style.transition='opacity .5s ease,transform .5s ease';io.observe(el);
+});
+</script>
+</body>
+</html>

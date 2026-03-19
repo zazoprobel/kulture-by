@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Усадьба «Лесная сказка» — ПРАЗДНИК.BY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Onest:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--lime:#D2F882;--yellow:#FFF57D;--lavender:#E7D4FF;--peach:#FFBD7B;--mint:#E2F8D0;--sky:#D1E4F8;--cream:#FFF5E4;--bg:#F7F6F2;--white:#FFFFFF;--dark:#181818;--gray:#888;--lgray:#C8C8C8;--border:rgba(0,0,0,.08);--r:20px;--trans:.2s cubic-bezier(.4,0,.2,1);--font-h:'Unbounded',sans-serif;--font-b:'Onest',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--bg);color:var(--dark);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button{font-family:var(--font-b);cursor:pointer}
+
+.site-header{position:sticky;top:0;z-index:200;background:rgba(247,246,242,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.h-inner{max-width:1320px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;gap:36px}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{width:38px;height:38px;background:var(--dark);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.logo-text{font-family:var(--font-h);font-weight:800;font-size:14px;line-height:1.1}
+.logo-sub{font-size:9px;font-weight:400;color:var(--gray);letter-spacing:.05em;display:block;margin-top:1px}
+nav{display:flex;align-items:center;gap:2px;flex:1}
+.na{font-size:13.5px;font-weight:500;padding:7px 13px;border-radius:99px;transition:background var(--trans)}
+.na:hover{background:rgba(0,0,0,.06)}.na.on{background:var(--dark);color:#fff}
+.h-right{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.btn-ico{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:transparent;display:flex;align-items:center;justify-content:center;font-size:15px;transition:background var(--trans)}
+.btn-ico:hover{background:rgba(0,0,0,.06)}
+.btn-login{height:36px;padding:0 16px;border-radius:99px;border:1.5px solid var(--border);background:transparent;font-size:13px;font-weight:500;transition:background var(--trans)}
+.btn-login:hover{background:rgba(0,0,0,.06)}
+
+.wrap{max-width:1320px;margin:0 auto;padding:0 32px}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--gray);padding:20px 0 0;flex-wrap:wrap}
+.breadcrumb a{color:var(--gray)}.breadcrumb a:hover{color:var(--dark)}.breadcrumb-sep{opacity:.4}
+
+/* GALLERY */
+.gallery{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:280px 140px;gap:10px;margin-top:20px;border-radius:var(--r);overflow:hidden}
+.gal-main{grid-row:span 2;background:linear-gradient(135deg,#c8e6c9,#4caf50);display:flex;align-items:center;justify-content:center;font-size:80px;position:relative;cursor:pointer}
+.gal-sm{background:linear-gradient(135deg,#e8f5e9,#81c784);display:flex;align-items:center;justify-content:center;font-size:44px;position:relative;cursor:pointer;transition:opacity var(--trans)}
+.gal-sm:hover{opacity:.88}
+.gal-more{position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,.55);color:#fff;font-size:12px;font-weight:700;padding:6px 12px;border-radius:99px;backdrop-filter:blur(4px)}
+
+/* CONTENT LAYOUT */
+.venue-layout{display:grid;grid-template-columns:1fr 360px;gap:32px;margin-top:32px;align-items:start}
+
+/* LEFT COLUMN */
+.venue-main{}
+.venue-header{margin-bottom:24px}
+.venue-cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.v-cat{font-size:11px;background:rgba(0,0,0,.06);border-radius:6px;padding:3px 8px;color:var(--gray)}
+.venue-name{font-family:var(--font-h);font-size:28px;font-weight:900;line-height:1.1;margin-bottom:10px}
+.venue-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--gray)}
+.venue-rating-big{display:flex;align-items:center;gap:6px;font-size:16px;font-weight:700;color:var(--dark)}
+.venue-rating-big span{font-size:13px;font-weight:400;color:var(--gray)}
+.venue-actions{display:flex;gap:8px;margin-top:14px}
+.btn-share,.btn-fav{height:36px;padding:0 16px;border-radius:99px;border:1.5px solid var(--border);background:transparent;font-size:13px;font-weight:500;display:flex;align-items:center;gap:6px;transition:all var(--trans)}
+.btn-share:hover,.btn-fav:hover{background:rgba(0,0,0,.05)}
+.btn-fav.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+.stat-c{background:var(--white);border-radius:16px;padding:18px;border:1.5px solid var(--border);text-align:center}
+.stat-n{font-family:var(--font-h);font-size:20px;font-weight:900;margin-bottom:4px}
+.stat-l{font-size:11px;color:var(--gray);line-height:1.3}
+
+/* SECTIONS */
+.sec-block{margin-bottom:28px;background:var(--white);border-radius:var(--r);padding:24px;border:1.5px solid var(--border)}
+.sec-block-t{font-family:var(--font-h);font-size:15px;font-weight:700;margin-bottom:16px}
+.venue-desc{font-size:14px;line-height:1.7;color:rgba(0,0,0,.65)}
+.venue-desc p{margin-bottom:10px}
+.venue-desc p:last-child{margin-bottom:0}
+
+/* FEATURES */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.feat-item{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--bg);border-radius:12px;font-size:13px}
+.feat-ico{font-size:18px;flex-shrink:0}
+.feat-label{font-size:12px;line-height:1.2}
+
+/* HALLS */
+.halls{display:flex;flex-direction:column;gap:12px}
+.hall-c{background:var(--bg);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:16px;cursor:pointer;border:1.5px solid transparent;transition:border-color var(--trans)}
+.hall-c:hover,.hall-c.active{border-color:var(--dark)}
+.hall-ico{font-size:28px;flex-shrink:0}
+.hall-info{flex:1}
+.hall-name{font-family:var(--font-h);font-size:13px;font-weight:700;margin-bottom:4px}
+.hall-caps{display:flex;gap:8px;flex-wrap:wrap}
+.hall-cap{font-size:11px;color:var(--gray);background:rgba(0,0,0,.06);border-radius:6px;padding:3px 8px}
+.hall-price{font-size:13px;font-weight:700;flex-shrink:0;text-align:right}
+.hall-price span{display:block;font-size:10px;font-weight:400;color:var(--gray)}
+
+/* PACKAGES */
+.packages{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pkg{border-radius:14px;padding:18px;border:1.5px solid var(--border);cursor:pointer;transition:all var(--trans)}
+.pkg:hover,.pkg.active{border-color:var(--dark);background:var(--dark);color:#fff}
+.pkg-name{font-family:var(--font-h);font-size:12px;font-weight:700;margin-bottom:8px}
+.pkg-price{font-size:18px;font-weight:900;font-family:var(--font-h);margin-bottom:8px}
+.pkg-price span{font-size:11px;font-weight:400;opacity:.6}
+.pkg-feats{list-style:none;display:flex;flex-direction:column;gap:5px}
+.pkg-feats li{font-size:11px;opacity:.65;display:flex;align-items:center;gap:5px}
+.pkg.active .pkg-feats li{opacity:.8}
+
+/* REVIEWS */
+.reviews-list{display:flex;flex-direction:column;gap:14px}
+.rev-c{background:var(--bg);border-radius:16px;padding:18px}
+.rev-h{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.rev-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.rev-name{font-weight:600;font-size:14px;margin-bottom:2px}
+.rev-date{font-size:11px;color:var(--gray)}
+.rev-stars{color:#f59e0b;font-size:12px;margin-bottom:7px}
+.rev-txt{font-size:13px;line-height:1.6;color:rgba(0,0,0,.65)}
+.rev-venue-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--gray);margin-top:8px;background:rgba(0,0,0,.05);padding:3px 8px;border-radius:6px}
+
+/* CONTRACTORS SUGGESTION */
+.contr-suggest{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.cs-c{background:var(--bg);border-radius:14px;padding:14px;display:flex;align-items:center;gap:10px;cursor:pointer;border:1.5px solid transparent;transition:border-color var(--trans)}
+.cs-c:hover{border-color:var(--dark)}
+.cs-ico{font-size:28px;flex-shrink:0}
+.cs-name{font-weight:700;font-size:12px;margin-bottom:2px;font-family:var(--font-h)}
+.cs-cnt{font-size:11px;color:var(--gray)}
+
+/* SIMILAR */
+.similar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.sv-card{background:var(--white);border-radius:var(--r);overflow:hidden;cursor:pointer;border:1.5px solid var(--border);transition:transform var(--trans),box-shadow var(--trans);display:block;color:inherit}
+.sv-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.09)}
+.sv-thumb{height:140px;display:flex;align-items:center;justify-content:center;font-size:40px;position:relative;overflow:hidden}
+.sv-body{padding:14px}
+.sv-title{font-family:var(--font-h);font-size:12px;font-weight:700;margin-bottom:4px;line-height:1.2}
+.sv-loc{font-size:11px;color:var(--gray);margin-bottom:7px}
+.sv-foot{display:flex;align-items:center;justify-content:space-between;font-size:11px}
+.sv-rating{font-weight:600;display:flex;align-items:center;gap:3px}
+.sv-price{font-weight:700}
+
+/* RIGHT SIDEBAR — BOOKING */
+.booking-card{background:var(--white);border-radius:var(--r);padding:24px;border:1.5px solid var(--border);position:sticky;top:80px}
+.booking-price{font-family:var(--font-h);font-size:22px;font-weight:900;margin-bottom:4px}
+.booking-price-note{font-size:12px;color:var(--gray);margin-bottom:18px}
+.bk-lbl{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gray);margin-bottom:8px;margin-top:16px}
+.bk-sel,.bk-inp{width:100%;height:46px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);font-family:var(--font-b);font-size:13px;padding:0 14px;outline:none;appearance:none;transition:border-color var(--trans)}
+.bk-sel:focus,.bk-inp:focus{border-color:var(--dark)}
+.bk-sel{background-image:url("data:image/svg+xml,%3Csvg width='10' height='7' viewBox='0 0 10 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.guests-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.counter-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--bg);border-radius:12px;border:1.5px solid var(--border)}
+.counter-lbl{font-size:13px}
+.counter-lbl span{display:block;font-size:10px;color:var(--gray)}
+.counter-btns{display:flex;align-items:center;gap:8px}
+.cnt-btn{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border);background:transparent;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all var(--trans)}
+.cnt-btn:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
+.cnt-val{font-size:14px;font-weight:700;min-width:20px;text-align:center}
+.bk-total{background:var(--bg);border-radius:14px;padding:16px;margin-top:16px}
+.bk-total-row{display:flex;align-items:center;justify-content:space-between;font-size:13px;margin-bottom:8px;color:var(--gray)}
+.bk-total-row:last-child{margin-bottom:0;font-weight:700;color:var(--dark);font-size:15px;border-top:1px solid var(--border);padding-top:10px;margin-top:10px}
+.bk-btn{width:100%;height:50px;border-radius:14px;border:none;background:var(--lime);color:var(--dark);font-family:var(--font-b);font-size:15px;font-weight:700;margin-top:14px;transition:opacity var(--trans)}
+.bk-btn:hover{opacity:.88}
+.bk-note{font-size:11px;color:var(--gray);text-align:center;margin-top:10px;line-height:1.5}
+.bk-contacts{background:var(--dark);color:#fff;border-radius:14px;padding:16px;margin-top:12px;font-size:13px}
+.bk-contacts a{color:var(--lime);text-decoration:none}
+.bk-contacts a:hover{text-decoration:underline}
+.bk-contacts p{margin-bottom:6px}
+.bk-contacts p:last-child{margin-bottom:0}
+
+/* FOOTER */
+.site-footer{background:var(--dark);color:#fff;margin-top:64px;padding:40px 0 24px}
+.fi{max-width:1320px;margin:0 auto;padding:0 32px}
+.fg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;margin-bottom:32px}
+.fb-about{font-size:13px;color:rgba(255,255,255,.38);margin-top:12px;line-height:1.65;max-width:210px}
+.f-contact{font-size:13px;color:rgba(255,255,255,.5);margin-top:8px;display:flex;align-items:center;gap:6px}
+.f-contact a{color:var(--lime)}
+.f-soc{display:flex;gap:8px;margin-top:14px}
+.fsoc{width:34px;height:34px;border-radius:9px;border:1.5px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:12px;text-decoration:none;color:#fff;transition:background var(--trans)}
+.fsoc:hover{background:rgba(255,255,255,.1)}
+.fc h4{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px}
+.fc ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.fc ul li a{font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;transition:color var(--trans)}
+.fc ul li a:hover{color:#fff}
+.fbot{padding-top:20px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.25)}
+.fbot a{color:rgba(255,255,255,.32);text-decoration:none}
+.flegal{display:flex;gap:14px}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="h-inner">
+    <a href="index.html" class="logo"><div class="logo-mark">🎉</div><div><div class="logo-text">ПРАЗДНИК.BY</div><div class="logo-sub">Беларусь отмечает</div></div></a>
+    <nav>
+      <a href="afisha.html" class="na">Афиша</a>
+      <a href="venues.html" class="na on">Площадки</a>
+      <a href="#" class="na">Подрядчики</a>
+      <a href="#" class="na">Блог</a>
+      <a href="#" class="na">О нас</a>
+    </nav>
+    <div class="h-right">
+      <button class="btn-ico">♡</button>
+      <button class="btn-login">Войти</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="breadcrumb">
+    <a href="index.html">Главная</a><span class="breadcrumb-sep">›</span>
+    <a href="venues.html">Площадки</a><span class="breadcrumb-sep">›</span>
+    <a href="venues.html">Усадьбы</a><span class="breadcrumb-sep">›</span>
+    <strong>Усадьба «Лесная сказка»</strong>
+  </div>
+
+  <!-- GALLERY -->
+  <div class="gallery">
+    <div class="gal-main">🌲</div>
+    <div class="gal-sm" style="background:linear-gradient(135deg,#a5d6a7,#388e3c)">🏡</div>
+    <div class="gal-sm" style="background:linear-gradient(135deg,#e8f5e9,#66bb6a);position:relative">
+      🛁
+      <div class="gal-more">+14 фото</div>
+    </div>
+  </div>
+
+  <div class="venue-layout">
+    <!-- MAIN CONTENT -->
+    <div class="venue-main">
+      <div class="venue-header">
+        <div class="venue-cats">
+          <span class="v-cat">Усадьба</span>
+          <span class="v-cat">Природа</span>
+          <span class="v-cat">Загород</span>
+          <span class="v-cat">Беседки</span>
+          <span class="v-cat">Баня</span>
+        </div>
+        <h1 class="venue-name">Усадьба «Лесная сказка»</h1>
+        <div class="venue-meta">
+          <div class="venue-rating-big">⭐ 4.9 <span>(74 отзыва)</span></div>
+          <span>📍 25 км от Минска · Дзержинский р-н</span>
+          <span>✅ Работает с 2018 года</span>
+        </div>
+        <div class="venue-actions">
+          <button class="btn-share">↗ Поделиться</button>
+          <button class="btn-fav" id="favBtn">♡ В избранное</button>
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats-row">
+        <div class="stat-c"><div class="stat-n">150</div><div class="stat-l">Гостей банкет</div></div>
+        <div class="stat-c"><div class="stat-n">220</div><div class="stat-l">Гостей фуршет</div></div>
+        <div class="stat-c"><div class="stat-n">12</div><div class="stat-l">Спальных мест</div></div>
+        <div class="stat-c"><div class="stat-n">7 Га</div><div class="stat-l">Территория</div></div>
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="sec-block">
+        <div class="sec-block-t">Об усадьбе</div>
+        <div class="venue-desc">
+          <p>Усадьба «Лесная сказка» — это живописный загородный комплекс в сосновом лесу в 25 километрах от Минска. Идеальное место для проведения свадеб, юбилеев, корпоративных мероприятий и семейных праздников.</p>
+          <p>На территории 7 гектаров расположены банкетный зал, несколько уютных беседок, финская баня с купелью, зона для мангала и пруд с беседкой на воде. Собственная кухня готовит блюда белорусской и европейской кухни.</p>
+          <p>Для гостей, желающих остаться с ночёвкой, доступны 6 номеров на 12 спальных мест с современным ремонтом и всеми удобствами.</p>
+        </div>
+      </div>
+
+      <!-- FEATURES -->
+      <div class="sec-block">
+        <div class="sec-block-t">Удобства и сервисы</div>
+        <div class="features-grid">
+          <div class="feat-item"><span class="feat-ico">🛁</span><span class="feat-label">Финская баня с купелью</span></div>
+          <div class="feat-item"><span class="feat-ico">🌿</span><span class="feat-label">4 беседки на открытом воздухе</span></div>
+          <div class="feat-item"><span class="feat-ico">🅿️</span><span class="feat-label">Бесплатная парковка на 80 машин</span></div>
+          <div class="feat-item"><span class="feat-ico">🍽️</span><span class="feat-label">Собственная кухня и кейтеринг</span></div>
+          <div class="feat-item"><span class="feat-ico">🔥</span><span class="feat-label">Зона для мангала и костра</span></div>
+          <div class="feat-item"><span class="feat-ico">🛏️</span><span class="feat-label">Ночёвка: 6 номеров (12 мест)</span></div>
+          <div class="feat-item"><span class="feat-ico">🎵</span><span class="feat-label">Профессиональная звуковая система</span></div>
+          <div class="feat-item"><span class="feat-ico">💡</span><span class="feat-label">Профессиональное освещение сцены</span></div>
+          <div class="feat-item"><span class="feat-ico">♿</span><span class="feat-label">Доступная среда</span></div>
+          <div class="feat-item"><span class="feat-ico">🐾</span><span class="feat-label">Разрешены домашние животные</span></div>
+          <div class="feat-item"><span class="feat-ico">🌡️</span><span class="feat-label">Кондиционирование и отопление</span></div>
+          <div class="feat-item"><span class="feat-ico">📶</span><span class="feat-label">Wi-Fi по всей территории</span></div>
+        </div>
+      </div>
+
+      <!-- HALLS -->
+      <div class="sec-block">
+        <div class="sec-block-t">Залы и пространства</div>
+        <div class="halls">
+          <div class="hall-c active">
+            <div class="hall-ico">🏛️</div>
+            <div class="hall-info">
+              <div class="hall-name">Главный банкетный зал</div>
+              <div class="hall-caps">
+                <span class="hall-cap">👥 Банкет: до 150 чел</span>
+                <span class="hall-cap">🍽️ Фуршет: до 220 чел</span>
+                <span class="hall-cap">📐 350 м²</span>
+              </div>
+            </div>
+            <div class="hall-price">от 1 500 BYN<span>за сутки</span></div>
+          </div>
+          <div class="hall-c">
+            <div class="hall-ico">🌿</div>
+            <div class="hall-info">
+              <div class="hall-name">Летняя веранда с видом на пруд</div>
+              <div class="hall-caps">
+                <span class="hall-cap">👥 Банкет: до 60 чел</span>
+                <span class="hall-cap">☀️ Сезонная (май–октябрь)</span>
+              </div>
+            </div>
+            <div class="hall-price">от 600 BYN<span>за сутки</span></div>
+          </div>
+          <div class="hall-c">
+            <div class="hall-ico">🎭</div>
+            <div class="hall-info">
+              <div class="hall-name">Малый зал «Лесной кабинет»</div>
+              <div class="hall-caps">
+                <span class="hall-cap">👥 Банкет: до 30 чел</span>
+                <span class="hall-cap">👔 Переговоры / ДР</span>
+              </div>
+            </div>
+            <div class="hall-price">от 350 BYN<span>за сутки</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PACKAGES -->
+      <div class="sec-block">
+        <div class="sec-block-t">Пакеты «всё включено»</div>
+        <div class="packages">
+          <div class="pkg">
+            <div class="pkg-name">Базовый</div>
+            <div class="pkg-price">1 500 <span>BYN/сут</span></div>
+            <ul class="pkg-feats">
+              <li>✓ Аренда главного зала</li>
+              <li>✓ Парковка</li>
+              <li>✓ Базовое освещение</li>
+              <li>✓ Музыкальная система</li>
+              <li>— Кейтеринг (доп.)</li>
+            </ul>
+          </div>
+          <div class="pkg active">
+            <div class="pkg-name">Свадебный ✨</div>
+            <div class="pkg-price">3 800 <span>BYN/сут</span></div>
+            <ul class="pkg-feats">
+              <li>✓ Зал + веранда</li>
+              <li>✓ Кейтеринг (меню)</li>
+              <li>✓ Баня для молодожёнов</li>
+              <li>✓ Декор и фотозона</li>
+              <li>✓ Ночёвка: 2 номера</li>
+            </ul>
+          </div>
+          <div class="pkg">
+            <div class="pkg-name">VIP</div>
+            <div class="pkg-price">6 500 <span>BYN/сут</span></div>
+            <ul class="pkg-feats">
+              <li>✓ Вся территория</li>
+              <li>✓ Полный кейтеринг</li>
+              <li>✓ Все 6 номеров</li>
+              <li>✓ Персональный менеджер</li>
+              <li>✓ Трансфер из Минска</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTRACTORS SUGGESTION -->
+      <div class="sec-block">
+        <div class="sec-block-t">Проверенные подрядчики для этой площадки</div>
+        <div class="contr-suggest">
+          <a href="#" class="cs-c"><div class="cs-ico">📸</div><div><div class="cs-name">Фотографы</div><div class="cs-cnt">12 работают с этой усадьбой</div></div></a>
+          <a href="#" class="cs-c"><div class="cs-ico">🎬</div><div><div class="cs-name">Видеографы</div><div class="cs-cnt">8 работают с этой усадьбой</div></div></a>
+          <a href="#" class="cs-c"><div class="cs-ico">💐</div><div><div class="cs-name">Декораторы</div><div class="cs-cnt">15 оформляли эту усадьбу</div></div></a>
+          <a href="#" class="cs-c"><div class="cs-ico">🎙️</div><div><div class="cs-name">Ведущие и DJ</div><div class="cs-cnt">19 выступали здесь</div></div></a>
+        </div>
+      </div>
+
+      <!-- REVIEWS -->
+      <div class="sec-block">
+        <div class="sec-block-t" style="display:flex;align-items:center;justify-content:space-between">
+          <span>Отзывы <span style="color:var(--gray);font-weight:400;font-size:12px">(74)</span></span>
+          <span style="font-size:13px;color:var(--gray)">⭐ 4.9 в среднем</span>
+        </div>
+        <div class="reviews-list">
+          <div class="rev-c">
+            <div class="rev-h"><div class="rev-av" style="background:var(--lime);color:var(--dark)">👩</div><div><div class="rev-name">Анна и Дмитрий Ковалёвы</div><div class="rev-date">14 сентября 2024 · Свадьба</div></div></div>
+            <div class="rev-stars">★★★★★</div>
+            <div class="rev-txt">Провели здесь свадьбу на 120 гостей. Атмосфера волшебная — сосновый лес, пруд, беседки. Персонал был очень внимательным, кухня порадовала всех гостей. Баня для молодожёнов после торжества — отдельный кайф! Уже рекомендуем всем друзьям.</div>
+          </div>
+          <div class="rev-c">
+            <div class="rev-h"><div class="rev-av" style="background:var(--peach);color:var(--dark)">👨</div><div><div class="rev-name">Игорь Семёнов</div><div class="rev-date">3 июля 2024 · Корпоратив</div></div></div>
+            <div class="rev-stars">★★★★★</div>
+            <div class="rev-txt">Организовывал корпоратив компании на 80 человек. Площадка отличная — большой зал, территория для активностей, парковка на всех машин хватило. Менеджер Светлана помогла с организацией — всё прошло как по маслу.</div>
+          </div>
+          <div class="rev-c">
+            <div class="rev-h"><div class="rev-av" style="background:var(--sky);color:var(--dark)">👩</div><div><div class="rev-name">Ольга Павлова</div><div class="rev-date">12 мая 2024 · Юбилей</div></div></div>
+            <div class="rev-stars">★★★★☆</div>
+            <div class="rev-txt">Праздновали юбилей мамы на 60 лет. Всё очень понравилось: природа, атмосфера, еда. Единственное — дорога к усадьбе последние 3 км грунтовая, это немного неудобно. В остальном — рекомендую на все 10!</div>
+          </div>
+        </div>
+        <button style="width:100%;height:42px;border-radius:12px;border:1.5px solid var(--border);background:transparent;font-family:var(--font-b);font-size:13px;font-weight:500;margin-top:14px;cursor:pointer;transition:background var(--trans)" onmouseover="this.style.background='rgba(0,0,0,.04)'" onmouseout="this.style.background='transparent'">Показать все 74 отзыва</button>
+      </div>
+    </div>
+
+    <!-- BOOKING SIDEBAR -->
+    <div>
+      <div class="booking-card">
+        <div class="booking-price">от 1 500 BYN</div>
+        <div class="booking-price-note">за сутки · свободные даты уточняйте</div>
+
+        <div class="bk-lbl">Тип мероприятия</div>
+        <select class="bk-sel">
+          <option>💍 Свадьба</option>
+          <option>🎂 День рождения</option>
+          <option>🏢 Корпоратив</option>
+          <option>🎓 Выпускной</option>
+          <option>🧸 Детский праздник</option>
+        </select>
+
+        <div class="bk-lbl">Дата мероприятия</div>
+        <input type="date" class="bk-inp" value="2025-06-15">
+
+        <div class="bk-lbl">Зал</div>
+        <select class="bk-sel">
+          <option>🏛️ Главный банкетный зал</option>
+          <option>🌿 Летняя веранда</option>
+          <option>🎭 Малый зал</option>
+        </select>
+
+        <div class="bk-lbl">Количество гостей</div>
+        <div class="guests-row">
+          <div class="counter-row">
+            <div class="counter-lbl">Взрослые<span>от 13 лет</span></div>
+            <div class="counter-btns">
+              <button class="cnt-btn" onclick="changeCount('a',-1)">−</button>
+              <span class="cnt-val" id="adultCnt">80</span>
+              <button class="cnt-btn" onclick="changeCount('a',1)">+</button>
+            </div>
+          </div>
+          <div class="counter-row">
+            <div class="counter-lbl">Дети<span>до 12 лет</span></div>
+            <div class="counter-btns">
+              <button class="cnt-btn" onclick="changeCount('c',-1)">−</button>
+              <span class="cnt-val" id="childCnt">10</span>
+              <button class="cnt-btn" onclick="changeCount('c',1)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bk-total">
+          <div class="bk-total-row"><span>Аренда зала (1 сутки)</span><span>1 500 BYN</span></div>
+          <div class="bk-total-row"><span>Кейтеринг (90 чел × 50 BYN)</span><span>4 500 BYN</span></div>
+          <div class="bk-total-row"><span>Баня (опция)</span><span>200 BYN</span></div>
+          <div class="bk-total-row"><span style="font-size:15px">Итого</span><span>6 200 BYN</span></div>
+        </div>
+
+        <button class="bk-btn">Оставить заявку →</button>
+        <div class="bk-note">Бронирование без предоплаты. Менеджер свяжется в течение 2 часов.</div>
+
+        <div class="bk-contacts">
+          <p>✉️ Написать: <a href="mailto:hello@prazdnik.by">hello@prazdnik.by</a></p>
+          <p>✈️ Телеграм-бот: <a href="#">@prazdnikby_bot</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIMILAR VENUES -->
+  <div style="margin-top:48px;margin-bottom:16px;font-family:var(--font-h);font-size:20px;font-weight:700">Похожие усадьбы</div>
+  <div class="similar-grid" style="margin-bottom:0">
+    <a href="venue.html" class="sv-card">
+      <div class="sv-thumb" style="background:linear-gradient(135deg,#fff9c4,#f9a825)">🌾</div>
+      <div class="sv-body">
+        <div class="sv-title">Усадьба «Зелёные холмы»</div>
+        <div class="sv-loc">📍 42 км от Минска</div>
+        <div class="sv-foot"><div class="sv-rating">⭐ 4.8</div><div class="sv-price">от 2 000 BYN/сут</div></div>
+      </div>
+    </a>
+    <a href="venue.html" class="sv-card">
+      <div class="sv-thumb" style="background:linear-gradient(135deg,#e1d5ff,#9c7cff)">🏰</div>
+      <div class="sv-body">
+        <div class="sv-title">Комплекс «Замок у озера»</div>
+        <div class="sv-loc">📍 38 км от Минска</div>
+        <div class="sv-foot"><div class="sv-rating">⭐ 4.9</div><div class="sv-price">от 3 500 BYN/сут</div></div>
+      </div>
+    </a>
+    <a href="venue.html" class="sv-card">
+      <div class="sv-thumb" style="background:linear-gradient(135deg,#f8bbd0,#e91e63)">🌸</div>
+      <div class="sv-body">
+        <div class="sv-title">Усадьба «Цветущий сад»</div>
+        <div class="sv-loc">📍 29 км от Минска</div>
+        <div class="sv-foot"><div class="sv-rating">⭐ 4.9</div><div class="sv-price">от 2 200 BYN/сут</div></div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="fi">
+    <div class="fg">
+      <div><a href="index.html" class="logo"><div class="logo-mark">🎉</div><div><div class="logo-text" style="color:#fff">ПРАЗДНИК.BY</div><div class="logo-sub">Беларусь отмечает</div></div></a><p class="fb-about">Главный портал событий, площадок и подрядчиков для праздников по всей Беларуси.</p><p class="f-contact">✉️ <a href="mailto:hello@prazdnik.by">hello@prazdnik.by</a></p><p class="f-contact">✈️ <a href="#">@prazdnikby_bot</a></p><div class="f-soc"><a href="#" class="fsoc">VK</a><a href="#" class="fsoc">TG</a><a href="#" class="fsoc">IG</a></div></div>
+      <div class="fc"><h4>Площадки</h4><ul><li><a href="#">Рестораны и кафе</a></li><li><a href="#">Загородные усадьбы</a></li><li><a href="#">Банкетные залы</a></li><li><a href="#">Лофты</a></li></ul></div>
+      <div class="fc"><h4>Подрядчики</h4><ul><li><a href="#">Фотографы</a></li><li><a href="#">Видеографы</a></li><li><a href="#">Декораторы</a></li><li><a href="#">Ведущие и DJ</a></li></ul></div>
+      <div class="fc"><h4>О нас</h4><ul><li><a href="#">О проекте</a></li><li><a href="#">Партнёрам</a></li><li><a href="mailto:hello@prazdnik.by">Написать нам</a></li></ul></div>
+    </div>
+    <div class="fbot"><span>© 2025 ПРАЗДНИК.BY</span><div class="flegal"><a href="#">Конфиденциальность</a><a href="#">Правила</a></div></div>
+  </div>
+</footer>
+
+<script>
+const aCnt=document.getElementById('adultCnt');const cCnt=document.getElementById('childCnt');
+function changeCount(t,d){if(t==='a'){let v=parseInt(aCnt.textContent)+d;aCnt.textContent=Math.max(1,v)}else{let v=parseInt(cCnt.textContent)+d;cCnt.textContent=Math.max(0,v)}}
+document.getElementById('favBtn').addEventListener('click',function(){this.classList.toggle('active');this.textContent=this.classList.contains('active')?'♥ В избранном':'♡ В избранное'});
+document.querySelectorAll('.pkg').forEach(p=>p.addEventListener('click',()=>{document.querySelectorAll('.pkg').forEach(x=>x.classList.remove('active'));p.classList.add('active')}));
+document.querySelectorAll('.hall-c').forEach(h=>h.addEventListener('click',()=>{document.querySelectorAll('.hall-c').forEach(x=>x.classList.remove('active'));h.classList.add('active')}));
+</script>
+</body>
+</html>

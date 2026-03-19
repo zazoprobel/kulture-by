@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ПРАЗДНИК.BY — Беларусь отмечает</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Onest:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --lime:#D2F882; --yellow:#FFF57D; --lavender:#E7D4FF; --peach:#FFBD7B;
+  --mint:#E2F8D0; --sky:#D1E4F8; --cream:#FFF5E4; --bg:#F7F6F2;
+  --white:#FFFFFF; --dark:#181818; --gray:#888; --lgray:#C8C8C8;
+  --border:rgba(0,0,0,.08); --r:20px; --trans:.2s cubic-bezier(.4,0,.2,1);
+  --font-h:'Unbounded',sans-serif; --font-b:'Onest',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--bg);color:var(--dark);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font-b);cursor:pointer}
+
+/* HEADER */
+.site-header{position:sticky;top:0;z-index:200;background:rgba(247,246,242,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.h-inner{max-width:1320px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;gap:36px}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{width:38px;height:38px;background:var(--dark);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.logo-text{font-family:var(--font-h);font-weight:800;font-size:14px;line-height:1.1}
+.logo-sub{font-size:9px;font-weight:400;color:var(--gray);letter-spacing:.05em;display:block;margin-top:1px}
+nav{display:flex;align-items:center;gap:2px;flex:1}
+.na{font-size:13.5px;font-weight:500;padding:7px 13px;border-radius:99px;transition:background var(--trans)}
+.na:hover{background:rgba(0,0,0,.06)}
+.na.on{background:var(--dark);color:#fff}
+.h-right{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.btn-ico{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:transparent;display:flex;align-items:center;justify-content:center;font-size:15px;transition:background var(--trans)}
+.btn-ico:hover{background:rgba(0,0,0,.06)}
+.btn-login{height:36px;padding:0 16px;border-radius:99px;border:1.5px solid var(--border);background:transparent;font-size:13px;font-weight:500;transition:background var(--trans)}
+.btn-login:hover{background:rgba(0,0,0,.06)}
+
+/* SEARCH */
+.gsearch{background:var(--dark);padding:18px 32px}
+.gs-inner{max-width:1320px;margin:0 auto;display:flex;gap:10px;align-items:center}
+.gs-wrap{flex:1;position:relative}
+.gs-wrap svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.4)}
+.gs-inp{width:100%;height:50px;border-radius:13px;border:none;background:rgba(255,255,255,.1);color:#fff;font-family:var(--font-b);font-size:14px;padding:0 18px 0 44px;outline:none;transition:background var(--trans)}
+.gs-inp::placeholder{color:rgba(255,255,255,.38)}
+.gs-inp:focus{background:rgba(255,255,255,.15)}
+.gs-sel{height:50px;padding:0 36px 0 14px;border-radius:13px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:#fff;font-family:var(--font-b);font-size:13px;appearance:none;cursor:pointer;outline:none;transition:border-color var(--trans);min-width:140px;background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.gs-sel option{background:#222}
+.gs-btn{height:50px;padding:0 26px;border-radius:13px;border:none;background:var(--lime);color:var(--dark);font-family:var(--font-b);font-size:14px;font-weight:700;transition:opacity var(--trans);white-space:nowrap}
+.gs-btn:hover{opacity:.88}
+
+/* CATS */
+.cat-row{max-width:1320px;margin:0 auto;padding:22px 32px 0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.cat-row::-webkit-scrollbar{display:none}
+.cat-b{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 16px;border-radius:14px;border:1.5px solid transparent;background:transparent;cursor:pointer;white-space:nowrap;transition:all var(--trans);min-width:72px}
+.cat-b:hover{background:rgba(0,0,0,.04)}
+.cat-b.on{background:var(--dark);color:#fff}
+.cat-ic{font-size:20px}
+.cat-lb{font-size:11px;font-weight:500;text-align:center;line-height:1.2}
+
+/* HERO */
+.hero{max-width:1320px;margin:24px auto 0;padding:0 32px;display:grid;grid-template-columns:1.1fr 1fr;gap:16px}
+.hero-main{background:var(--lime);border-radius:var(--r);padding:44px 44px 0;overflow:hidden;min-height:400px;display:flex;flex-direction:column;position:relative}
+.hero-label{display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,.08);border-radius:99px;padding:5px 14px 5px 5px;font-size:12px;font-weight:600;margin-bottom:18px;width:fit-content}
+.hero-label-dot{width:22px;height:22px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff}
+.hero-h{font-family:var(--font-h);font-size:34px;font-weight:900;line-height:1.08;margin-bottom:16px}
+.hero-p{font-size:15px;color:rgba(0,0,0,.58);line-height:1.55;margin-bottom:28px;max-width:360px}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;background:var(--dark);color:#fff;font-size:14px;font-weight:700;padding:14px 28px;border-radius:99px;border:none;cursor:pointer;transition:opacity var(--trans);width:fit-content}
+.hero-cta:hover{opacity:.82}
+.hero-img-row{margin-top:auto;display:flex;gap:12px;padding-bottom:0}
+.hero-photo{flex:1;height:160px;border-radius:14px 14px 0 0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:48px}
+
+.hero-right{display:flex;flex-direction:column;gap:16px}
+.hero-stat-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stat-box{border-radius:var(--r);padding:28px 24px;display:flex;flex-direction:column;gap:6px}
+.stat-n{font-family:var(--font-h);font-size:30px;font-weight:900;line-height:1}
+.stat-l{font-size:12px;color:rgba(0,0,0,.5);line-height:1.3}
+.hero-banner{border-radius:var(--r);padding:24px 28px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:opacity var(--trans)}
+.hero-banner:hover{opacity:.88}
+.banner-icon{font-size:32px;flex-shrink:0}
+.banner-t{font-family:var(--font-h);font-size:14px;font-weight:700;margin-bottom:3px;line-height:1.2}
+.banner-s{font-size:12px;opacity:.55}
+.banner-arr{margin-left:auto;font-size:18px;opacity:.4;flex-shrink:0}
+
+/* FILTERS */
+.filters-wrap{max-width:1320px;margin:40px auto 0;padding:0 32px}
+.f-card{background:var(--dark);border-radius:var(--r);padding:28px 32px;color:#fff}
+.f-title{font-family:var(--font-h);font-size:17px;font-weight:700;margin-bottom:20px}
+.f-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:10px;align-items:end}
+.f-g{display:flex;flex-direction:column;gap:6px}
+.f-lbl{font-size:11px;font-weight:600;color:rgba(255,255,255,.45);letter-spacing:.05em;text-transform:uppercase}
+.f-sel,.f-inp{height:46px;border-radius:12px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.07);color:#fff;font-family:var(--font-b);font-size:13px;padding:0 14px;outline:none;appearance:none;transition:border-color var(--trans)}
+.f-sel option{background:#222}
+.f-sel:focus,.f-inp:focus{border-color:var(--lime)}
+.f-inp::placeholder{color:rgba(255,255,255,.3)}
+.f-btn{height:46px;padding:0 24px;border-radius:12px;border:none;background:var(--lime);color:var(--dark);font-family:var(--font-b);font-size:13px;font-weight:700;transition:opacity var(--trans);white-space:nowrap}
+.f-btn:hover{opacity:.88}
+.f-chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
+.f-chip{height:32px;padding:0 13px;border-radius:99px;border:1.5px solid rgba(255,255,255,.12);background:transparent;color:rgba(255,255,255,.6);font-family:var(--font-b);font-size:12px;cursor:pointer;transition:all var(--trans)}
+.f-chip:hover,.f-chip.on{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.3)}
+
+/* SECTION */
+.sec{max-width:1320px;margin:52px auto 0;padding:0 32px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px}
+.sec-t{font-family:var(--font-h);font-size:21px;font-weight:700}
+.sec-a{font-size:13px;color:var(--gray);display:flex;align-items:center;gap:4px;transition:color var(--trans)}
+.sec-a:hover{color:var(--dark)}
+
+/* AFISHA ROW */
+.afisha-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.af-card{border-radius:var(--r);overflow:hidden;cursor:pointer;transition:transform var(--trans),box-shadow var(--trans);background:var(--white);border:1.5px solid var(--border);display:block;text-decoration:none;color:inherit}
+.af-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,.11)}
+.af-thumb{width:100%;height:170px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:44px}
+.af-thumb-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .4s ease}
+.af-card:hover .af-thumb-bg{transform:scale(1.07)}
+.af-date{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.92);border-radius:10px;padding:5px 10px;font-family:var(--font-h);font-size:11px;font-weight:700;line-height:1.1;text-align:center}
+.af-date span{display:block;font-family:var(--font-b);font-size:11px;font-weight:500;color:var(--gray)}
+.af-badge{position:absolute;bottom:10px;left:10px;border-radius:99px;padding:4px 10px;font-size:11px;font-weight:700}
+.af-fav{position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.88);border:none;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;transition:background var(--trans)}
+.af-fav:hover{background:#fff}
+.af-body{padding:14px}
+.af-cat{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.af-title{font-family:var(--font-h);font-size:13px;font-weight:700;line-height:1.3;margin-bottom:5px}
+.af-loc{font-size:12px;color:var(--gray);margin-bottom:8px}
+.af-foot{display:flex;align-items:center;justify-content:space-between}
+.af-price{font-size:12px;font-weight:700}
+.af-rating{font-size:12px;font-weight:600;display:flex;align-items:center;gap:3px}
+.af-rating span{font-weight:400;color:var(--gray)}
+
+/* VENUES SLIDER */
+.slider-outer{overflow:hidden}
+.slider-tr{display:flex;gap:16px;transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.slide-item{min-width:calc(25% - 12px);flex-shrink:0}
+.slider-ctrl{display:flex;align-items:center;gap:12px;margin-top:18px;justify-content:center}
+.s-btn{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:15px;transition:all var(--trans)}
+.s-btn:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
+.s-page{font-size:13px;color:var(--gray);font-weight:500;min-width:36px;text-align:center}
+
+/* VENUE CARD */
+.v-card{background:var(--white);border-radius:var(--r);overflow:hidden;cursor:pointer;border:1.5px solid var(--border);transition:transform var(--trans),box-shadow var(--trans);display:block;text-decoration:none;color:inherit}
+.v-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,.11)}
+.v-thumb{width:100%;height:180px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:52px}
+.v-thumb-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .4s ease}
+.v-card:hover .v-thumb-bg{transform:scale(1.07)}
+.v-body{padding:16px}
+.v-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
+.vtag{font-size:11px;background:rgba(0,0,0,.06);border-radius:6px;padding:3px 8px;color:var(--gray)}
+.v-title{font-family:var(--font-h);font-size:13px;font-weight:700;line-height:1.3;margin-bottom:4px}
+.v-loc{font-size:12px;color:var(--gray);margin-bottom:10px}
+.v-foot{display:flex;align-items:center;justify-content:space-between}
+.v-rating{font-size:12px;font-weight:600;display:flex;align-items:center;gap:3px}
+.v-rating span{font-weight:400;color:var(--gray)}
+.v-cap{font-size:12px;color:var(--gray)}
+.v-price{font-size:12px;font-weight:700}
+
+/* OCCASIONS */
+.occ-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.occ-c{border-radius:var(--r);padding:24px 16px;display:flex;flex-direction:column;align-items:center;gap:9px;cursor:pointer;transition:transform var(--trans),box-shadow var(--trans);text-align:center}
+.occ-c:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.09)}
+.occ-ico{font-size:34px}
+.occ-t{font-family:var(--font-h);font-size:12px;font-weight:700;line-height:1.2}
+.occ-n{font-size:11px;color:rgba(0,0,0,.42)}
+
+/* CONTRACTORS */
+.contr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.contr-c{border-radius:var(--r);padding:28px 24px;cursor:pointer;transition:transform var(--trans),box-shadow var(--trans);display:block;text-decoration:none;color:inherit}
+.contr-c:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.1)}
+.contr-ico{font-size:36px;margin-bottom:14px}
+.contr-t{font-family:var(--font-h);font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.2}
+.contr-d{font-size:12px;color:rgba(0,0,0,.5);line-height:1.4;margin-bottom:14px}
+.contr-cnt{font-size:12px;font-weight:700;color:rgba(0,0,0,.45)}
+
+/* BENTO */
+.bento{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.bento-w{grid-column:span 2}
+.bento-t{grid-row:span 2}
+.bento-c{border-radius:var(--r);overflow:hidden;cursor:pointer;position:relative;min-height:190px;transition:transform var(--trans),box-shadow var(--trans)}
+.bento-c:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.12)}
+.bento-in{padding:26px;display:flex;flex-direction:column;height:100%}
+.bento-em{font-size:36px;margin-bottom:10px}
+.bento-t2{font-family:var(--font-h);font-size:16px;font-weight:700;line-height:1.2;margin-bottom:6px}
+.bento-s{font-size:12px;opacity:.55;line-height:1.4;flex:1}
+.bento-a{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;opacity:.65;margin-top:16px;text-decoration:none;color:inherit;transition:opacity var(--trans)}
+.bento-a:hover{opacity:1}
+
+/* REGIONS */
+.reg-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.reg-c{border-radius:16px;padding:18px 10px;text-align:center;cursor:pointer;transition:transform var(--trans)}
+.reg-c:hover{transform:translateY(-3px)}
+.reg-ico{font-size:26px;margin-bottom:7px}
+.reg-n{font-size:12px;font-weight:700;line-height:1.2}
+.reg-cnt{font-size:10px;color:rgba(0,0,0,.4);margin-top:2px}
+
+/* MAP PROMO */
+.map-promo{background:var(--lavender);border-radius:var(--r);padding:40px 48px;display:flex;align-items:center;gap:48px;overflow:hidden}
+.map-t{font-family:var(--font-h);font-size:24px;font-weight:800;margin-bottom:10px;line-height:1.2}
+.map-s{font-size:14px;color:rgba(0,0,0,.5);line-height:1.55;margin-bottom:22px;max-width:380px}
+.map-btn{display:inline-flex;align-items:center;gap:8px;background:var(--dark);color:#fff;font-family:var(--font-b);font-size:14px;font-weight:600;padding:13px 24px;border-radius:99px;border:none;cursor:pointer;transition:opacity var(--trans)}
+.map-btn:hover{opacity:.82}
+.map-vis{width:340px;height:190px;flex-shrink:0;border-radius:16px;background:rgba(255,255,255,.45);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:72px}
+.mpin{position:absolute;font-size:24px;animation:bounce 2s ease-in-out infinite}
+.mpin:nth-child(1){top:28%;left:38%;animation-delay:0s}
+.mpin:nth-child(2){top:52%;left:60%;animation-delay:.5s}
+.mpin:nth-child(3){top:18%;left:68%;animation-delay:1s}
+.mpin:nth-child(4){top:68%;left:22%;animation-delay:1.5s}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* HOW */
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.how-c{background:var(--cream);border-radius:var(--r);padding:28px 24px}
+.how-num{font-family:var(--font-h);font-size:44px;font-weight:900;color:rgba(0,0,0,.06);line-height:1;margin-bottom:12px}
+.how-ico{font-size:28px;margin-bottom:10px}
+.how-t{font-family:var(--font-h);font-size:13px;font-weight:700;margin-bottom:7px;line-height:1.3}
+.how-d{font-size:12px;color:rgba(0,0,0,.48);line-height:1.5}
+
+/* REVIEWS */
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.rev-c{background:var(--dark);border-radius:var(--r);padding:24px;color:#fff}
+.rev-h{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.rev-av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.rev-name{font-weight:600;font-size:14px}
+.rev-date{font-size:11px;color:rgba(255,255,255,.38);margin-top:2px}
+.rev-stars{color:var(--yellow);font-size:12px;margin-bottom:9px}
+.rev-txt{font-size:13px;color:rgba(255,255,255,.72);line-height:1.6}
+.rev-venue{margin-top:12px;font-size:11px;color:rgba(255,255,255,.38);display:flex;align-items:center;gap:4px}
+
+/* NEWSLETTER */
+.nl-card{background:var(--mint);border-radius:var(--r);padding:40px 48px;display:flex;align-items:center;gap:40px}
+.nl-t{font-family:var(--font-h);font-size:22px;font-weight:800;margin-bottom:6px;line-height:1.2}
+.nl-s{font-size:14px;color:rgba(0,0,0,.48)}
+.nl-form{display:flex;gap:10px;flex-shrink:0}
+.nl-inp{height:48px;width:260px;border-radius:12px;border:1.5px solid rgba(0,0,0,.1);background:rgba(255,255,255,.6);font-family:var(--font-b);font-size:13px;padding:0 16px;outline:none;transition:border-color var(--trans)}
+.nl-inp:focus{border-color:rgba(0,0,0,.3)}
+.nl-inp::placeholder{color:rgba(0,0,0,.35)}
+.nl-btn{height:48px;padding:0 22px;border-radius:12px;border:none;background:var(--dark);color:#fff;font-family:var(--font-b);font-size:13px;font-weight:700;cursor:pointer;transition:opacity var(--trans)}
+.nl-btn:hover{opacity:.82}
+
+/* FOOTER */
+.site-footer{background:var(--dark);color:#fff;margin-top:64px;padding:48px 0 28px}
+.fi{max-width:1320px;margin:0 auto;padding:0 32px}
+.fg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;margin-bottom:38px}
+.fb-about{font-size:13px;color:rgba(255,255,255,.38);margin-top:12px;line-height:1.65;max-width:210px}
+.f-contact{font-size:13px;color:rgba(255,255,255,.5);margin-top:10px;display:flex;align-items:center;gap:6px}
+.f-contact a{color:var(--lime);text-decoration:none}
+.f-contact a:hover{text-decoration:underline}
+.f-soc{display:flex;gap:8px;margin-top:16px}
+.fsoc{width:34px;height:34px;border-radius:9px;border:1.5px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;text-decoration:none;color:#fff;transition:background var(--trans)}
+.fsoc:hover{background:rgba(255,255,255,.1)}
+.fc h4{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:14px}
+.fc ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.fc ul li a{font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;transition:color var(--trans)}
+.fc ul li a:hover{color:#fff}
+.fbot{padding-top:22px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.25)}
+.fbot a{color:rgba(255,255,255,.32);text-decoration:none}
+.fbot a:hover{color:rgba(255,255,255,.6)}
+.flegal{display:flex;gap:16px}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fu{opacity:0;animation:fadeUp .5s ease forwards}
+.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.32s}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="h-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-mark">🎉</div>
+      <div>
+        <div class="logo-text">ПРАЗДНИК.BY</div>
+        <div class="logo-sub">Беларусь отмечает</div>
+      </div>
+    </a>
+    <nav>
+      <a href="afisha.html" class="na">Афиша</a>
+      <a href="venues.html" class="na">Площадки</a>
+      <a href="#" class="na">Подрядчики</a>
+      <a href="#" class="na">Блог</a>
+      <a href="#" class="na">О нас</a>
+    </nav>
+    <div class="h-right">
+      <button class="btn-ico">♡</button>
+      <button class="btn-login">Войти</button>
+    </div>
+  </div>
+</header>
+
+<!-- SEARCH BAR -->
+<div class="gsearch">
+  <div class="gs-inner">
+    <div class="gs-wrap">
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" class="gs-inp" placeholder="Мероприятие, площадка, ведущий…">
+    </div>
+    <select class="gs-sel">
+      <option>📍 Вся Беларусь</option>
+      <option>📍 Минск</option>
+      <option>📍 Брест</option>
+      <option>📍 Гродно</option>
+      <option>📍 Витебск</option>
+      <option>📍 Гомель</option>
+      <option>📍 Могилёв</option>
+    </select>
+    <button class="gs-btn">Найти →</button>
+  </div>
+</div>
+
+<!-- CATS -->
+<div class="cat-row">
+  <button class="cat-b on"><span class="cat-ic">🎭</span><span class="cat-lb">Все</span></button>
+  <button class="cat-b"><span class="cat-ic">🎶</span><span class="cat-lb">Концерты</span></button>
+  <button class="cat-b"><span class="cat-ic">🎪</span><span class="cat-lb">Фестивали</span></button>
+  <button class="cat-b"><span class="cat-ic">🎨</span><span class="cat-lb">Выставки</span></button>
+  <button class="cat-b"><span class="cat-ic">🎬</span><span class="cat-lb">Кино</span></button>
+  <button class="cat-b"><span class="cat-ic">🍽️</span><span class="cat-lb">Гастро</span></button>
+  <button class="cat-b"><span class="cat-ic">💃</span><span class="cat-lb">Вечеринки</span></button>
+  <button class="cat-b"><span class="cat-ic">🏛️</span><span class="cat-lb">Банкетные залы</span></button>
+  <button class="cat-b"><span class="cat-ic">🏡</span><span class="cat-lb">Усадьбы</span></button>
+  <button class="cat-b"><span class="cat-ic">🖼️</span><span class="cat-lb">Лофты</span></button>
+  <button class="cat-b"><span class="cat-ic">📸</span><span class="cat-lb">Фотографы</span></button>
+  <button class="cat-b"><span class="cat-ic">🎙️</span><span class="cat-lb">Ведущие</span></button>
+  <button class="cat-b"><span class="cat-ic">🎵</span><span class="cat-lb">Звук</span></button>
+  <button class="cat-b"><span class="cat-ic">💐</span><span class="cat-lb">Декор</span></button>
+</div>
+
+<!-- HERO -->
+<div style="max-width:1320px;margin:24px auto 0;padding:0 32px">
+<div class="hero" style="padding:0">
+  <div class="hero-main fu">
+    <div class="hero-label">
+      <div class="hero-label-dot">✨</div>
+      Главный портал праздников Беларуси
+    </div>
+    <h1 class="hero-h">Беларусь&nbsp;—<br>это праздник<br>каждый день</h1>
+    <p class="hero-p">Афиша событий, лучшие площадки, проверенные подрядчики. Всё для незабываемого торжества.</p>
+    <a href="afisha.html" class="hero-cta">Открыть афишу →</a>
+    <div class="hero-img-row">
+      <div class="hero-photo" style="background:linear-gradient(135deg,rgba(0,0,0,.15),rgba(0,0,0,.08));flex:1.4">🏰</div>
+      <div class="hero-photo" style="background:linear-gradient(135deg,rgba(0,0,0,.12),rgba(0,0,0,.06));flex:1">🎊</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat-row">
+      <div class="stat-box fu d1" style="background:var(--yellow)">
+        <div class="stat-n">1 400+</div>
+        <div class="stat-l">Событий в афише прямо сейчас</div>
+      </div>
+      <div class="stat-box fu d2" style="background:var(--lavender)">
+        <div class="stat-n">580+</div>
+        <div class="stat-l">Площадок по всей Беларуси</div>
+      </div>
+    </div>
+    <a href="#" class="hero-banner fu d3" style="background:var(--peach)">
+      <div class="banner-icon">📸</div>
+      <div>
+        <div class="banner-t">Фотографы и видеографы</div>
+        <div class="banner-s">340 проверенных подрядчиков</div>
+      </div>
+      <div class="banner-arr">→</div>
+    </a>
+    <a href="#" class="hero-banner fu d4" style="background:var(--mint)">
+      <div class="banner-icon">🎁</div>
+      <div>
+        <div class="banner-t">Подарочный сертификат</div>
+        <div class="banner-s">Подарите впечатления близким</div>
+      </div>
+      <div class="banner-arr">→</div>
+    </a>
+  </div>
+</div>
+</div>
+
+<!-- AFISHA UPCOMING -->
+<div class="sec">
+  <div class="sec-h">
+    <h2 class="sec-t">Ближайшие события</h2>
+    <a href="afisha.html" class="sec-a">Вся афиша →</a>
+  </div>
+  <div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap">
+    <button class="f-chip on" style="background:var(--dark);color:#fff;border-color:var(--dark)">Сегодня</button>
+    <button class="f-chip">Завтра</button>
+    <button class="f-chip">Выходные</button>
+    <button class="f-chip">Эта неделя</button>
+    <button class="f-chip">Этот месяц</button>
+  </div>
+  <div class="afisha-row">
+    <a href="event.html" class="af-card">
+      <div class="af-thumb" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">
+        <div class="af-thumb-bg" style="background:linear-gradient(135deg,#4a148c,#1a237e);opacity:.7"></div>
+        <span style="position:relative;z-index:1">🎶</span>
+        <div class="af-date">22<span>МАР</span></div>
+        <div class="af-badge" style="background:var(--lime);color:var(--dark)">от 25 BYN</div>
+        <button class="af-fav">♡</button>
+      </div>
+      <div class="af-body">
+        <div class="af-cat">Концерт · Минск</div>
+        <div class="af-title">«Ляпис 98» — Воссоединение</div>
+        <div class="af-loc">📍 Falcon Club, пр. Победителей</div>
+        <div class="af-foot">
+          <div class="af-price">от 25 BYN</div>
+          <div class="af-rating">⭐ 4.9 <span>(312)</span></div>
+        </div>
+      </div>
+    </a>
+    <a href="event.html" class="af-card">
+      <div class="af-thumb" style="background:linear-gradient(135deg,#e8f5e9,#a5d6a7)">
+        <span style="position:relative;z-index:1">🎨</span>
+        <div class="af-date">23<span>МАР</span></div>
+        <div class="af-badge" style="background:var(--mint);color:var(--dark)">Бесплатно</div>
+        <button class="af-fav">♡</button>
+      </div>
+      <div class="af-body">
+        <div class="af-cat">Выставка · Минск</div>
+        <div class="af-title">«Беларусь в объективе» — фотовыставка</div>
+        <div class="af-loc">📍 Галерея «Ў», ул. Октябрьская</div>
+        <div class="af-foot">
+          <div class="af-price">Бесплатно</div>
+          <div class="af-rating">⭐ 4.7 <span>(88)</span></div>
+        </div>
+      </div>
+    </a>
+    <a href="event.html" class="af-card">
+      <div class="af-thumb" style="background:linear-gradient(135deg,#fff8e1,#ffecb3)">
+        <span style="position:relative;z-index:1">🍷</span>
+        <div class="af-date">29<span>МАР</span></div>
+        <div class="af-badge" style="background:var(--peach);color:var(--dark)">от 45 BYN</div>
+        <button class="af-fav">♡</button>
+      </div>
+      <div class="af-body">
+        <div class="af-cat">Гастрофест · Минск</div>
+        <div class="af-title">Минский фестиваль вина 2025</div>
+        <div class="af-loc">📍 Атриум, пл. Независимости</div>
+        <div class="af-foot">
+          <div class="af-price">от 45 BYN</div>
+          <div class="af-rating">⭐ 4.8 <span>(147)</span></div>
+        </div>
+      </div>
+    </a>
+    <a href="event.html" class="af-card">
+      <div class="af-thumb" style="background:linear-gradient(135deg,#fce4ec,#f8bbd0)">
+        <span style="position:relative;z-index:1">💃</span>
+        <div class="af-date">5<span>АПР</span></div>
+        <div class="af-badge" style="background:var(--lavender);color:var(--dark)">от 15 BYN</div>
+        <button class="af-fav">♡</button>
+      </div>
+      <div class="af-body">
+        <div class="af-cat">Вечеринка · Минск</div>
+        <div class="af-title">Ретро-вечеринка «80-е снова в моде»</div>
+        <div class="af-loc">📍 клуб Re:Public, ул. Жилуновича</div>
+        <div class="af-foot">
+          <div class="af-price">от 15 BYN</div>
+          <div class="af-rating">⭐ 4.6 <span>(203)</span></div>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- OCCASIONS -->
+<div class="sec">
+  <div class="sec-h"><h2 class="sec-t">Найти площадку для праздника</h2></div>
+  <div class="occ-grid">
+    <a href="venues.html" class="occ-c" style="background:var(--lavender)"><div class="occ-ico">💍</div><div class="occ-t">Свадьба</div><div class="occ-n">148 площадок</div></a>
+    <a href="venues.html" class="occ-c" style="background:var(--lime)"><div class="occ-ico">🎂</div><div class="occ-t">День рождения</div><div class="occ-n">294 площадки</div></a>
+    <a href="venues.html" class="occ-c" style="background:var(--yellow)"><div class="occ-ico">🏢</div><div class="occ-t">Корпоратив</div><div class="occ-n">201 площадка</div></a>
+    <a href="venues.html" class="occ-c" style="background:var(--peach)"><div class="occ-ico">🎓</div><div class="occ-t">Выпускной</div><div class="occ-n">89 площадок</div></a>
+    <a href="venues.html" class="occ-c" style="background:var(--mint)"><div class="occ-ico">🧸</div><div class="occ-t">Детский праздник</div><div class="occ-n">128 площадок</div></a>
+  </div>
+</div>
+
+<!-- VENUES SLIDER -->
+<div class="sec">
+  <div class="sec-h">
+    <h2 class="sec-t">Популярные площадки</h2>
+    <a href="venues.html" class="sec-a">Все площадки →</a>
+  </div>
+  <div class="slider-outer">
+    <div class="slider-tr" id="vSlider">
+      <div class="slide-item"><a href="venue.html" class="v-card">
+        <div class="v-thumb" style="background:linear-gradient(135deg,#c8e6c9,#a5d6a7)">
+          <div class="v-thumb-bg" style="background:linear-gradient(135deg,#81c784,#4caf50);opacity:.5"></div>
+          <span style="position:relative;z-index:1">🏡</span>
+          <div class="card-badge">от 1 500 BYN/сут</div>
+          <button class="card-fav">♡</button>
+        </div>
+        <div class="v-body">
+          <div class="v-tags"><span class="vtag">Усадьба</span><span class="vtag">Природа</span><span class="vtag">Свадьба</span></div>
+          <div class="v-title">Усадьба «Лесная сказка»</div>
+          <div class="v-loc">📍 25 км от Минска, Дзержинский р-н</div>
+          <div class="v-foot"><div class="v-rating">⭐ 4.9 <span>(74)</span></div><div class="v-cap">👥 до 150</div></div>
+        </div>
+      </a></div>
+      <div class="slide-item"><a href="venue.html" class="v-card">
+        <div class="v-thumb" style="background:linear-gradient(135deg,#e1d5ff,#c5b0ff)">
+          <span style="position:relative;z-index:1">🖼️</span>
+          <div class="card-badge" style="background:var(--lavender);color:var(--dark)">от 700 BYN</div>
+          <button class="card-fav">♡</button>
+        </div>
+        <div class="v-body">
+          <div class="v-tags"><span class="vtag">Лофт</span><span class="vtag">Арт</span></div>
+          <div class="v-title">Loft Space «Artel»</div>
+          <div class="v-loc">📍 Минск, Октябрьский р-н</div>
+          <div class="v-foot"><div class="v-rating">⭐ 4.7 <span>(56)</span></div><div class="v-cap">👥 до 100</div></div>
+        </div>
+      </a></div>
+      <div class="slide-item"><a href="venue.html" class="v-card">
+        <div class="v-thumb" style="background:linear-gradient(135deg,#fff9c4,#fff176)">
+          <span style="position:relative;z-index:1">🏛️</span>
+          <div class="card-badge" style="background:var(--yellow);color:var(--dark)">от 90 BYN/чел</div>
+          <button class="card-fav">♡</button>
+        </div>
+        <div class="v-body">
+          <div class="v-tags"><span class="vtag">Ресторан</span><span class="vtag">VIP-зал</span></div>
+          <div class="v-title">Ресторан «Гранд Паласс»</div>
+          <div class="v-loc">📍 Минск, пр. Независимости</div>
+          <div class="v-foot"><div class="v-rating">⭐ 4.9 <span>(203)</span></div><div class="v-cap">👥 до 250</div></div>
+        </div>
+      </a></div>
+      <div class="slide-item"><a href="venue.html" class="v-card">
+        <div class="v-thumb" style="background:linear-gradient(135deg,#ffe0b2,#ffcc80)">
+          <span style="position:relative;z-index:1">🌿</span>
+          <div class="card-badge" style="background:var(--peach);color:var(--dark)">от 2 000 BYN/сут</div>
+          <button class="card-fav">♡</button>
+        </div>
+        <div class="v-body">
+          <div class="v-tags"><span class="vtag">Усадьба</span><span class="vtag">Баня</span></div>
+          <div class="v-title">Усадьба «Зелёные холмы»</div>
+          <div class="v-loc">📍 42 км от Минска, Логойский р-н</div>
+          <div class="v-foot"><div class="v-rating">⭐ 4.8 <span>(91)</span></div><div class="v-cap">👥 до 200</div></div>
+        </div>
+      </a></div>
+    </div>
+  </div>
+  <div class="slider-ctrl">
+    <button class="s-btn" id="vPrev">←</button>
+    <span class="s-page" id="vPage">1 / 4</span>
+    <button class="s-btn" id="vNext">→</button>
+  </div>
+</div>
+
+<!-- CONTRACTORS -->
+<div class="sec">
+  <div class="sec-h">
+    <h2 class="sec-t">Подрядчики для праздника</h2>
+    <a href="#" class="sec-a">Все подрядчики →</a>
+  </div>
+  <div class="contr-grid">
+    <a href="#" class="contr-c" style="background:var(--yellow)">
+      <div class="contr-ico">📸</div>
+      <div class="contr-t">Фотографы</div>
+      <div class="contr-d">Свадебная, репортажная, предметная и портретная съёмка</div>
+      <div class="contr-cnt">186 специалистов</div>
+    </a>
+    <a href="#" class="contr-c" style="background:var(--lavender)">
+      <div class="contr-ico">🎬</div>
+      <div class="contr-t">Видеографы</div>
+      <div class="contr-d">Свадебное и корпоративное видео, аэросъёмка, клипы</div>
+      <div class="contr-cnt">94 специалиста</div>
+    </a>
+    <a href="#" class="contr-c" style="background:var(--peach)">
+      <div class="contr-ico">💐</div>
+      <div class="contr-t">Декораторы</div>
+      <div class="contr-d">Флористика, оформление зала, фотозоны, воздушные шары</div>
+      <div class="contr-cnt">143 специалиста</div>
+    </a>
+    <a href="#" class="contr-c" style="background:var(--lime)">
+      <div class="contr-ico">🎙️</div>
+      <div class="contr-t">Ведущие и DJ</div>
+      <div class="contr-d">Тамада, корпоративные ведущие, DJ для любого формата</div>
+      <div class="contr-cnt">221 специалист</div>
+    </a>
+  </div>
+  <div style="margin-top:12px">
+  <div class="contr-grid" style="grid-template-columns:repeat(4,1fr)">
+    <a href="#" class="contr-c" style="background:var(--mint)">
+      <div class="contr-ico">🔊</div>
+      <div class="contr-t">Звуковое оборудование</div>
+      <div class="contr-d">Аренда профессионального звука, света и сцены</div>
+      <div class="contr-cnt">58 компаний</div>
+    </a>
+    <a href="#" class="contr-c" style="background:var(--sky)">
+      <div class="contr-ico">🎂</div>
+      <div class="contr-t">Торты и кондитеры</div>
+      <div class="contr-d">Авторские торты, кейк-попсы, десертные столы</div>
+      <div class="contr-cnt">112 мастеров</div>
+    </a>
+    <a href="#" class="contr-c" style="background:var(--cream)">
+      <div class="contr-ico">🎪</div>
+      <div class="contr-t">Аниматоры</div>
+      <div class="contr-d">Детские программы, шоу, квесты и перформансы</div>
+      <div class="contr-cnt">78 специалистов</div>
+    </a>
+    <a href="#" class="contr-c" style="background:var(--dark);color:#fff">
+      <div class="contr-ico">➕</div>
+      <div class="contr-t">Все категории</div>
+      <div class="contr-d" style="color:rgba(255,255,255,.5)">Стилисты, флористы, кейтеринг, трансфер и многое другое</div>
+      <div class="contr-cnt" style="color:rgba(255,255,255,.4)">800+ специалистов</div>
+    </a>
+  </div>
+  </div>
+</div>
+
+<!-- BENTO — SPECIALS -->
+<div class="sec">
+  <div class="sec-h"><h2 class="sec-t">Подборки</h2><a href="#" class="sec-a">Все подборки →</a></div>
+  <div class="bento">
+    <div class="bento-c bento-w" style="background:var(--lime)">
+      <div class="bento-in">
+        <div class="bento-em">🌿</div>
+        <div class="bento-t2">Загородные усадьбы Минской области</div>
+        <div class="bento-s">48 уникальных мест на природе — с беседками, банями и живописными пейзажами</div>
+        <a href="venues.html" class="bento-a">Смотреть подборку →</a>
+      </div>
+    </div>
+    <div class="bento-c bento-t" style="background:var(--dark);color:#fff">
+      <div class="bento-in">
+        <div class="bento-em">🌙</div>
+        <div class="bento-t2">Ночные залы без ограничений</div>
+        <div class="bento-s" style="color:rgba(255,255,255,.5)">Площадки без временного лимита аренды</div>
+        <a href="#" class="bento-a" style="color:#fff">Найти →</a>
+      </div>
+    </div>
+    <div class="bento-c" style="background:var(--yellow)">
+      <div class="bento-in">
+        <div class="bento-em">💒</div>
+        <div class="bento-t2">Свадьба «всё включено»</div>
+        <div class="bento-s">Площадки с декором, фотозоной, кейтерингом и трансфером</div>
+        <a href="#" class="bento-a">Смотреть →</a>
+      </div>
+    </div>
+    <div class="bento-c" style="background:var(--lavender)">
+      <div class="bento-in">
+        <div class="bento-em">👶</div>
+        <div class="bento-t2">Детские площадки с аниматорами</div>
+        <div class="bento-s">Специально оборудованные пространства для детских праздников</div>
+        <a href="#" class="bento-a">Смотреть →</a>
+      </div>
+    </div>
+    <div class="bento-c" style="background:var(--peach)">
+      <div class="bento-in">
+        <div class="bento-em">🍷</div>
+        <div class="bento-t2">Рестораны с авторской кухней</div>
+        <div class="bento-s">Изысканные меню и уникальная атмосфера для гастроужинов</div>
+        <a href="#" class="bento-a">Смотреть →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAP PROMO -->
+<div class="sec">
+  <div class="map-promo">
+    <div style="flex:1">
+      <h2 class="map-t">Все площадки на одной карте</h2>
+      <p class="map-s">Смотрите расположение заведений, оценивайте удалённость, стройте маршрут. Удобно для гостей со всего города.</p>
+      <button class="map-btn">Открыть карту →</button>
+    </div>
+    <div class="map-vis">
+      <div class="mpin">📍</div><div class="mpin">🏛️</div><div class="mpin">🍽️</div><div class="mpin">🏡</div>
+    </div>
+  </div>
+</div>
+
+<!-- REGIONS -->
+<div class="sec">
+  <div class="sec-h"><h2 class="sec-t">По регионам</h2></div>
+  <div class="reg-grid">
+    <div class="reg-c" style="background:var(--lime)"><div class="reg-ico">🏙️</div><div class="reg-n">Минск</div><div class="reg-cnt">218 мест</div></div>
+    <div class="reg-c" style="background:var(--lavender)"><div class="reg-ico">🌲</div><div class="reg-n">Минская область</div><div class="reg-cnt">94 места</div></div>
+    <div class="reg-c" style="background:var(--yellow)"><div class="reg-ico">🏰</div><div class="reg-n">Гродно</div><div class="reg-cnt">47 мест</div></div>
+    <div class="reg-c" style="background:var(--peach)"><div class="reg-ico">🌊</div><div class="reg-n">Брест</div><div class="reg-cnt">38 мест</div></div>
+    <div class="reg-c" style="background:var(--mint)"><div class="reg-ico">🎨</div><div class="reg-n">Витебск</div><div class="reg-cnt">29 мест</div></div>
+    <div class="reg-c" style="background:var(--sky)"><div class="reg-ico">🏭</div><div class="reg-n">Гомель</div><div class="reg-cnt">33 места</div></div>
+  </div>
+</div>
+
+<!-- HOW -->
+<div class="sec">
+  <div class="sec-h"><h2 class="sec-t">Как это работает</h2></div>
+  <div class="how-grid">
+    <div class="how-c"><div class="how-num">01</div><div class="how-ico">🔍</div><div class="how-t">Выберите тип площадки и параметры</div><div class="how-d">Укажите тип мероприятия, количество гостей, район и бюджет.</div></div>
+    <div class="how-c" style="background:var(--lavender)"><div class="how-num">02</div><div class="how-ico">👀</div><div class="how-t">Изучите карточки и отзывы</div><div class="how-d">Смотрите фото залов, читайте отзывы, уточняйте условия.</div></div>
+    <div class="how-c" style="background:var(--lime)"><div class="how-num">03</div><div class="how-ico">📅</div><div class="how-t">Забронируйте нужную дату</div><div class="how-d">Выберите время и количество гостей — подтверждение придёт на почту.</div></div>
+    <div class="how-c" style="background:var(--yellow)"><div class="how-num">04</div><div class="how-ico">🎉</div><div class="how-t">Проведите незабываемый праздник!</div><div class="how-d">Все организационные вопросы уже решены. Наслаждайтесь!</div></div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="sec">
+  <div class="sec-h"><h2 class="sec-t">Отзывы</h2><a href="#" class="sec-a">Все отзывы →</a></div>
+  <div class="rev-grid">
+    <div class="rev-c">
+      <div class="rev-h"><div class="rev-av" style="background:var(--lime);color:var(--dark)">👩</div><div><div class="rev-name">Анна Ковалёва</div><div class="rev-date">14 февраля 2025</div></div></div>
+      <div class="rev-stars">★★★★★</div>
+      <div class="rev-txt">Отмечали свадьбу в усадьбе «Лесная сказка» — всё прошло безупречно. Персонал внимательный, природа потрясающая. Гости в восторге!</div>
+      <div class="rev-venue">📍 Усадьба «Лесная сказка»</div>
+    </div>
+    <div class="rev-c" style="background:var(--lavender);color:var(--dark)">
+      <div class="rev-h"><div class="rev-av" style="background:var(--dark);color:#fff">👨</div><div><div class="rev-name">Дмитрий Лукьянов</div><div class="rev-date">3 января 2025</div></div></div>
+      <div class="rev-stars" style="color:#7c3aed">★★★★★</div>
+      <div class="rev-txt">Корпоратив на 80 человек в лофте «Artel» — атмосфера была потрясающей. Нашли через ПРАЗДНИК.BY — всё очень удобно!</div>
+      <div class="rev-venue" style="color:rgba(0,0,0,.4)">📍 Loft Space «Artel»</div>
+    </div>
+    <div class="rev-c">
+      <div class="rev-h"><div class="rev-av" style="background:var(--peach);color:var(--dark)">👩</div><div><div class="rev-name">Марина Соколова</div><div class="rev-date">20 декабря 2024</div></div></div>
+      <div class="rev-stars">★★★★★</div>
+      <div class="rev-txt">Фотограф через сайт — находка! Портфолио удобно смотреть, отзывы реальные. Свадебные фото получились фантастическими.</div>
+      <div class="rev-venue">📸 Фотограф Алина Мороз</div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="sec" style="margin-bottom:0">
+  <div class="nl-card">
+    <div style="flex:1">
+      <div class="nl-t">Узнавайте первым о событиях и акциях</div>
+      <div class="nl-s">Подпишитесь — и получайте лучшие предложения раньше всех.</div>
+    </div>
+    <div class="nl-form">
+      <input type="email" class="nl-inp" placeholder="Ваш email">
+      <button class="nl-btn">Подписаться →</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="fi">
+    <div class="fg">
+      <div>
+        <a href="index.html" class="logo"><div class="logo-mark">🎉</div><div><div class="logo-text" style="color:#fff">ПРАЗДНИК.BY</div><div class="logo-sub">Беларусь отмечает</div></div></a>
+        <p class="fb-about">Главный портал событий, площадок и подрядчиков для праздников по всей Беларуси.</p>
+        <p class="f-contact">✉️ <a href="mailto:hello@prazdnik.by">hello@prazdnik.by</a></p>
+        <p class="f-contact">✈️ <a href="https://t.me/prazdnikby_bot">@prazdnikby_bot</a></p>
+        <div class="f-soc">
+          <a href="#" class="fsoc">VK</a>
+          <a href="#" class="fsoc">TG</a>
+          <a href="#" class="fsoc">IG</a>
+          <a href="#" class="fsoc">YT</a>
+        </div>
+      </div>
+      <div class="fc"><h4>Площадки</h4><ul><li><a href="#">Рестораны и кафе</a></li><li><a href="#">Загородные усадьбы</a></li><li><a href="#">Банкетные залы</a></li><li><a href="#">Лофты и арт-пространства</a></li><li><a href="#">На природе</a></li></ul></div>
+      <div class="fc"><h4>Подрядчики</h4><ul><li><a href="#">Фотографы</a></li><li><a href="#">Видеографы</a></li><li><a href="#">Декораторы</a></li><li><a href="#">Ведущие и DJ</a></li><li><a href="#">Звук и свет</a></li></ul></div>
+      <div class="fc"><h4>О нас</h4><ul><li><a href="#">О проекте</a></li><li><a href="#">Блог</a></li><li><a href="#">Партнёрам</a></li><li><a href="#">Разместить объявление</a></li><li><a href="mailto:hello@prazdnik.by">Написать нам</a></li></ul></div>
+    </div>
+    <div class="fbot">
+      <span>© 2025 ПРАЗДНИК.BY — Маркетплейс праздничных площадок</span>
+      <div class="flegal"><a href="#">Конфиденциальность</a><a href="#">Правила</a><a href="#">Карта сайта</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.cat-b').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.cat-b').forEach(x=>x.classList.remove('on'));b.classList.add('on')}));
+document.querySelectorAll('.f-chip').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.f-chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');b.style.background=getComputedStyle(document.documentElement).getPropertyValue('--dark');b.style.color='#fff';b.style.borderColor=getComputedStyle(document.documentElement).getPropertyValue('--dark')}));
+document.querySelectorAll('.af-fav,.card-fav').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();b.textContent=b.textContent==='♡'?'♥':'♡';b.style.color=b.textContent==='♥'?'#e53935':''}));
+let vi=0;const vtr=document.getElementById('vSlider');const vit=vtr?vtr.querySelectorAll('.slide-item').length:0;
+document.getElementById('vNext')?.addEventListener('click',()=>{vi=(vi+1)%vit;vtr.style.transform=`translateX(calc(-${vi}*(25% + 4px)))`;document.getElementById('vPage').textContent=`${vi+1} / ${vit}`});
+document.getElementById('vPrev')?.addEventListener('click',()=>{vi=(vi-1+vit)%vit;vtr.style.transform=`translateX(calc(-${vi}*(25% + 4px)))`;document.getElementById('vPage').textContent=`${vi+1} / ${vit}`});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}}),{threshold:.1});
+document.querySelectorAll('.sec,.filters-wrap').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity .5s ease, transform .5s ease';io.observe(el)});
+</script>
+</body>
+</html>

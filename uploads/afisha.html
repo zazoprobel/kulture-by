@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Афиша событий Беларуси — ПРАЗДНИК.BY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Onest:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--lime:#D2F882;--yellow:#FFF57D;--lavender:#E7D4FF;--peach:#FFBD7B;--mint:#E2F8D0;--sky:#D1E4F8;--cream:#FFF5E4;--bg:#F7F6F2;--white:#FFFFFF;--dark:#181818;--gray:#888;--lgray:#C8C8C8;--border:rgba(0,0,0,.08);--r:20px;--trans:.2s cubic-bezier(.4,0,.2,1);--font-h:'Unbounded',sans-serif;--font-b:'Onest',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--bg);color:var(--dark);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button{font-family:var(--font-b);cursor:pointer}
+
+.site-header{position:sticky;top:0;z-index:200;background:rgba(247,246,242,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.h-inner{max-width:1320px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;gap:36px}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{width:38px;height:38px;background:var(--dark);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.logo-text{font-family:var(--font-h);font-weight:800;font-size:14px;line-height:1.1}
+.logo-sub{font-size:9px;font-weight:400;color:var(--gray);letter-spacing:.05em;display:block;margin-top:1px}
+nav{display:flex;align-items:center;gap:2px;flex:1}
+.na{font-size:13.5px;font-weight:500;padding:7px 13px;border-radius:99px;transition:background var(--trans)}
+.na:hover{background:rgba(0,0,0,.06)}.na.on{background:var(--dark);color:#fff}
+.h-right{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.btn-ico{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:transparent;display:flex;align-items:center;justify-content:center;font-size:15px;transition:background var(--trans)}
+.btn-ico:hover{background:rgba(0,0,0,.06)}
+.btn-login{height:36px;padding:0 16px;border-radius:99px;border:1.5px solid var(--border);background:transparent;font-size:13px;font-weight:500;transition:background var(--trans)}
+.btn-login:hover{background:rgba(0,0,0,.06)}
+
+.gsearch{background:var(--dark);padding:16px 32px}
+.gs-inner{max-width:1320px;margin:0 auto;display:flex;gap:10px;align-items:center}
+.gs-wrap{flex:1;position:relative}
+.gs-wrap svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.4)}
+.gs-inp{width:100%;height:46px;border-radius:13px;border:none;background:rgba(255,255,255,.1);color:#fff;font-family:var(--font-b);font-size:14px;padding:0 18px 0 44px;outline:none;transition:background var(--trans)}
+.gs-inp::placeholder{color:rgba(255,255,255,.38)}.gs-inp:focus{background:rgba(255,255,255,.15)}
+.gs-sel{height:46px;padding:0 34px 0 14px;border-radius:13px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:#fff;font-family:var(--font-b);font-size:13px;appearance:none;cursor:pointer;outline:none;min-width:130px;background-image:url("data:image/svg+xml,%3Csvg width='10' height='7' viewBox='0 0 10 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.gs-sel option{background:#222}
+.gs-btn{height:46px;padding:0 22px;border-radius:13px;border:none;background:var(--lime);color:var(--dark);font-family:var(--font-b);font-size:13px;font-weight:700;white-space:nowrap}
+
+.wrap{max-width:1320px;margin:0 auto;padding:0 32px}
+
+/* AFISHA HERO BANNER */
+.afisha-hero{background:var(--dark);border-radius:var(--r);padding:40px 48px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;margin-top:24px;overflow:hidden;position:relative}
+.afisha-hero::before{content:'';position:absolute;top:-40px;right:200px;width:300px;height:300px;background:radial-gradient(circle,rgba(210,248,130,.15),transparent 70%);pointer-events:none}
+.ah-label{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border-radius:99px;padding:5px 14px 5px 5px;font-size:12px;font-weight:600;color:#fff;margin-bottom:14px;width:fit-content}
+.ah-dot{width:22px;height:22px;background:var(--lime);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--dark)}
+.ah-title{font-family:var(--font-h);font-size:28px;font-weight:900;line-height:1.1;color:#fff;margin-bottom:10px}
+.ah-sub{font-size:14px;color:rgba(255,255,255,.5);margin-bottom:20px;line-height:1.5}
+.ah-stats{display:flex;gap:28px}
+.ah-stat-n{font-family:var(--font-h);font-size:22px;font-weight:900;color:#fff;line-height:1}
+.ah-stat-l{font-size:11px;color:rgba(255,255,255,.4);margin-top:3px}
+.ah-img{font-size:72px;opacity:.9}
+
+/* DATE TABS */
+.date-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:20px 0 0}
+.date-tabs::-webkit-scrollbar{display:none}
+.date-tab{display:flex;flex-direction:column;align-items:center;padding:10px 18px;border-radius:14px;border:1.5px solid var(--border);background:var(--white);cursor:pointer;white-space:nowrap;transition:all var(--trans);min-width:66px}
+.date-tab:hover{border-color:rgba(0,0,0,.2)}
+.date-tab.on{background:var(--dark);color:#fff;border-color:var(--dark)}
+.dt-day{font-family:var(--font-h);font-size:16px;font-weight:900;line-height:1}
+.dt-wd{font-size:10px;opacity:.6;margin-top:2px}
+.dt-cnt{font-size:10px;font-weight:600;color:var(--lime);margin-top:3px}
+.date-tab.on .dt-cnt{color:rgba(255,255,255,.7)}
+
+/* FILTER TABS */
+.filter-tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-top:14px;padding-bottom:2px}
+.filter-tabs::-webkit-scrollbar{display:none}
+.ft{height:34px;padding:0 16px;border-radius:99px;border:1.5px solid var(--border);background:transparent;font-family:var(--font-b);font-size:13px;cursor:pointer;white-space:nowrap;transition:all var(--trans);display:flex;align-items:center;gap:6px}
+.ft:hover{background:rgba(0,0,0,.04)}
+.ft.on{background:var(--dark);color:#fff;border-color:var(--dark)}
+
+/* LAYOUT */
+.afisha-layout{display:grid;grid-template-columns:240px 1fr;gap:24px;margin-top:24px;align-items:start}
+
+/* SIDEBAR */
+.af-sidebar{background:var(--white);border-radius:var(--r);border:1.5px solid var(--border);padding:22px;position:sticky;top:80px}
+.sb-title{font-family:var(--font-h);font-size:13px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between}
+.sb-reset{font-size:12px;font-weight:500;color:var(--gray);cursor:pointer;font-family:var(--font-b);background:none;border:none}
+.sb-group{margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:20px}
+.sb-group:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
+.sb-label{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gray);margin-bottom:10px}
+.sb-opt{display:flex;align-items:center;gap:8px;padding:5px 0;cursor:pointer;font-size:13px}
+.sb-opt input{width:15px;height:15px;accent-color:var(--dark);cursor:pointer;flex-shrink:0}
+.sb-opt-cnt{margin-left:auto;font-size:11px;color:var(--lgray)}
+.sb-apply{width:100%;height:40px;border-radius:12px;border:none;background:var(--dark);color:#fff;font-family:var(--font-b);font-size:13px;font-weight:700;margin-top:16px;cursor:pointer;transition:opacity var(--trans)}
+.sb-apply:hover{opacity:.82}
+
+/* FEATURED BANNER */
+.feat-event{background:var(--peach);border-radius:var(--r);padding:28px;margin-bottom:18px;cursor:pointer;display:grid;grid-template-columns:1fr 100px;gap:16px;align-items:center;transition:opacity var(--trans)}
+.feat-event:hover{opacity:.9}
+.fe-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(0,0,0,.45);margin-bottom:8px}
+.fe-title{font-family:var(--font-h);font-size:18px;font-weight:800;line-height:1.2;margin-bottom:6px}
+.fe-meta{display:flex;gap:12px;font-size:12px;color:rgba(0,0,0,.5);flex-wrap:wrap}
+.fe-img{font-size:60px;text-align:center}
+
+/* EVENTS GROUP */
+.events-group{margin-bottom:28px}
+.eg-date-h{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.eg-date{font-family:var(--font-h);font-size:13px;font-weight:700}
+.eg-line{flex:1;height:1px;background:var(--border)}
+.eg-cnt{font-size:12px;color:var(--gray)}
+
+/* EVENT CARDS */
+.events-list{display:flex;flex-direction:column;gap:10px}
+.ev-card{background:var(--white);border-radius:var(--r);border:1.5px solid var(--border);padding:0;overflow:hidden;cursor:pointer;transition:transform var(--trans),box-shadow var(--trans);display:grid;grid-template-columns:180px 1fr;text-decoration:none;color:inherit}
+.ev-card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.09)}
+.ev-thumb{height:120px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:44px}
+.ev-thumb-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .4s ease}
+.ev-card:hover .ev-thumb-bg{transform:scale(1.06)}
+.ev-date-badge{position:absolute;top:8px;left:8px;background:rgba(255,255,255,.92);border-radius:9px;padding:4px 9px;font-family:var(--font-h);font-size:11px;font-weight:700;line-height:1;text-align:center}
+.ev-date-badge span{display:block;font-family:var(--font-b);font-size:10px;color:var(--gray)}
+.ev-price-badge{position:absolute;bottom:8px;left:8px;border-radius:99px;padding:3px 9px;font-size:10px;font-weight:700}
+.ev-body{padding:16px 20px;display:flex;flex-direction:column;gap:4px}
+.ev-cat{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.05em}
+.ev-title{font-family:var(--font-h);font-size:14px;font-weight:700;line-height:1.2}
+.ev-loc{font-size:12px;color:var(--gray)}
+.ev-meta-row{display:flex;align-items:center;gap:10px;margin-top:4px;flex-wrap:wrap}
+.ev-time{font-size:12px;color:var(--gray);display:flex;align-items:center;gap:4px}
+.ev-price{font-size:13px;font-weight:700}
+.ev-rating{font-size:12px;font-weight:600;display:flex;align-items:center;gap:3px}
+.ev-rating span{font-weight:400;color:var(--gray)}
+.ev-fav{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.88);border:none;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer}
+
+/* GRID MODE */
+.events-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.evg-card{background:var(--white);border-radius:var(--r);border:1.5px solid var(--border);overflow:hidden;cursor:pointer;transition:transform var(--trans),box-shadow var(--trans);display:block;text-decoration:none;color:inherit}
+.evg-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.1)}
+.evg-thumb{height:160px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:44px}
+.evg-thumb-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .4s ease}
+.evg-card:hover .evg-thumb-bg{transform:scale(1.07)}
+.evg-body{padding:14px}
+.evg-cat{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.evg-title{font-family:var(--font-h);font-size:13px;font-weight:700;line-height:1.3;margin-bottom:4px}
+.evg-loc{font-size:11px;color:var(--gray);margin-bottom:7px}
+.evg-foot{display:flex;align-items:center;justify-content:space-between;font-size:12px}
+.evg-price{font-weight:700}
+.evg-rating{font-weight:600;display:flex;align-items:center;gap:3px}
+.evg-rating span{font-weight:400;color:var(--gray)}
+
+/* VIEW TOGGLE & HEADER */
+.ca-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.ca-count{font-size:13px;color:var(--gray)}
+.ca-count strong{color:var(--dark);font-weight:700}
+.view-btns{display:flex;gap:4px}
+.v-btn{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--border);background:transparent;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;transition:all var(--trans)}
+.v-btn.on,.v-btn:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
+.sort-sel{height:34px;padding:0 28px 0 12px;border-radius:10px;border:1.5px solid var(--border);background:var(--white);font-family:var(--font-b);font-size:12px;appearance:none;cursor:pointer;outline:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='7' viewBox='0 0 10 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+
+/* PAGINATION */
+.pagination{display:flex;align-items:center;gap:6px;justify-content:center;margin-top:28px}
+.pg-btn{width:36px;height:36px;border-radius:99px;border:1.5px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;cursor:pointer;transition:all var(--trans)}
+.pg-btn:hover,.pg-btn.on{background:var(--dark);color:#fff;border-color:var(--dark)}
+
+/* FOOTER */
+.site-footer{background:var(--dark);color:#fff;margin-top:64px;padding:40px 0 24px}
+.fi{max-width:1320px;margin:0 auto;padding:0 32px}
+.fg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;margin-bottom:32px}
+.fb-about{font-size:13px;color:rgba(255,255,255,.38);margin-top:12px;line-height:1.65;max-width:210px}
+.f-contact{font-size:13px;color:rgba(255,255,255,.5);margin-top:8px;display:flex;align-items:center;gap:6px}
+.f-contact a{color:var(--lime)}
+.f-soc{display:flex;gap:8px;margin-top:14px}
+.fsoc{width:34px;height:34px;border-radius:9px;border:1.5px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:12px;text-decoration:none;color:#fff;transition:background var(--trans)}
+.fsoc:hover{background:rgba(255,255,255,.1)}
+.fc h4{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px}
+.fc ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.fc ul li a{font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;transition:color var(--trans)}
+.fc ul li a:hover{color:#fff}
+.fbot{padding-top:20px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.25)}
+.fbot a{color:rgba(255,255,255,.32);text-decoration:none}
+.flegal{display:flex;gap:14px}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="h-inner">
+    <a href="index.html" class="logo"><div class="logo-mark">🎉</div><div><div class="logo-text">ПРАЗДНИК.BY</div><div class="logo-sub">Беларусь отмечает</div></div></a>
+    <nav>
+      <a href="afisha.html" class="na on">Афиша</a>
+      <a href="venues.html" class="na">Площадки</a>
+      <a href="#" class="na">Подрядчики</a>
+      <a href="#" class="na">Блог</a>
+      <a href="#" class="na">О нас</a>
+    </nav>
+    <div class="h-right">
+      <button class="btn-ico">♡</button>
+      <button class="btn-login">Войти</button>
+    </div>
+  </div>
+</header>
+
+<div class="gsearch">
+  <div class="gs-inner">
+    <div class="gs-wrap">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" class="gs-inp" placeholder="Концерт, фестиваль, выставка…">
+    </div>
+    <select class="gs-sel"><option>📍 Вся Беларусь</option><option>📍 Минск</option><option>📍 Брест</option><option>📍 Гродно</option><option>📍 Витебск</option></select>
+    <button class="gs-btn">Найти →</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <!-- HERO -->
+  <div class="afisha-hero">
+    <div>
+      <div class="ah-label"><div class="ah-dot">📅</div>Афиша Беларуси</div>
+      <div class="ah-title">Лучшие события страны — в одном месте</div>
+      <div class="ah-sub">Концерты, фестивали, выставки, гастрособытия, театры и многое другое. Каждый день — что-то новое.</div>
+      <div class="ah-stats">
+        <div><div class="ah-stat-n">1 400+</div><div class="ah-stat-l">событий сейчас</div></div>
+        <div><div class="ah-stat-n">6</div><div class="ah-stat-l">регионов</div></div>
+        <div><div class="ah-stat-n">48</div><div class="ah-stat-l">категорий</div></div>
+      </div>
+    </div>
+    <div class="ah-img">🎭</div>
+  </div>
+
+  <!-- DATE TABS -->
+  <div class="date-tabs">
+    <button class="date-tab"><div class="dt-day">Вчера</div><div class="dt-wd">Ср</div></button>
+    <button class="date-tab on"><div class="dt-day">Сегодня</div><div class="dt-wd">Чт</div><div class="dt-cnt">42 события</div></button>
+    <button class="date-tab"><div class="dt-day">22</div><div class="dt-wd">Пт</div><div class="dt-cnt">68 событий</div></button>
+    <button class="date-tab"><div class="dt-day">23</div><div class="dt-wd">Сб</div><div class="dt-cnt">94 события</div></button>
+    <button class="date-tab"><div class="dt-day">24</div><div class="dt-wd">Вс</div><div class="dt-cnt">71 событие</div></button>
+    <button class="date-tab"><div class="dt-day">25</div><div class="dt-wd">Пн</div><div class="dt-cnt">28 событий</div></button>
+    <button class="date-tab"><div class="dt-day">26</div><div class="dt-wd">Вт</div><div class="dt-cnt">31 событие</div></button>
+    <button class="date-tab"><div class="dt-day">27</div><div class="dt-wd">Ср</div><div class="dt-cnt">45 событий</div></button>
+    <button class="date-tab"><div class="dt-day">28</div><div class="dt-wd">Чт</div></button>
+    <button class="date-tab"><div class="dt-day">29</div><div class="dt-wd">Пт</div></button>
+    <button class="date-tab"><div class="dt-day">Месяц</div><div class="dt-wd">→</div></button>
+  </div>
+
+  <!-- FILTER TABS -->
+  <div class="filter-tabs">
+    <button class="ft on">🎭 Все</button>
+    <button class="ft">🎶 Концерты</button>
+    <button class="ft">🎪 Фестивали</button>
+    <button class="ft">🎨 Выставки</button>
+    <button class="ft">🎬 Кино</button>
+    <button class="ft">🍽️ Гастро</button>
+    <button class="ft">💃 Вечеринки</button>
+    <button class="ft">🎭 Театр</button>
+    <button class="ft">🏃 Спорт</button>
+    <button class="ft">🧘 Мастер-классы</button>
+    <button class="ft">🌟 Бесплатно</button>
+    <button class="ft">👶 Детям</button>
+  </div>
+
+  <div class="afisha-layout">
+    <!-- SIDEBAR -->
+    <aside class="af-sidebar">
+      <div class="sb-title">Фильтры<button class="sb-reset">Сбросить</button></div>
+
+      <div class="sb-group">
+        <div class="sb-label">Время суток</div>
+        <label class="sb-opt"><input type="checkbox"> Утро (до 12:00)<span class="sb-opt-cnt">8</span></label>
+        <label class="sb-opt"><input type="checkbox" checked> День (12–17:00)<span class="sb-opt-cnt">14</span></label>
+        <label class="sb-opt"><input type="checkbox" checked> Вечер (после 17:00)<span class="sb-opt-cnt">20</span></label>
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-label">Цена</div>
+        <label class="sb-opt"><input type="checkbox" checked> 🌟 Бесплатно<span class="sb-opt-cnt">12</span></label>
+        <label class="sb-opt"><input type="checkbox"> до 15 BYN<span class="sb-opt-cnt">18</span></label>
+        <label class="sb-opt"><input type="checkbox"> 15–50 BYN<span class="sb-opt-cnt">24</span></label>
+        <label class="sb-opt"><input type="checkbox"> 50–100 BYN<span class="sb-opt-cnt">9</span></label>
+        <label class="sb-opt"><input type="checkbox"> 100+ BYN<span class="sb-opt-cnt">4</span></label>
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-label">Город</div>
+        <label class="sb-opt"><input type="radio" name="city" checked> Минск<span class="sb-opt-cnt">298</span></label>
+        <label class="sb-opt"><input type="radio" name="city"> Брест<span class="sb-opt-cnt">64</span></label>
+        <label class="sb-opt"><input type="radio" name="city"> Гродно<span class="sb-opt-cnt">48</span></label>
+        <label class="sb-opt"><input type="radio" name="city"> Витебск<span class="sb-opt-cnt">39</span></label>
+        <label class="sb-opt"><input type="radio" name="city"> Гомель<span class="sb-opt-cnt">42</span></label>
+        <label class="sb-opt"><input type="radio" name="city"> Могилёв<span class="sb-opt-cnt">31</span></label>
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-label">Аудитория</div>
+        <label class="sb-opt"><input type="checkbox"> 👨‍👩‍👧 Семейное</label>
+        <label class="sb-opt"><input type="checkbox"> 👶 Детям</label>
+        <label class="sb-opt"><input type="checkbox"> 18+ Взрослое</label>
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-label">Формат</div>
+        <label class="sb-opt"><input type="checkbox"> 🏠 В помещении</label>
+        <label class="sb-opt"><input type="checkbox"> 🌳 На открытом воздухе</label>
+        <label class="sb-opt"><input type="checkbox"> 💻 Онлайн</label>
+      </div>
+
+      <button class="sb-apply">Применить</button>
+    </aside>
+
+    <!-- CONTENT -->
+    <div>
+      <!-- FEATURED EVENT -->
+      <a href="event.html" class="feat-event">
+        <div>
+          <div class="fe-label">⭐ Событие недели</div>
+          <div class="fe-title">Минский международный кинофестиваль «Лістапад»</div>
+          <div class="fe-meta">
+            <span>📅 21–28 марта</span>
+            <span>📍 Кинотеатр «Москва» и другие площадки</span>
+            <span>🎟️ от 12 BYN</span>
+          </div>
+        </div>
+        <div class="fe-img">🎬</div>
+      </a>
+
+      <div class="ca-head">
+        <div class="ca-count">Найдено <strong>42 события</strong> на сегодня</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <select class="sort-sel"><option>По популярности</option><option>По времени начала</option><option>Сначала бесплатные</option><option>По рейтингу</option></select>
+          <div class="view-btns">
+            <button class="v-btn on" id="listBtn">≡</button>
+            <button class="v-btn" id="gridBtn">⊞</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIST VIEW -->
+      <div id="listView">
+        <!-- GROUP 1 -->
+        <div class="events-group">
+          <div class="eg-date-h">
+            <div class="eg-date">Сегодня, 21 марта</div>
+            <div class="eg-line"></div>
+            <div class="eg-cnt">12 событий</div>
+          </div>
+          <div class="events-list">
+            <a href="event.html" class="ev-card">
+              <div class="ev-thumb" style="background:linear-gradient(135deg,#1a1a2e,#4a148c)">
+                <div class="ev-thumb-bg" style="background:linear-gradient(135deg,#4a148c,#1a237e);opacity:.7"></div>
+                <span style="position:relative;z-index:1">🎶</span>
+                <div class="ev-date-badge">21<span>МАР</span></div>
+                <div class="ev-price-badge" style="background:var(--lime);color:var(--dark)">от 25 BYN</div>
+                <button class="ev-fav">♡</button>
+              </div>
+              <div class="ev-body">
+                <div class="ev-cat">Концерт</div>
+                <div class="ev-title">«Ляпис 98» — Воссоединение</div>
+                <div class="ev-loc">📍 Falcon Club, пр. Победителей, 65</div>
+                <div class="ev-meta-row">
+                  <div class="ev-time">🕗 19:00</div>
+                  <div class="ev-price">от 25 BYN</div>
+                  <div class="ev-rating">⭐ 4.9 <span>(312)</span></div>
+                </div>
+              </div>
+            </a>
+            <a href="event.html" class="ev-card">
+              <div class="ev-thumb" style="background:linear-gradient(135deg,#e8f5e9,#66bb6a)">
+                <span style="position:relative;z-index:1">🎨</span>
+                <div class="ev-date-badge">21<span>МАР</span></div>
+                <div class="ev-price-badge" style="background:var(--mint);color:var(--dark)">Бесплатно</div>
+                <button class="ev-fav">♡</button>
+              </div>
+              <div class="ev-body">
+                <div class="ev-cat">Выставка</div>
+                <div class="ev-title">«Беларусь в объективе» — фотовыставка</div>
+                <div class="ev-loc">📍 Галерея «Ў», ул. Октябрьская, 16</div>
+                <div class="ev-meta-row">
+                  <div class="ev-time">🕙 10:00 – 20:00</div>
+                  <div class="ev-price" style="color:green">Бесплатно</div>
+                  <div class="ev-rating">⭐ 4.7 <span>(88)</span></div>
+                </div>
+              </div>
+            </a>
+            <a href="event.html" class="ev-card">
+              <div class="ev-thumb" style="background:linear-gradient(135deg,#fff8e1,#f57f17)">
+                <span style="position:relative;z-index:1">🎭</span>
+                <div class="ev-date-badge">21<span>МАР</span></div>
+                <div class="ev-price-badge" style="background:var(--peach);color:var(--dark)">от 18 BYN</div>
+                <button class="ev-fav">♡</button>
+              </div>
+              <div class="ev-body">
+                <div class="ev-cat">Театр</div>
+                <div class="ev-title">«Чайка» — Национальный театр им. Купалы</div>
+                <div class="ev-loc">📍 Национальный театр, ул. Энгельса, 7</div>
+                <div class="ev-meta-row">
+                  <div class="ev-time">🕖 18:30</div>
+                  <div class="ev-price">от 18 BYN</div>
+                  <div class="ev-rating">⭐ 4.8 <span>(203)</span></div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- GROUP 2 -->
+        <div class="events-group">
+          <div class="eg-date-h">
+            <div class="eg-date">22 марта · Пятница</div>
+            <div class="eg-line"></div>
+            <div class="eg-cnt">18 событий</div>
+          </div>
+          <div class="events-list">
+            <a href="event.html" class="ev-card">
+              <div class="ev-thumb" style="background:linear-gradient(135deg,#fce4ec,#e91e63)">
+                <div class="ev-thumb-bg" style="background:linear-gradient(135deg,#f48fb1,#e91e63);opacity:.35"></div>
+                <span style="position:relative;z-index:1">💃</span>
+                <div class="ev-date-badge">22<span>МАР</span></div>
+                <div class="ev-price-badge" style="background:var(--lavender);color:var(--dark)">от 15 BYN</div>
+                <button class="ev-fav">♡</button>
+              </div>
+              <div class="ev-body">
+                <div class="ev-cat">Вечеринка</div>
+                <div class="ev-title">Ретро-вечеринка «80-е снова в моде»</div>
+                <div class="ev-loc">📍 клуб Re:Public, ул. Жилуновича, 5</div>
+                <div class="ev-meta-row">
+                  <div class="ev-time">🕘 21:00</div>
+                  <div class="ev-price">от 15 BYN</div>
+                  <div class="ev-rating">⭐ 4.6 <span>(203)</span></div>
+                </div>
+              </div>
+            </a>
+            <a href="event.html" class="ev-card">
+              <div class="ev-thumb" style="background:linear-gradient(135deg,#e3f2fd,#1976d2)">
+                <div class="ev-thumb-bg" style="background:linear-gradient(135deg,#90caf9,#1976d2);opacity:.5"></div>
+                <span style="position:relative;z-index:1">🎸</span>
+                <div class="ev-date-badge">22<span>МАР</span></div>
+                <div class="ev-price-badge" style="background:var(--sky);color:var(--dark)">от 30 BYN</div>
+                <button class="ev-fav">♡</button>
+              </div>
+              <div class="ev-body">
+                <div class="ev-cat">Концерт</div>
+                <div class="ev-title">Molchat Doma — большой концерт в Минске</div>
+                <div class="ev-loc">📍 Prime Hall, ул. Мясникова, 44</div>
+                <div class="ev-meta-row">
+                  <div class="ev-time">🕖 20:00</div>
+                  <div class="ev-price">от 30 BYN</div>
+                  <div class="ev-rating">⭐ 4.9 <span>(441)</span></div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRID VIEW (hidden) -->
+      <div class="events-grid" id="gridView" style="display:none">
+        <a href="event.html" class="evg-card">
+          <div class="evg-thumb" style="background:linear-gradient(135deg,#1a1a2e,#4a148c)"><div class="evg-thumb-bg" style="background:linear-gradient(135deg,#4a148c,#1a237e);opacity:.7"></div><span style="position:relative;z-index:1">🎶</span><div class="ev-price-badge" style="background:var(--lime);color:var(--dark);position:absolute;bottom:8px;left:8px">от 25 BYN</div></div>
+          <div class="evg-body"><div class="evg-cat">Концерт · 21 МАР · 19:00</div><div class="evg-title">«Ляпис 98» — Воссоединение</div><div class="evg-loc">📍 Falcon Club, Минск</div><div class="evg-foot"><div class="evg-price">от 25 BYN</div><div class="evg-rating">⭐ 4.9<span>(312)</span></div></div></div>
+        </a>
+        <a href="event.html" class="evg-card">
+          <div class="evg-thumb" style="background:linear-gradient(135deg,#e8f5e9,#66bb6a)"><span style="position:relative;z-index:1">🎨</span><div class="ev-price-badge" style="background:var(--mint);color:var(--dark);position:absolute;bottom:8px;left:8px">Бесплатно</div></div>
+          <div class="evg-body"><div class="evg-cat">Выставка · 21 МАР</div><div class="evg-title">«Беларусь в объективе»</div><div class="evg-loc">📍 Галерея «Ў», Минск</div><div class="evg-foot"><div class="evg-price" style="color:green">Бесплатно</div><div class="evg-rating">⭐ 4.7<span>(88)</span></div></div></div>
+        </a>
+        <a href="event.html" class="evg-card">
+          <div class="evg-thumb" style="background:linear-gradient(135deg,#fce4ec,#e91e63)"><span style="position:relative;z-index:1">💃</span><div class="ev-price-badge" style="background:var(--lavender);color:var(--dark);position:absolute;bottom:8px;left:8px">от 15 BYN</div></div>
+          <div class="evg-body"><div class="evg-cat">Вечеринка · 22 МАР · 21:00</div><div class="evg-title">Ретро-вечеринка «80-е снова в моде»</div><div class="evg-loc">📍 клуб Re:Public, Минск</div><div class="evg-foot"><div class="evg-price">от 15 BYN</div><div class="evg-rating">⭐ 4.6<span>(203)</span></div></div></div>
+        </a>
+        <a href="event.html" class="evg-card">
+          <div class="evg-thumb" style="background:linear-gradient(135deg,#e3f2fd,#1976d2)"><span style="position:relative;z-index:1">🎸</span><div class="ev-price-badge" style="background:var(--sky);color:var(--dark);position:absolute;bottom:8px;left:8px">от 30 BYN</div></div>
+          <div class="evg-body"><div class="evg-cat">Концерт · 22 МАР · 20:00</div><div class="evg-title">Molchat Doma — большой концерт</div><div class="evg-loc">📍 Prime Hall, Минск</div><div class="evg-foot"><div class="evg-price">от 30 BYN</div><div class="evg-rating">⭐ 4.9<span>(441)</span></div></div></div>
+        </a>
+        <a href="event.html" class="evg-card">
+          <div class="evg-thumb" style="background:linear-gradient(135deg,#fff8e1,#f57f17)"><span style="position:relative;z-index:1">🎭</span><div class="ev-price-badge" style="background:var(--peach);color:var(--dark);position:absolute;bottom:8px;left:8px">от 18 BYN</div></div>
+          <div class="evg-body"><div class="evg-cat">Театр · 21 МАР · 18:30</div><div class="evg-title">«Чайка» — Национальный театр</div><div class="evg-loc">📍 Купаловский, Минск</div><div class="evg-foot"><div class="evg-price">от 18 BYN</div><div class="evg-rating">⭐ 4.8<span>(203)</span></div></div></div>
+        </a>
+        <a href="event.html" class="evg-card">
+          <div class="evg-thumb" style="background:linear-gradient(135deg,#fff9c4,#f9a825)"><span style="position:relative;z-index:1">🍷</span><div class="ev-price-badge" style="background:var(--yellow);color:var(--dark);position:absolute;bottom:8px;left:8px">от 45 BYN</div></div>
+          <div class="evg-body"><div class="evg-cat">Гастро · 29 МАР</div><div class="evg-title">Минский фестиваль вина 2025</div><div class="evg-loc">📍 Атриум, Минск</div><div class="evg-foot"><div class="evg-price">от 45 BYN</div><div class="evg-rating">⭐ 4.8<span>(147)</span></div></div></div>
+        </a>
+      </div>
+
+      <div class="pagination">
+        <button class="pg-btn">←</button>
+        <button class="pg-btn on">1</button>
+        <button class="pg-btn">2</button>
+        <button class="pg-btn">3</button>
+        <span style="font-size:13px;color:var(--gray);padding:0 4px">…</span>
+        <button class="pg-btn">12</button>
+        <button class="pg-btn">→</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="fi">
+    <div class="fg">
+      <div><a href="index.html" class="logo"><div class="logo-mark">🎉</div><div><div class="logo-text" style="color:#fff">ПРАЗДНИК.BY</div><div class="logo-sub">Беларусь отмечает</div></div></a><p class="fb-about">Главный портал событий, площадок и подрядчиков для праздников по всей Беларуси.</p><p class="f-contact">✉️ <a href="mailto:hello@prazdnik.by">hello@prazdnik.by</a></p><p class="f-contact">✈️ <a href="#">@prazdnikby_bot</a></p><div class="f-soc"><a href="#" class="fsoc">VK</a><a href="#" class="fsoc">TG</a><a href="#" class="fsoc">IG</a></div></div>
+      <div class="fc"><h4>Площадки</h4><ul><li><a href="#">Рестораны</a></li><li><a href="#">Усадьбы</a></li><li><a href="#">Банкетные залы</a></li><li><a href="#">Лофты</a></li></ul></div>
+      <div class="fc"><h4>Подрядчики</h4><ul><li><a href="#">Фотографы</a></li><li><a href="#">Видеографы</a></li><li><a href="#">Декораторы</a></li><li><a href="#">Ведущие и DJ</a></li></ul></div>
+      <div class="fc"><h4>О нас</h4><ul><li><a href="#">О проекте</a></li><li><a href="#">Партнёрам</a></li><li><a href="mailto:hello@prazdnik.by">Написать нам</a></li></ul></div>
+    </div>
+    <div class="fbot"><span>© 2025 ПРАЗДНИК.BY</span><div class="flegal"><a href="#">Конфиденциальность</a><a href="#">Правила</a></div></div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.date-tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.date-tab').forEach(x=>x.classList.remove('on'));b.classList.add('on')}));
+document.querySelectorAll('.ft').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.ft').forEach(x=>x.classList.remove('on'));b.classList.add('on')}));
+document.querySelectorAll('.ev-fav').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();b.textContent=b.textContent==='♡'?'♥':'♡';b.style.color=b.textContent==='♥'?'#e53935':''}));
+document.getElementById('listBtn').addEventListener('click',()=>{document.getElementById('listView').style.display='block';document.getElementById('gridView').style.display='none';document.getElementById('listBtn').classList.add('on');document.getElementById('gridBtn').classList.remove('on')});
+document.getElementById('gridBtn').addEventListener('click',()=>{document.getElementById('gridView').style.display='grid';document.getElementById('listView').style.display='none';document.getElementById('gridBtn').classList.add('on');document.getElementById('listBtn').classList.remove('on')});
+</script>
+</body>
+</html>

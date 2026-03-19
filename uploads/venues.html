@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Усадьбы и загородные площадки — ПРАЗДНИК.BY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Onest:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--lime:#D2F882;--yellow:#FFF57D;--lavender:#E7D4FF;--peach:#FFBD7B;--mint:#E2F8D0;--sky:#D1E4F8;--cream:#FFF5E4;--bg:#F7F6F2;--white:#FFFFFF;--dark:#181818;--gray:#888;--lgray:#C8C8C8;--border:rgba(0,0,0,.08);--r:20px;--trans:.2s cubic-bezier(.4,0,.2,1);--font-h:'Unbounded',sans-serif;--font-b:'Onest',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--bg);color:var(--dark);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button{font-family:var(--font-b);cursor:pointer}
+
+.site-header{position:sticky;top:0;z-index:200;background:rgba(247,246,242,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.h-inner{max-width:1320px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;gap:36px}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{width:38px;height:38px;background:var(--dark);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.logo-text{font-family:var(--font-h);font-weight:800;font-size:14px;line-height:1.1}
+.logo-sub{font-size:9px;font-weight:400;color:var(--gray);letter-spacing:.05em;display:block;margin-top:1px}
+nav{display:flex;align-items:center;gap:2px;flex:1}
+.na{font-size:13.5px;font-weight:500;padding:7px 13px;border-radius:99px;transition:background var(--trans)}
+.na:hover{background:rgba(0,0,0,.06)}.na.on{background:var(--dark);color:#fff}
+.h-right{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.btn-ico{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:transparent;display:flex;align-items:center;justify-content:center;font-size:15px;transition:background var(--trans)}
+.btn-ico:hover{background:rgba(0,0,0,.06)}
+.btn-login{height:36px;padding:0 16px;border-radius:99px;border:1.5px solid var(--border);background:transparent;font-size:13px;font-weight:500;transition:background var(--trans)}
+.btn-login:hover{background:rgba(0,0,0,.06)}
+
+.gsearch{background:var(--dark);padding:16px 32px}
+.gs-inner{max-width:1320px;margin:0 auto;display:flex;gap:10px;align-items:center}
+.gs-wrap{flex:1;position:relative}
+.gs-wrap svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.4)}
+.gs-inp{width:100%;height:46px;border-radius:13px;border:none;background:rgba(255,255,255,.1);color:#fff;font-family:var(--font-b);font-size:14px;padding:0 18px 0 44px;outline:none;transition:background var(--trans)}
+.gs-inp::placeholder{color:rgba(255,255,255,.38)}.gs-inp:focus{background:rgba(255,255,255,.15)}
+.gs-sel{height:46px;padding:0 34px 0 14px;border-radius:13px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:#fff;font-family:var(--font-b);font-size:13px;appearance:none;cursor:pointer;outline:none;min-width:130px;background-image:url("data:image/svg+xml,%3Csvg width='10' height='7' viewBox='0 0 10 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.gs-sel option{background:#222}
+.gs-btn{height:46px;padding:0 22px;border-radius:13px;border:none;background:var(--lime);color:var(--dark);font-family:var(--font-b);font-size:13px;font-weight:700;transition:opacity var(--trans);white-space:nowrap}
+.gs-btn:hover{opacity:.88}
+
+.wrap{max-width:1320px;margin:0 auto;padding:0 32px}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--gray);padding:20px 0 0}
+.breadcrumb a{color:var(--gray)}.breadcrumb a:hover{color:var(--dark)}.breadcrumb-sep{opacity:.4}
+
+/* PAGE LAYOUT */
+.page-layout{display:grid;grid-template-columns:280px 1fr;gap:28px;margin-top:28px;align-items:start}
+
+/* FILTERS SIDEBAR */
+.sidebar{background:var(--white);border-radius:var(--r);border:1.5px solid var(--border);padding:24px;position:sticky;top:80px}
+.sb-title{font-family:var(--font-h);font-size:14px;font-weight:700;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between}
+.sb-reset{font-size:12px;font-weight:500;color:var(--gray);cursor:pointer;font-family:var(--font-b);background:none;border:none}
+.sb-reset:hover{color:var(--dark)}
+.sb-group{margin-bottom:22px;border-bottom:1px solid var(--border);padding-bottom:22px}
+.sb-group:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
+.sb-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gray);margin-bottom:12px}
+.sb-opt{display:flex;align-items:center;gap:8px;padding:5px 0;cursor:pointer;font-size:13px}
+.sb-opt input{width:16px;height:16px;accent-color:var(--dark);cursor:pointer;flex-shrink:0}
+.sb-opt-cnt{margin-left:auto;font-size:11px;color:var(--lgray)}
+.range-row{display:flex;align-items:center;gap:8px;margin-top:8px}
+.range-inp{flex:1;height:38px;border-radius:9px;border:1.5px solid var(--border);background:transparent;font-family:var(--font-b);font-size:12px;padding:0 10px;outline:none;transition:border-color var(--trans);text-align:center}
+.range-inp:focus{border-color:rgba(0,0,0,.3)}
+.range-sep{color:var(--gray);font-size:12px;flex-shrink:0}
+.sb-apply{width:100%;height:42px;border-radius:12px;border:none;background:var(--dark);color:#fff;font-family:var(--font-b);font-size:13px;font-weight:700;margin-top:18px;transition:opacity var(--trans)}
+.sb-apply:hover{opacity:.82}
+.sb-slider{width:100%;margin:10px 0 0;accent-color:var(--dark)}
+
+/* CONTENT AREA */
+.content-area{}
+.ca-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.ca-count{font-size:14px;color:var(--gray)}<br>.ca-count strong{color:var(--dark);font-weight:700}
+.ca-sort{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray)}
+.sort-sel{height:36px;padding:0 30px 0 12px;border-radius:10px;border:1.5px solid var(--border);background:var(--white);font-family:var(--font-b);font-size:13px;appearance:none;cursor:pointer;outline:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='7' viewBox='0 0 10 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+.view-btns{display:flex;gap:4px}
+.v-btn{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--border);background:transparent;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all var(--trans)}
+.v-btn.on,.v-btn:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
+.active-chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.act-chip{display:flex;align-items:center;gap:5px;height:28px;padding:0 10px;border-radius:99px;background:rgba(0,0,0,.07);font-size:12px;border:none;cursor:pointer;transition:background var(--trans)}
+.act-chip:hover{background:rgba(0,0,0,.12)}
+.act-x{font-size:11px;opacity:.5}
+
+/* CARDS GRID */
+.venues-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.v-card{background:var(--white);border-radius:var(--r);overflow:hidden;cursor:pointer;border:1.5px solid var(--border);transition:transform var(--trans),box-shadow var(--trans);display:block;color:inherit}
+.v-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,.11)}
+.v-thumb{width:100%;height:180px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:50px}
+.v-thumb-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .4s ease}
+.v-card:hover .v-thumb-bg{transform:scale(1.07)}
+.v-badge{position:absolute;bottom:10px;left:10px;border-radius:99px;padding:4px 10px;font-size:11px;font-weight:700}
+.v-fav{position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.88);border:none;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;transition:background var(--trans)}
+.v-fav:hover{background:#fff}
+.v-body{padding:16px}
+.v-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px}
+.vtag{font-size:10px;background:rgba(0,0,0,.06);border-radius:5px;padding:3px 7px;color:var(--gray)}
+.v-title{font-family:var(--font-h);font-size:13px;font-weight:700;line-height:1.3;margin-bottom:4px}
+.v-loc{font-size:12px;color:var(--gray);margin-bottom:8px}
+.v-caps{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.v-cap-item{font-size:11px;color:var(--gray);display:flex;align-items:center;gap:3px}
+.v-foot{display:flex;align-items:center;justify-content:space-between}
+.v-rating{font-size:12px;font-weight:600;display:flex;align-items:center;gap:3px}
+.v-rating span{font-weight:400;color:var(--gray)}
+.v-price{font-size:12px;font-weight:700}
+
+/* LIST VIEW */
+.venues-list{display:flex;flex-direction:column;gap:14px}
+.vl-card{background:var(--white);border-radius:var(--r);overflow:hidden;cursor:pointer;border:1.5px solid var(--border);transition:transform var(--trans),box-shadow var(--trans);display:grid;grid-template-columns:260px 1fr;color:inherit}
+.vl-card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.09)}
+.vl-thumb{height:180px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:48px;background:var(--bg)}
+.vl-thumb-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .4s ease}
+.vl-card:hover .vl-thumb-bg{transform:scale(1.05)}
+.vl-body{padding:20px 24px;display:flex;flex-direction:column;gap:8px}
+.vl-tags{display:flex;gap:5px;flex-wrap:wrap}
+.vl-title{font-family:var(--font-h);font-size:15px;font-weight:700;line-height:1.2}
+.vl-loc{font-size:13px;color:var(--gray)}
+.vl-feats{display:flex;gap:10px;flex-wrap:wrap;margin-top:2px}
+.vl-feat{font-size:11px;background:rgba(0,0,0,.05);border-radius:6px;padding:4px 9px;color:var(--gray)}
+.vl-foot{display:flex;align-items:center;gap:16px;margin-top:auto}
+.vl-rating{font-size:13px;font-weight:600;display:flex;align-items:center;gap:4px}
+.vl-rating span{font-weight:400;color:var(--gray)}
+.vl-price{font-size:13px;font-weight:700}
+.vl-cap{font-size:12px;color:var(--gray)}
+.vl-btn{margin-left:auto;height:36px;padding:0 18px;border-radius:99px;border:none;background:var(--dark);color:#fff;font-size:12px;font-weight:700;cursor:pointer;transition:opacity var(--trans);flex-shrink:0}
+.vl-btn:hover{opacity:.82}
+
+/* PAGINATION */
+.pagination{display:flex;align-items:center;gap:6px;justify-content:center;margin-top:32px}
+.pg-btn{width:38px;height:38px;border-radius:99px;border:1.5px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;cursor:pointer;transition:all var(--trans)}
+.pg-btn:hover,.pg-btn.on{background:var(--dark);color:#fff;border-color:var(--dark)}
+
+/* PAGE BANNER */
+.page-banner{background:var(--lavender);border-radius:var(--r);padding:32px 40px;display:flex;align-items:center;gap:32px;margin-top:24px}
+.pb-icon{font-size:56px;flex-shrink:0}
+.pb-t{font-family:var(--font-h);font-size:22px;font-weight:800;margin-bottom:6px;line-height:1.2}
+.pb-s{font-size:14px;color:rgba(0,0,0,.5);line-height:1.5}
+
+/* FOOTER */
+.site-footer{background:var(--dark);color:#fff;margin-top:64px;padding:40px 0 24px}
+.fi{max-width:1320px;margin:0 auto;padding:0 32px}
+.fg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;margin-bottom:32px}
+.fb-about{font-size:13px;color:rgba(255,255,255,.38);margin-top:12px;line-height:1.65;max-width:210px}
+.f-contact{font-size:13px;color:rgba(255,255,255,.5);margin-top:8px;display:flex;align-items:center;gap:6px}
+.f-contact a{color:var(--lime)}
+.f-soc{display:flex;gap:8px;margin-top:14px}
+.fsoc{width:34px;height:34px;border-radius:9px;border:1.5px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:12px;text-decoration:none;color:#fff;transition:background var(--trans)}
+.fsoc:hover{background:rgba(255,255,255,.1)}
+.fc h4{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px}
+.fc ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.fc ul li a{font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;transition:color var(--trans)}
+.fc ul li a:hover{color:#fff}
+.fbot{padding-top:20px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.25)}
+.fbot a{color:rgba(255,255,255,.32);text-decoration:none}
+.flegal{display:flex;gap:14px}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fadeUp .4s ease both}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="h-inner">
+    <a href="index.html" class="logo"><div class="logo-mark">🎉</div><div><div class="logo-text">ПРАЗДНИК.BY</div><div class="logo-sub">Беларусь отмечает</div></div></a>
+    <nav>
+      <a href="afisha.html" class="na">Афиша</a>
+      <a href="venues.html" class="na on">Площадки</a>
+      <a href="#" class="na">Подрядчики</a>
+      <a href="#" class="na">Блог</a>
+      <a href="#" class="na">О нас</a>
+    </nav>
+    <div class="h-right">
+      <button class="btn-ico">♡</button>
+      <button class="btn-login">Войти</button>
+    </div>
+  </div>
+</header>
+
+<div class="gsearch">
+  <div class="gs-inner">
+    <div class="gs-wrap">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" class="gs-inp" placeholder="Название усадьбы или район…">
+    </div>
+    <select class="gs-sel"><option>📍 Вся Беларусь</option><option>📍 Минск</option><option>📍 Минская область</option><option>📍 Брест</option><option>📍 Гродно</option></select>
+    <button class="gs-btn">Найти →</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="breadcrumb">
+    <a href="index.html">Главная</a>
+    <span class="breadcrumb-sep">›</span>
+    <span>Площадки</span>
+    <span class="breadcrumb-sep">›</span>
+    <strong>Загородные усадьбы</strong>
+  </div>
+
+  <!-- PAGE BANNER -->
+  <div class="page-banner fu">
+    <div class="pb-icon">🏡</div>
+    <div>
+      <div class="pb-t">Загородные усадьбы Беларуси</div>
+      <div class="pb-s">Живописные места на природе для свадеб, корпоративов, юбилеев и семейного отдыха. Найдите идеальную усадьбу с банями, беседками, конюшней и всем необходимым.</div>
+    </div>
+  </div>
+
+  <!-- TYPE CHIPS -->
+  <div style="display:flex;gap:8px;margin:20px 0;flex-wrap:wrap">
+    <button class="act-chip" style="background:var(--dark);color:#fff">🏡 Усадьбы <span class="act-x">✕</span></button>
+    <button class="act-chip" style="background:rgba(0,0,0,.07)">🍽️ Рестораны</button>
+    <button class="act-chip" style="background:rgba(0,0,0,.07)">🏛️ Банкетные залы</button>
+    <button class="act-chip" style="background:rgba(0,0,0,.07)">🖼️ Лофты</button>
+    <button class="act-chip" style="background:rgba(0,0,0,.07)">🏨 Отели</button>
+    <button class="act-chip" style="background:rgba(0,0,0,.07)">🌲 На природе</button>
+  </div>
+
+  <div class="page-layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sb-title">
+        Фильтры
+        <button class="sb-reset">Сбросить всё</button>
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-label">Тип мероприятия</div>
+        <label class="sb-opt"><input type="checkbox" checked> Свадьба <span class="sb-opt-cnt">142</span></label>
+        <label class="sb-opt"><input type="checkbox"> Корпоратив <span class="sb-opt-cnt">98</span></label>
+        <label class="sb-opt"><input type="checkbox"> Юбилей / ДР <span class="sb-opt-cnt">201</span></label>
+        <label class="sb-opt"><input type="checkbox"> Детский праздник <span class="sb-opt-cnt">54</span></label>
+        <label class="sb-opt"><input type="checkbox"> Выпускной <span class="sb-opt-cnt">37</span></label>
+        <label class="sb-opt"><input type="checkbox"> Фуршет <span class="sb-opt-cnt">76</span></label>
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-label">Количество гостей (банкет)</div>
+        <label class="sb-opt"><input type="radio" name="guests"> до 20 <span class="sb-opt-cnt">48</span></label>
+        <label class="sb-opt"><input type="radio" name="guests"> 20–50 <span class="sb-opt-cnt">87</span></label>
+        <label class="sb-opt"><input type="radio" name="guests" checked> 50–100 <span class="sb-opt-cnt">124</span></label>
+        <label class="sb-opt"><input type="radio" name="guests"> 100–200 <span class="sb-opt-cnt">73</span></label>
+        <label class="sb-opt"><input type="radio" name="guests"> 200+ <span class="sb-opt-cnt">29</span></label>
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-label">Бюджет (BYN/сутки)</div>
+        <div class="range-row">
+          <input type="number" class="range-inp" placeholder="от" value="500">
+          <span class="range-sep">—</span>
+          <input type="number" class="range-inp" placeholder="до" value="5000">
+        </div>
+        <input type="range" class="sb-slider" min="0" max="10000" value="5000">
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-label">Удалённость от Минска</div>
+        <label class="sb-opt"><input type="radio" name="dist"> до 20 км <span class="sb-opt-cnt">34</span></label>
+        <label class="sb-opt"><input type="radio" name="dist" checked> до 50 км <span class="sb-opt-cnt">89</span></label>
+        <label class="sb-opt"><input type="radio" name="dist"> до 100 км <span class="sb-opt-cnt">142</span></label>
+        <label class="sb-opt"><input type="radio" name="dist"> Любое расстояние <span class="sb-opt-cnt">194</span></label>
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-label">Удобства</div>
+        <label class="sb-opt"><input type="checkbox" checked> 🛁 Баня / сауна</label>
+        <label class="sb-opt"><input type="checkbox"> 🏊 Бассейн</label>
+        <label class="sb-opt"><input type="checkbox"> 🅿️ Парковка</label>
+        <label class="sb-opt"><input type="checkbox" checked> 🌿 Беседки</label>
+        <label class="sb-opt"><input type="checkbox"> 🏇 Конюшня</label>
+        <label class="sb-opt"><input type="checkbox"> 🛏️ Ночёвка</label>
+        <label class="sb-opt"><input type="checkbox"> 🔥 Мангал / костёр</label>
+        <label class="sb-opt"><input type="checkbox"> 🍽️ Своя кухня</label>
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-label">Рейтинг</div>
+        <label class="sb-opt"><input type="checkbox" checked> ★ 4.5 и выше</label>
+        <label class="sb-opt"><input type="checkbox"> ★ 4.0 и выше</label>
+      </div>
+
+      <button class="sb-apply">Применить фильтры</button>
+    </aside>
+
+    <!-- CONTENT -->
+    <div class="content-area">
+      <div class="ca-head">
+        <div class="ca-count">Найдено <strong>94 усадьбы</strong></div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="ca-sort">
+            Сортировать:
+            <select class="sort-sel">
+              <option>По популярности</option>
+              <option>По рейтингу</option>
+              <option>Сначала дешевле</option>
+              <option>Сначала дороже</option>
+              <option>Ближе к Минску</option>
+            </select>
+          </div>
+          <div class="view-btns">
+            <button class="v-btn on" id="gridBtn" title="Сетка">⊞</button>
+            <button class="v-btn" id="listBtn" title="Список">≡</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="active-chips">
+        <button class="act-chip">Усадьба <span class="act-x">✕</span></button>
+        <button class="act-chip">50–100 гостей <span class="act-x">✕</span></button>
+        <button class="act-chip">Баня <span class="act-x">✕</span></button>
+        <button class="act-chip">Беседки <span class="act-x">✕</span></button>
+        <button class="act-chip">до 50 км от Минска <span class="act-x">✕</span></button>
+      </div>
+
+      <!-- GRID VIEW -->
+      <div class="venues-grid" id="gridView">
+        <a href="venue.html" class="v-card fu">
+          <div class="v-thumb" style="background:linear-gradient(135deg,#c8e6c9,#81c784)">
+            <div class="v-thumb-bg" style="background:linear-gradient(135deg,#a5d6a7,#4caf50);opacity:.55"></div>
+            <span style="position:relative;z-index:1">🏡</span>
+            <div class="v-badge" style="background:var(--lime);color:var(--dark)">от 1 500 BYN/сут</div>
+            <button class="v-fav">♡</button>
+          </div>
+          <div class="v-body">
+            <div class="v-tags"><span class="vtag">Усадьба</span><span class="vtag">Природа</span><span class="vtag">Баня</span><span class="vtag">Беседки</span></div>
+            <div class="v-title">Усадьба «Лесная сказка»</div>
+            <div class="v-loc">📍 25 км от Минска · Дзержинский р-н</div>
+            <div class="v-caps">
+              <span class="v-cap-item">👥 банкет до 150</span>
+              <span class="v-cap-item">🍽️ фуршет до 220</span>
+            </div>
+            <div class="v-foot"><div class="v-rating">⭐ 4.9 <span>(74)</span></div><div class="v-price">от 1 500 BYN/сут</div></div>
+          </div>
+        </a>
+
+        <a href="venue.html" class="v-card fu">
+          <div class="v-thumb" style="background:linear-gradient(135deg,#fff9c4,#f9a825)">
+            <div class="v-thumb-bg" style="background:linear-gradient(135deg,#ffe082,#f9a825);opacity:.4"></div>
+            <span style="position:relative;z-index:1">🌾</span>
+            <div class="v-badge" style="background:var(--yellow);color:var(--dark)">от 2 000 BYN/сут</div>
+            <button class="v-fav">♡</button>
+          </div>
+          <div class="v-body">
+            <div class="v-tags"><span class="vtag">Усадьба</span><span class="vtag">Пруд</span><span class="vtag">Ночёвка</span></div>
+            <div class="v-title">Усадьба «Зелёные холмы»</div>
+            <div class="v-loc">📍 42 км от Минска · Логойский р-н</div>
+            <div class="v-caps">
+              <span class="v-cap-item">👥 банкет до 200</span>
+              <span class="v-cap-item">🏊 бассейн</span>
+            </div>
+            <div class="v-foot"><div class="v-rating">⭐ 4.8 <span>(91)</span></div><div class="v-price">от 2 000 BYN/сут</div></div>
+          </div>
+        </a>
+
+        <a href="venue.html" class="v-card fu">
+          <div class="v-thumb" style="background:linear-gradient(135deg,#e1d5ff,#9c7cff)">
+            <div class="v-thumb-bg" style="background:linear-gradient(135deg,#ce93d8,#9c7cff);opacity:.4"></div>
+            <span style="position:relative;z-index:1">🏰</span>
+            <div class="v-badge" style="background:var(--lavender);color:var(--dark)">от 3 500 BYN/сут</div>
+            <button class="v-fav">♡</button>
+          </div>
+          <div class="v-body">
+            <div class="v-tags"><span class="vtag">Замок</span><span class="vtag">Исторический</span></div>
+            <div class="v-title">Комплекс «Замок у озера»</div>
+            <div class="v-loc">📍 38 км от Минска · Молодечненский р-н</div>
+            <div class="v-caps">
+              <span class="v-cap-item">👥 банкет до 300</span>
+              <span class="v-cap-item">🏇 конюшня</span>
+            </div>
+            <div class="v-foot"><div class="v-rating">⭐ 4.9 <span>(112)</span></div><div class="v-price">от 3 500 BYN/сут</div></div>
+          </div>
+        </a>
+
+        <a href="venue.html" class="v-card fu">
+          <div class="v-thumb" style="background:linear-gradient(135deg,#ffe0b2,#ff8f00)">
+            <div class="v-thumb-bg" style="background:linear-gradient(135deg,#ffcc80,#ff8f00);opacity:.4"></div>
+            <span style="position:relative;z-index:1">🌻</span>
+            <div class="v-badge" style="background:var(--peach);color:var(--dark)">от 900 BYN/сут</div>
+            <button class="v-fav">♡</button>
+          </div>
+          <div class="v-body">
+            <div class="v-tags"><span class="vtag">Мини-усадьба</span><span class="vtag">Уютная</span></div>
+            <div class="v-title">Усадьба «Солнечный двор»</div>
+            <div class="v-loc">📍 18 км от Минска · Минский р-н</div>
+            <div class="v-caps">
+              <span class="v-cap-item">👥 банкет до 60</span>
+              <span class="v-cap-item">🔥 мангал</span>
+            </div>
+            <div class="v-foot"><div class="v-rating">⭐ 4.7 <span>(43)</span></div><div class="v-price">от 900 BYN/сут</div></div>
+          </div>
+        </a>
+
+        <a href="venue.html" class="v-card fu">
+          <div class="v-thumb" style="background:linear-gradient(135deg,#b2dfdb,#00897b)">
+            <div class="v-thumb-bg" style="background:linear-gradient(135deg,#80cbc4,#00897b);opacity:.4"></div>
+            <span style="position:relative;z-index:1">🌊</span>
+            <div class="v-badge" style="background:var(--mint);color:var(--dark)">от 1 800 BYN/сут</div>
+            <button class="v-fav">♡</button>
+          </div>
+          <div class="v-body">
+            <div class="v-tags"><span class="vtag">На берегу</span><span class="vtag">Рыбалка</span></div>
+            <div class="v-title">Усадьба «Лазурный берег»</div>
+            <div class="v-loc">📍 33 км от Минска · Пуховичский р-н</div>
+            <div class="v-caps">
+              <span class="v-cap-item">👥 банкет до 100</span>
+              <span class="v-cap-item">⛵ лодки</span>
+            </div>
+            <div class="v-foot"><div class="v-rating">⭐ 4.8 <span>(67)</span></div><div class="v-price">от 1 800 BYN/сут</div></div>
+          </div>
+        </a>
+
+        <a href="venue.html" class="v-card fu">
+          <div class="v-thumb" style="background:linear-gradient(135deg,#f8bbd0,#e91e63)">
+            <div class="v-thumb-bg" style="background:linear-gradient(135deg,#f48fb1,#e91e63);opacity:.35"></div>
+            <span style="position:relative;z-index:1">🌸</span>
+            <div class="v-badge" style="background:var(--yellow);color:var(--dark)">от 2 200 BYN/сут</div>
+            <button class="v-fav">♡</button>
+          </div>
+          <div class="v-body">
+            <div class="v-tags"><span class="vtag">Арт-усадьба</span><span class="vtag">Фотозона</span></div>
+            <div class="v-title">Усадьба «Цветущий сад»</div>
+            <div class="v-loc">📍 29 км от Минска · Смолевичский р-н</div>
+            <div class="v-caps">
+              <span class="v-cap-item">👥 банкет до 120</span>
+              <span class="v-cap-item">📸 фотозоны</span>
+            </div>
+            <div class="v-foot"><div class="v-rating">⭐ 4.9 <span>(88)</span></div><div class="v-price">от 2 200 BYN/сут</div></div>
+          </div>
+        </a>
+      </div>
+
+      <!-- LIST VIEW (hidden by default) -->
+      <div class="venues-list" id="listView" style="display:none">
+        <a href="venue.html" class="vl-card">
+          <div class="vl-thumb" style="background:linear-gradient(135deg,#c8e6c9,#81c784)">
+            <div class="vl-thumb-bg" style="background:linear-gradient(135deg,#a5d6a7,#4caf50);opacity:.5"></div>
+            <span style="position:relative;z-index:1;font-size:48px">🏡</span>
+          </div>
+          <div class="vl-body">
+            <div class="vl-tags"><span class="vtag">Усадьба</span><span class="vtag">Баня</span><span class="vtag">Беседки</span></div>
+            <div class="vl-title">Усадьба «Лесная сказка»</div>
+            <div class="vl-loc">📍 25 км от Минска · Дзержинский р-н</div>
+            <div class="vl-feats"><span class="vl-feat">👥 банкет до 150</span><span class="vl-feat">🍽️ фуршет до 220</span><span class="vl-feat">🛁 баня</span><span class="vl-feat">🌿 беседки</span><span class="vl-feat">🅿️ парковка</span></div>
+            <div class="vl-foot">
+              <div class="vl-rating">⭐ 4.9 <span>(74 отзыва)</span></div>
+              <div class="vl-cap">👥 до 150 гостей</div>
+              <div class="vl-price">от 1 500 BYN/сут</div>
+              <button class="vl-btn">Подробнее →</button>
+            </div>
+          </div>
+        </a>
+        <a href="venue.html" class="vl-card">
+          <div class="vl-thumb" style="background:linear-gradient(135deg,#fff9c4,#f9a825)">
+            <div class="vl-thumb-bg" style="background:linear-gradient(135deg,#ffe082,#f9a825);opacity:.4"></div>
+            <span style="position:relative;z-index:1;font-size:48px">🌾</span>
+          </div>
+          <div class="vl-body">
+            <div class="vl-tags"><span class="vtag">Усадьба</span><span class="vtag">Пруд</span><span class="vtag">Ночёвка</span></div>
+            <div class="vl-title">Усадьба «Зелёные холмы»</div>
+            <div class="vl-loc">📍 42 км от Минска · Логойский р-н</div>
+            <div class="vl-feats"><span class="vl-feat">👥 банкет до 200</span><span class="vl-feat">🏊 бассейн</span><span class="vl-feat">🛏️ ночёвка</span><span class="vl-feat">🍽️ своя кухня</span></div>
+            <div class="vl-foot">
+              <div class="vl-rating">⭐ 4.8 <span>(91 отзыв)</span></div>
+              <div class="vl-cap">👥 до 200 гостей</div>
+              <div class="vl-price">от 2 000 BYN/сут</div>
+              <button class="vl-btn">Подробнее →</button>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="pagination">
+        <button class="pg-btn">←</button>
+        <button class="pg-btn on">1</button>
+        <button class="pg-btn">2</button>
+        <button class="pg-btn">3</button>
+        <span style="font-size:13px;color:var(--gray);padding:0 4px">…</span>
+        <button class="pg-btn">8</button>
+        <button class="pg-btn">→</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="fi">
+    <div class="fg">
+      <div><a href="index.html" class="logo"><div class="logo-mark">🎉</div><div><div class="logo-text" style="color:#fff">ПРАЗДНИК.BY</div><div class="logo-sub">Беларусь отмечает</div></div></a><p class="fb-about">Главный портал событий, площадок и подрядчиков для праздников по всей Беларуси.</p><p class="f-contact">✉️ <a href="mailto:hello@prazdnik.by">hello@prazdnik.by</a></p><p class="f-contact">✈️ <a href="#">@prazdnikby_bot</a></p><div class="f-soc"><a href="#" class="fsoc">VK</a><a href="#" class="fsoc">TG</a><a href="#" class="fsoc">IG</a></div></div>
+      <div class="fc"><h4>Площадки</h4><ul><li><a href="#">Рестораны и кафе</a></li><li><a href="#">Загородные усадьбы</a></li><li><a href="#">Банкетные залы</a></li><li><a href="#">Лофты</a></li></ul></div>
+      <div class="fc"><h4>Подрядчики</h4><ul><li><a href="#">Фотографы</a></li><li><a href="#">Видеографы</a></li><li><a href="#">Декораторы</a></li><li><a href="#">Ведущие и DJ</a></li></ul></div>
+      <div class="fc"><h4>О нас</h4><ul><li><a href="#">О проекте</a></li><li><a href="#">Партнёрам</a></li><li><a href="mailto:hello@prazdnik.by">Написать нам</a></li></ul></div>
+    </div>
+    <div class="fbot"><span>© 2025 ПРАЗДНИК.BY</span><div class="flegal"><a href="#">Конфиденциальность</a><a href="#">Правила</a></div></div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('gridBtn').addEventListener('click',()=>{document.getElementById('gridView').style.display='grid';document.getElementById('listView').style.display='none';document.getElementById('gridBtn').classList.add('on');document.getElementById('listBtn').classList.remove('on')});
+document.getElementById('listBtn').addEventListener('click',()=>{document.getElementById('listView').style.display='flex';document.getElementById('gridView').style.display='none';document.getElementById('listBtn').classList.add('on');document.getElementById('gridBtn').classList.remove('on')});
+document.querySelectorAll('.act-chip').forEach(c=>c.addEventListener('click',()=>c.remove()));
+document.querySelectorAll('.v-fav').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();b.textContent=b.textContent==='♡'?'♥':'♡';b.style.color=b.textContent==='♥'?'#e53935':''}));
+</script>
+</body>
+</html>
