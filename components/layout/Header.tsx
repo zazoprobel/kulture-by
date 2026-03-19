@@ -1,4 +1,17 @@
+"use client";
+
+import { useState } from "react";
+
+const navItems = [
+  { href: "/places", label: "Места" },
+  { href: "/venues", label: "Площадки" },
+  { href: "/guide", label: "Путеводитель" },
+  { href: "#", label: "О нас" },
+] as const;
+
 export function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <>
       <header className="site-header">
@@ -11,21 +24,11 @@ export function Header() {
             </div>
           </a>
           <nav>
-            <a href="/afisha" className="na">
-              Афиша
-            </a>
-            <a href="/venues" className="na">
-              Площадки
-            </a>
-            <a href="#" className="na">
-              Подрядчики
-            </a>
-            <a href="#" className="na">
-              Блог
-            </a>
-            <a href="#" className="na">
-              О нас
-            </a>
+            {navItems.map((item) => (
+              <a key={item.label} href={item.href} className="na">
+                {item.label}
+              </a>
+            ))}
           </nav>
           <div className="h-right">
             <button className="btn-ico" type="button">
@@ -34,7 +37,28 @@ export function Header() {
             <a className="btn-login" href="/login">
               Войти
             </a>
+            <button
+              type="button"
+              className="h-burger"
+              aria-label="Открыть меню"
+              aria-expanded={isMenuOpen}
+              onClick={() => setIsMenuOpen((prev) => !prev)}
+            >
+              {isMenuOpen ? "✕" : "☰"}
+            </button>
           </div>
+        </div>
+        <div className={`mobile-nav ${isMenuOpen ? "open" : ""}`}>
+          {navItems.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              className="mobile-nav-link"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {item.label}
+            </a>
+          ))}
         </div>
       </header>
 

@@ -18,10 +18,10 @@ export function Footer() {
               всей Беларуси.
             </p>
             <p className="f-contact">
-              ✉️ <a href="mailto:hello@prazdnik.by">hello@prazdnik.by</a>
+              ✉️ <a href="mailto:hello@kulture.by">hello@kulture.by</a>
             </p>
             <p className="f-contact">
-              ✈️ <a href="https://t.me/prazdnikby_bot">@prazdnikby_bot</a>
+              ✈️ <a href="https://t.me/kultureby_bot">@kultureby_bot</a>
             </p>
             <div className="f-soc">
               <a href="#" className="fsoc">
@@ -85,7 +85,7 @@ export function Footer() {
                 <a href="#">Партнерам</a>
               </li>
               <li>
-                <a href="mailto:hello@prazdnik.by">Написать нам</a>
+                <a href="mailto:hello@kulture.by">Написать нам</a>
               </li>
             </ul>
           </div>
