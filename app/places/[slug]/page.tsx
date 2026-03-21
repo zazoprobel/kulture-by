@@ -28,6 +28,7 @@ type Place = {
   address: string | null;
   rating: number | null;
   entry_price: number | null;
+  image_url: string | null;
   website: string | null;
   working_hours: Record<string, string> | null;
 };
@@ -58,7 +59,7 @@ export async function generateMetadata({ params }: PageProps) {
 
   const { data: placeData } = await supabase
     .from("places")
-    .select("id,slug,name,description,category,city")
+    .select("id,slug,name,description,category,city,image_url")
     .eq("slug", slug)
     .single();
 
@@ -95,7 +96,7 @@ export default async function PlacePage({ params }: PageProps) {
 
   const { data: placeData } = await supabase
     .from("places")
-    .select("id,slug,name,description,category,city,address,rating,entry_price,website,working_hours")
+    .select("id,slug,name,description,category,city,address,rating,entry_price,image_url,website,working_hours")
     .eq("slug", slug)
     .single();
 
@@ -181,7 +182,7 @@ export default async function PlacePage({ params }: PageProps) {
     entry_price: number | null;
   }>;
 
-  const primaryImage = imageByCategory[place.category] ?? "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=1400";
+  const primaryImage = place.image_url || imageByCategory[place.category] || "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=1400";
   const shortMeta = `${categoryLabel[place.category] ?? place.category} · ${place.city}`;
   const entryPriceText = place.entry_price && place.entry_price > 0 ? `от ${Math.round(place.entry_price)} BYN` : "Бесплатно";
   const workingHoursText = place.working_hours && Object.keys(place.working_hours).length > 0 ? "По расписанию" : "Круглосуточно";

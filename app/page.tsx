@@ -6,7 +6,7 @@ import { Container } from "@/components/layout/Container";
 import { createClient } from "@/lib/supabase/server";
 import { VenuesSlider } from "@/components/home/VenuesSlider";
 
-type Place = { id: string; slug: string; name: string; city: string; category: string; rating: number | null };
+type Place = { id: string; slug: string; name: string; city: string; category: string; rating: number | null; image_url: string | null };
 type Venue = {
   id: string;
   slug: string;
@@ -39,7 +39,7 @@ export default async function HomePage() {
   try {
     const supabase = await createClient();
     const [placesQuery, venuesQuery, placesCountQuery, venuesCountQuery, citiesQuery] = await Promise.all([
-      supabase.from("places").select("id,slug,name,city,category,rating").order("rating", { ascending: false }).limit(4),
+      supabase.from("places").select("id,slug,name,city,category,rating,image_url").order("rating", { ascending: false }).limit(4),
       supabase
         .from("venues")
         .select("id,slug,name,city,type,rating,capacity_banquet,price_from")
@@ -219,7 +219,7 @@ export default async function HomePage() {
               <Link key={place.id} href={`/places/${place.slug}`} className="card">
                 <div className="thumb">
                   <Image
-                    src={placeImages[place.category] ?? "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=900"}
+                    src={place.image_url || placeImages[place.category] || "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=900"}
                     alt={place.name}
                     fill
                     unoptimized

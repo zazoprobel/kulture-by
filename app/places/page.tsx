@@ -41,7 +41,7 @@ export default async function PlacesPage() {
     const [placesResult, countResult] = await Promise.all([
       supabase
         .from("places")
-        .select("id,name,slug,category,city,address,rating,entry_price")
+        .select("id,name,slug,category,city,address,rating,entry_price,image_url")
         .order("rating", { ascending: false })
         .limit(PAGE_SIZE),
       supabase.from("places").select("*", { count: "exact", head: true }),

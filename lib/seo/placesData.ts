@@ -10,6 +10,7 @@ export type PlacesListingItem = {
   address: string | null;
   rating: number | null;
   entry_price: number | null;
+  image_url: string | null;
 };
 
 export async function fetchPlacesListing(args: {
@@ -25,7 +26,7 @@ export async function fetchPlacesListing(args: {
 
   let query = supabase
     .from("places")
-    .select("id,slug,name,category,city,address,rating,entry_price", { count: "exact" })
+    .select("id,slug,name,category,city,address,rating,entry_price,image_url", { count: "exact" })
     .order("rating", { ascending: false });
 
   if (categoryDb !== "all") query = query.eq("category", categoryDb);
