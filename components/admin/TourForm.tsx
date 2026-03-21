@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { useActionState, useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { createTourAction, updateTourAction } from "@/app/admin/actions";
 import { CITIES, initialActionState, slugify } from "@/lib/admin/shared";
 import { ImageUpload } from "./ImageUpload";
@@ -23,6 +24,7 @@ type TourFormProps = {
 };
 
 export function TourForm({ mode, initial }: TourFormProps) {
+  const router = useRouter();
   const action = mode === "create" ? createTourAction : updateTourAction;
   const [state, formAction, pending] = useActionState(action, initialActionState);
   const [name, setName] = useState(initial?.name ?? "");
@@ -34,6 +36,18 @@ export function TourForm({ mode, initial }: TourFormProps) {
   }, [name, initial?.slug]);
 
   const firstImage = useMemo(() => images[0] ?? "", [images]);
+
+  useEffect(() => {
+    if (initial) {
+      setName(initial.name ?? "");
+      setSlug(initial.slug ?? "");
+      setImages(initial.image_url ? [initial.image_url] : []);
+    }
+  }, [initial]);
+
+  useEffect(() => {
+    if (state.success) router.push("/admin/tours?saved=1");
+  }, [state.success, router]);
 
   return (
     <form action={formAction} style={{ display: "grid", gap: 14, maxWidth: 900 }}>

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { useActionState, useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { createContractorAction, updateContractorAction } from "@/app/admin/actions";
 import { CITIES, initialActionState, slugify } from "@/lib/admin/shared";
 import { ImageUpload } from "./ImageUpload";
@@ -25,6 +26,7 @@ type ContractorFormProps = {
 };
 
 export function ContractorForm({ mode, initial }: ContractorFormProps) {
+  const router = useRouter();
   const action = mode === "create" ? createContractorAction : updateContractorAction;
   const [state, formAction, pending] = useActionState(action, initialActionState);
   const [name, setName] = useState(initial?.name ?? "");
@@ -36,6 +38,18 @@ export function ContractorForm({ mode, initial }: ContractorFormProps) {
   }, [name, initial?.slug]);
 
   const firstImage = useMemo(() => images[0] ?? "", [images]);
+
+  useEffect(() => {
+    if (initial) {
+      setName(initial.name ?? "");
+      setSlug(initial.slug ?? "");
+      setImages(initial.image_url ? [initial.image_url] : []);
+    }
+  }, [initial]);
+
+  useEffect(() => {
+    if (state.success) router.push("/admin/contractors?saved=1");
+  }, [state.success, router]);
 
   return (
     <form action={formAction} style={{ display: "grid", gap: 14, maxWidth: 900 }}>

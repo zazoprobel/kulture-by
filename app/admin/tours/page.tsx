@@ -3,10 +3,10 @@ import type { CSSProperties } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { deleteTourAction } from "@/app/admin/actions";
 
-type Props = { searchParams: Promise<{ q?: string; page?: string; sort?: "asc" | "desc" }> };
+type Props = { searchParams: Promise<{ q?: string; page?: string; sort?: "asc" | "desc"; saved?: string }> };
 
 export default async function AdminToursPage({ searchParams }: Props) {
-  const { q = "", page = "1", sort = "desc" } = await searchParams;
+  const { q = "", page = "1", sort = "desc", saved } = await searchParams;
   const pageNum = Math.max(1, Number(page) || 1);
   const limit = 20;
   const from = (pageNum - 1) * limit;
@@ -23,6 +23,7 @@ export default async function AdminToursPage({ searchParams }: Props) {
 
   return (
     <div style={{ display: "grid", gap: 14 }}>
+      {saved === "1" ? <div style={{ padding: "10px 12px", borderRadius: 10, background: "#eaf8ea", color: "#1f6a1f", border: "1px solid #b8e3b8" }}>Сохранено успешно</div> : null}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h1 style={{ margin: 0 }}>Туры</h1>
         <Link href="/admin/tours/new" style={btn}>+ Добавить</Link>

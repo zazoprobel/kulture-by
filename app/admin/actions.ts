@@ -101,7 +101,10 @@ export async function updatePlaceAction(_: ActionState, formData: FormData): Pro
       })
       .eq("id", parsed.id);
 
-    if (error) return { success: false, message: error.message };
+    if (error) {
+      console.error("[admin][updatePlaceAction]", { id: parsed.id, error: error.message });
+      return { success: false, message: error.message };
+    }
     revalidatePath("/admin/places");
     revalidatePath(`/places/${parsed.slug}`);
     return { success: true, message: "Место обновлено" };
@@ -170,7 +173,10 @@ export async function updateVenueAction(_: ActionState, formData: FormData): Pro
         image_url: parsed.image_url || null,
       })
       .eq("id", parsed.id);
-    if (error) return { success: false, message: error.message };
+    if (error) {
+      console.error("[admin][updateVenueAction]", { id: parsed.id, error: error.message });
+      return { success: false, message: error.message };
+    }
     revalidatePath("/admin/venues");
     revalidatePath(`/venues/${parsed.slug}`);
     return { success: true, message: "Площадка обновлена" };
@@ -231,7 +237,10 @@ export async function updateContractorAction(_: ActionState, formData: FormData)
         image_url: parsed.image_url || null,
       })
       .eq("id", parsed.id);
-    if (error) return { success: false, message: error.message };
+    if (error) {
+      console.error("[admin][updateContractorAction]", { id: parsed.id, error: error.message });
+      return { success: false, message: error.message };
+    }
     revalidatePath("/admin/contractors");
     return { success: true, message: "Подрядчик обновлён" };
   } catch (error) {
@@ -285,7 +294,10 @@ export async function updateStoryAction(_: ActionState, formData: FormData): Pro
         image_url: parsed.image_url || null,
       })
       .eq("id", parsed.id);
-    if (error) return { success: false, message: error.message };
+    if (error) {
+      console.error("[admin][updateStoryAction]", { id: parsed.id, error: error.message });
+      return { success: false, message: error.message };
+    }
     revalidatePath("/admin/stories");
     return { success: true, message: "История обновлена" };
   } catch (error) {
@@ -345,7 +357,10 @@ export async function updateEventAction(_: ActionState, formData: FormData): Pro
         image_url: parsed.image_url || null,
       })
       .eq("id", parsed.id);
-    if (error) return { success: false, message: error.message };
+    if (error) {
+      console.error("[admin][updateEventAction]", { id: parsed.id, error: error.message });
+      return { success: false, message: error.message };
+    }
     revalidatePath("/admin/events");
     return { success: true, message: "Событие обновлено" };
   } catch (error) {
@@ -411,7 +426,10 @@ export async function updateTourAction(_: ActionState, formData: FormData): Prom
         image_url: parsed.image_url || null,
       })
       .eq("id", parsed.id);
-    if (error) return { success: false, message: error.message };
+    if (error) {
+      console.error("[admin][updateTourAction]", { id: parsed.id, error: error.message });
+      return { success: false, message: error.message };
+    }
     revalidatePath("/admin/tours");
     return { success: true, message: "Тур обновлён" };
   } catch (error) {
