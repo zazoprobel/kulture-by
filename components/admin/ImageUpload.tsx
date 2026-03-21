@@ -4,7 +4,7 @@ import { useMemo, useState, useTransition } from "react";
 import { deleteImageAction, uploadImageAction } from "@/app/admin/actions";
 
 type Props = {
-  folder: "places" | "venues" | "contractors" | "avatars" | "stories";
+  folder: "places" | "venues" | "contractors" | "avatars" | "stories" | "events" | "tours";
   slug: string;
   value: string[];
   onChange: (next: string[]) => void;

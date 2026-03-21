@@ -40,6 +40,59 @@ export const venueSchema = z.object({
   image_url: z.string().url().optional().or(z.literal("")),
 });
 
+export const contractorSchema = z.object({
+  id: z.string().uuid().optional(),
+  name: z.string().min(2, "Введите название"),
+  slug: z.string().min(2, "Введите slug"),
+  description: z.string().min(10, "Описание слишком короткое"),
+  category: z.enum(["photo", "video", "decor", "mc", "sound", "cake", "floral", "anim"], {
+    error: "Выберите категорию",
+  }),
+  city: z.string().min(2, "Выберите город"),
+  price_from: z.coerce.number().min(0).optional(),
+  rating: z.coerce.number().min(0).max(5),
+  telegram: z.string().optional(),
+  email: z.string().email("Некорректный email").optional().or(z.literal("")),
+  image_url: z.string().url().optional().or(z.literal("")),
+});
+
+export const storySchema = z.object({
+  id: z.string().uuid().optional(),
+  title: z.string().min(2, "Введите заголовок"),
+  slug: z.string().min(2, "Введите slug"),
+  content: z.string().min(20, "Слишком короткий текст"),
+  city: z.string().min(2, "Выберите город"),
+  likes: z.coerce.number().min(0).optional(),
+  place_id: z.string().uuid().optional().or(z.literal("")),
+  image_url: z.string().url().optional().or(z.literal("")),
+});
+
+export const eventSchema = z.object({
+  id: z.string().uuid().optional(),
+  name: z.string().min(2),
+  slug: z.string().min(2),
+  description: z.string().min(10),
+  category: z.string().min(2),
+  city: z.string().min(2),
+  venue_id: z.string().uuid().optional().or(z.literal("")),
+  date_start: z.string().min(4),
+  date_end: z.string().optional().or(z.literal("")),
+  price_from: z.coerce.number().min(0).optional(),
+  image_url: z.string().url().optional().or(z.literal("")),
+});
+
+export const tourSchema = z.object({
+  id: z.string().uuid().optional(),
+  name: z.string().min(2),
+  slug: z.string().min(2),
+  description: z.string().min(10),
+  city: z.string().min(2),
+  duration_hours: z.coerce.number().positive(),
+  price: z.coerce.number().min(0),
+  languages: z.string().optional(),
+  image_url: z.string().url().optional().or(z.literal("")),
+});
+
 export type ActionState = {
   success: boolean;
   message: string;

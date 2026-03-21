@@ -10,6 +10,9 @@ alter table public.contractors
 alter table public.stories
   add column if not exists image_url text;
 
+alter table public.tours
+  add column if not exists image_url text;
+
 insert into storage.buckets (id, name, public)
 values ('kulture-media', 'kulture-media', true)
 on conflict (id) do update set public = excluded.public;

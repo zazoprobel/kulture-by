@@ -10,6 +10,10 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         <Link href="/admin" style={nav}>Дашборд</Link>
         <Link href="/admin/places" style={nav}>Места</Link>
         <Link href="/admin/venues" style={nav}>Площадки</Link>
+        <Link href="/admin/contractors" style={nav}>Подрядчики</Link>
+        <Link href="/admin/stories" style={nav}>Истории</Link>
+        <Link href="/admin/events" style={nav}>События</Link>
+        <Link href="/admin/tours" style={nav}>Туры</Link>
         <Link href="/admin/users" style={nav}>Пользователи</Link>
         <form action={signOutAdminAction}>
           <button type="submit" style={{ ...navBtn, marginTop: 16 }}>Выйти</button>

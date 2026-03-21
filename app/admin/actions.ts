@@ -4,7 +4,7 @@ import sharp from "sharp";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { ActionState, placeSchema, venueSchema } from "@/lib/admin/shared";
+import { ActionState, contractorSchema, eventSchema, placeSchema, storySchema, tourSchema, venueSchema } from "@/lib/admin/shared";
 
 const BUCKET = "kulture-media";
 const ALLOWED_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/heic", "image/heif"]);
@@ -183,6 +183,246 @@ export async function deleteVenueAction(id: string) {
   const { supabase } = await requireAdmin();
   await supabase.from("venues").delete().eq("id", id);
   revalidatePath("/admin/venues");
+}
+
+export async function createContractorAction(_: ActionState, formData: FormData): Promise<ActionState> {
+  try {
+    const { supabase, userId } = await requireAdmin();
+    const parsed = contractorSchema.parse(Object.fromEntries(formData.entries()));
+    const { error } = await supabase.from("contractors").insert({
+      name: parsed.name,
+      slug: parsed.slug,
+      description: parsed.description,
+      category: parsed.category,
+      city: parsed.city,
+      price_from: parsed.price_from ?? null,
+      rating: parsed.rating,
+      telegram: parsed.telegram || null,
+      email: parsed.email || null,
+      image_url: parsed.image_url || null,
+      created_by: userId,
+    });
+    if (error) return { success: false, message: error.message };
+    revalidatePath("/admin/contractors");
+    return { success: true, message: "Подрядчик добавлен" };
+  } catch (error) {
+    return { success: false, message: "Ошибка валидации", errors: mapZodErrors(error) };
+  }
+}
+
+export async function updateContractorAction(_: ActionState, formData: FormData): Promise<ActionState> {
+  try {
+    await requireAdmin();
+    const parsed = contractorSchema.parse(Object.fromEntries(formData.entries()));
+    if (!parsed.id) return { success: false, message: "Не найден ID записи" };
+    const supabase = await createClient();
+    const { error } = await supabase
+      .from("contractors")
+      .update({
+        name: parsed.name,
+        slug: parsed.slug,
+        description: parsed.description,
+        category: parsed.category,
+        city: parsed.city,
+        price_from: parsed.price_from ?? null,
+        rating: parsed.rating,
+        telegram: parsed.telegram || null,
+        email: parsed.email || null,
+        image_url: parsed.image_url || null,
+      })
+      .eq("id", parsed.id);
+    if (error) return { success: false, message: error.message };
+    revalidatePath("/admin/contractors");
+    return { success: true, message: "Подрядчик обновлён" };
+  } catch (error) {
+    return { success: false, message: "Ошибка валидации", errors: mapZodErrors(error) };
+  }
+}
+
+export async function deleteContractorAction(id: string) {
+  const { supabase } = await requireAdmin();
+  await supabase.from("contractors").delete().eq("id", id);
+  revalidatePath("/admin/contractors");
+}
+
+export async function createStoryAction(_: ActionState, formData: FormData): Promise<ActionState> {
+  try {
+    const { supabase, userId } = await requireAdmin();
+    const parsed = storySchema.parse(Object.fromEntries(formData.entries()));
+    const { error } = await supabase.from("stories").insert({
+      title: parsed.title,
+      slug: parsed.slug,
+      content: parsed.content,
+      city: parsed.city,
+      likes: parsed.likes ?? 0,
+      place_id: parsed.place_id || null,
+      image_url: parsed.image_url || null,
+      author_id: userId,
+    });
+    if (error) return { success: false, message: error.message };
+    revalidatePath("/admin/stories");
+    return { success: true, message: "История добавлена" };
+  } catch (error) {
+    return { success: false, message: "Ошибка валидации", errors: mapZodErrors(error) };
+  }
+}
+
+export async function updateStoryAction(_: ActionState, formData: FormData): Promise<ActionState> {
+  try {
+    await requireAdmin();
+    const parsed = storySchema.parse(Object.fromEntries(formData.entries()));
+    if (!parsed.id) return { success: false, message: "Не найден ID записи" };
+    const supabase = await createClient();
+    const { error } = await supabase
+      .from("stories")
+      .update({
+        title: parsed.title,
+        slug: parsed.slug,
+        content: parsed.content,
+        city: parsed.city,
+        likes: parsed.likes ?? 0,
+        place_id: parsed.place_id || null,
+        image_url: parsed.image_url || null,
+      })
+      .eq("id", parsed.id);
+    if (error) return { success: false, message: error.message };
+    revalidatePath("/admin/stories");
+    return { success: true, message: "История обновлена" };
+  } catch (error) {
+    return { success: false, message: "Ошибка валидации", errors: mapZodErrors(error) };
+  }
+}
+
+export async function deleteStoryAction(id: string) {
+  const { supabase } = await requireAdmin();
+  await supabase.from("stories").delete().eq("id", id);
+  revalidatePath("/admin/stories");
+}
+
+export async function createEventAction(_: ActionState, formData: FormData): Promise<ActionState> {
+  try {
+    const { supabase, userId } = await requireAdmin();
+    const parsed = eventSchema.parse(Object.fromEntries(formData.entries()));
+    const { error } = await supabase.from("events").insert({
+      name: parsed.name,
+      slug: parsed.slug,
+      description: parsed.description,
+      category: parsed.category,
+      city: parsed.city,
+      venue_id: parsed.venue_id || null,
+      date_start: parsed.date_start,
+      date_end: parsed.date_end || null,
+      price_from: parsed.price_from ?? null,
+      image_url: parsed.image_url || null,
+      organizer_id: userId,
+    });
+    if (error) return { success: false, message: error.message };
+    revalidatePath("/admin/events");
+    return { success: true, message: "Событие добавлено" };
+  } catch (error) {
+    return { success: false, message: "Ошибка валидации", errors: mapZodErrors(error) };
+  }
+}
+
+export async function updateEventAction(_: ActionState, formData: FormData): Promise<ActionState> {
+  try {
+    await requireAdmin();
+    const parsed = eventSchema.parse(Object.fromEntries(formData.entries()));
+    if (!parsed.id) return { success: false, message: "Не найден ID записи" };
+    const supabase = await createClient();
+    const { error } = await supabase
+      .from("events")
+      .update({
+        name: parsed.name,
+        slug: parsed.slug,
+        description: parsed.description,
+        category: parsed.category,
+        city: parsed.city,
+        venue_id: parsed.venue_id || null,
+        date_start: parsed.date_start,
+        date_end: parsed.date_end || null,
+        price_from: parsed.price_from ?? null,
+        image_url: parsed.image_url || null,
+      })
+      .eq("id", parsed.id);
+    if (error) return { success: false, message: error.message };
+    revalidatePath("/admin/events");
+    return { success: true, message: "Событие обновлено" };
+  } catch (error) {
+    return { success: false, message: "Ошибка валидации", errors: mapZodErrors(error) };
+  }
+}
+
+export async function deleteEventAction(id: string) {
+  const { supabase } = await requireAdmin();
+  await supabase.from("events").delete().eq("id", id);
+  revalidatePath("/admin/events");
+}
+
+export async function createTourAction(_: ActionState, formData: FormData): Promise<ActionState> {
+  try {
+    const { supabase, userId } = await requireAdmin();
+    const parsed = tourSchema.parse(Object.fromEntries(formData.entries()));
+    const langs = (parsed.languages ?? "")
+      .split(",")
+      .map((x) => x.trim())
+      .filter(Boolean);
+
+    const { error } = await supabase.from("tours").insert({
+      name: parsed.name,
+      slug: parsed.slug,
+      description: parsed.description,
+      city: parsed.city,
+      duration_hours: parsed.duration_hours,
+      price: parsed.price,
+      languages: langs,
+      image_url: parsed.image_url || null,
+      guide_id: userId,
+    });
+    if (error) return { success: false, message: error.message };
+    revalidatePath("/admin/tours");
+    return { success: true, message: "Тур добавлен" };
+  } catch (error) {
+    return { success: false, message: "Ошибка валидации", errors: mapZodErrors(error) };
+  }
+}
+
+export async function updateTourAction(_: ActionState, formData: FormData): Promise<ActionState> {
+  try {
+    await requireAdmin();
+    const parsed = tourSchema.parse(Object.fromEntries(formData.entries()));
+    if (!parsed.id) return { success: false, message: "Не найден ID записи" };
+    const langs = (parsed.languages ?? "")
+      .split(",")
+      .map((x) => x.trim())
+      .filter(Boolean);
+
+    const supabase = await createClient();
+    const { error } = await supabase
+      .from("tours")
+      .update({
+        name: parsed.name,
+        slug: parsed.slug,
+        description: parsed.description,
+        city: parsed.city,
+        duration_hours: parsed.duration_hours,
+        price: parsed.price,
+        languages: langs,
+        image_url: parsed.image_url || null,
+      })
+      .eq("id", parsed.id);
+    if (error) return { success: false, message: error.message };
+    revalidatePath("/admin/tours");
+    return { success: true, message: "Тур обновлён" };
+  } catch (error) {
+    return { success: false, message: "Ошибка валидации", errors: mapZodErrors(error) };
+  }
+}
+
+export async function deleteTourAction(id: string) {
+  const { supabase } = await requireAdmin();
+  await supabase.from("tours").delete().eq("id", id);
+  revalidatePath("/admin/tours");
 }
 
 export async function signOutAdminAction() {
