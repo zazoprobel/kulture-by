@@ -76,34 +76,46 @@ export async function createPlaceAction(_: ActionState, formData: FormData): Pro
 
 export async function updatePlaceAction(_: ActionState, formData: FormData): Promise<ActionState> {
   try {
-    await requireAdmin();
+    const { supabase } = await requireAdmin();
     const parsed = placeSchema.parse(Object.fromEntries(formData.entries()));
     if (!parsed.id) return { success: false, message: "Не найден ID записи" };
 
-    const supabase = await createClient();
     const workingHours = parsed.working_hours ? JSON.parse(parsed.working_hours) : {};
-    const { error } = await supabase
+    const payload = {
+      name: parsed.name,
+      slug: parsed.slug,
+      description: parsed.description,
+      category: parsed.category,
+      city: parsed.city,
+      address: parsed.address || null,
+      lat: parsed.lat ?? null,
+      lng: parsed.lng ?? null,
+      working_hours: workingHours,
+      entry_price: parsed.entry_price ?? null,
+      website: parsed.website || null,
+      rating: parsed.rating,
+      image_url: parsed.image_url || null,
+    };
+
+    console.log("[admin][updatePlaceAction][payload]", {
+      id: parsed.id,
+      payload,
+      formData: Object.fromEntries(formData.entries()),
+    });
+
+    const { data: updatedRows, error } = await supabase
       .from("places")
-      .update({
-        name: parsed.name,
-        slug: parsed.slug,
-        description: parsed.description,
-        category: parsed.category,
-        city: parsed.city,
-        address: parsed.address || null,
-        lat: parsed.lat ?? null,
-        lng: parsed.lng ?? null,
-        working_hours: workingHours,
-        entry_price: parsed.entry_price ?? null,
-        website: parsed.website || null,
-        rating: parsed.rating,
-        image_url: parsed.image_url || null,
-      })
-      .eq("id", parsed.id);
+      .update(payload)
+      .eq("id", parsed.id)
+      .select("id");
 
     if (error) {
       console.error("[admin][updatePlaceAction]", { id: parsed.id, error: error.message });
       return { success: false, message: error.message };
+    }
+    if (!updatedRows || updatedRows.length === 0) {
+      console.error("[admin][updatePlaceAction] no rows updated", { id: parsed.id });
+      return { success: false, message: "Запись не обновлена (RLS или неверный ID)." };
     }
     revalidatePath("/admin/places");
     revalidatePath(`/places/${parsed.slug}`);
@@ -463,6 +475,20 @@ export async function uploadImageAction(_: ActionState, formData: FormData): Pro
     if (file.size > MAX_SIZE_BYTES) return { success: false, message: "Максимальный размер 10MB" };
     if (!folder || !slug) return { success: false, message: "Не указан путь загрузки" };
 
+    const { data: bucketList, error: bucketError } = await supabase.storage.listBuckets();
+    if (bucketError) {
+      console.error("[admin][uploadImageAction] listBuckets error", bucketError.message);
+      return { success: false, message: bucketError.message };
+    }
+    const mediaBucket = (bucketList ?? []).find((b) => b.id === BUCKET);
+    if (!mediaBucket) {
+      console.error("[admin][uploadImageAction] bucket missing", { bucket: BUCKET });
+      return { success: false, message: `Bucket ${BUCKET} не найден` };
+    }
+    if (!mediaBucket.public) {
+      console.error("[admin][uploadImageAction] bucket not public", { bucket: BUCKET });
+    }
+
     const arrayBuffer = await file.arrayBuffer();
     const source = Buffer.from(arrayBuffer);
     const ts = Date.now();
@@ -470,6 +496,12 @@ export async function uploadImageAction(_: ActionState, formData: FormData): Pro
     const baseName = `${safeSlug}-${index}-${ts}`;
     const originalPath = `${folder}/${safeSlug}/${baseName}.webp`;
     const thumbPath = `${folder}/${safeSlug}/${baseName}-thumb.webp`;
+    console.log("[admin][uploadImageAction][paths]", {
+      folder,
+      slug: safeSlug,
+      originalPath,
+      thumbPath,
+    });
 
     const fullBuffer = await sharp(source)
       .rotate()

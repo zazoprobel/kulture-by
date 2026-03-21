@@ -34,6 +34,16 @@ export function PlaceForm({ mode, initial }: PlaceFormProps) {
   const [state, formAction, pending] = useActionState(action, initialActionState);
   const [name, setName] = useState(initial?.name ?? "");
   const [slug, setSlug] = useState(initial?.slug ?? "");
+  const [description, setDescription] = useState(initial?.description ?? "");
+  const [category, setCategory] = useState(initial?.category ?? "nature");
+  const [city, setCity] = useState(initial?.city ?? CITIES[0]);
+  const [address, setAddress] = useState(initial?.address ?? "");
+  const [lat, setLat] = useState(initial?.lat?.toString() ?? "");
+  const [lng, setLng] = useState(initial?.lng?.toString() ?? "");
+  const [workingHours, setWorkingHours] = useState(JSON.stringify(initial?.working_hours ?? {}, null, 2));
+  const [entryPrice, setEntryPrice] = useState(initial?.entry_price?.toString() ?? "");
+  const [website, setWebsite] = useState(initial?.website ?? "");
+  const [rating, setRating] = useState((initial?.rating ?? 0).toString());
   const [images, setImages] = useState<string[]>(initial?.image_url ? [initial.image_url] : []);
 
   useEffect(() => {
@@ -46,6 +56,16 @@ export function PlaceForm({ mode, initial }: PlaceFormProps) {
     if (initial) {
       setName(initial.name ?? "");
       setSlug(initial.slug ?? "");
+      setDescription(initial.description ?? "");
+      setCategory(initial.category ?? "nature");
+      setCity(initial.city ?? CITIES[0]);
+      setAddress(initial.address ?? "");
+      setLat(initial.lat?.toString() ?? "");
+      setLng(initial.lng?.toString() ?? "");
+      setWorkingHours(JSON.stringify(initial.working_hours ?? {}, null, 2));
+      setEntryPrice(initial.entry_price?.toString() ?? "");
+      setWebsite(initial.website ?? "");
+      setRating((initial.rating ?? 0).toString());
       setImages(initial.image_url ? [initial.image_url] : []);
     }
   }, [initial]);
@@ -73,14 +93,14 @@ export function PlaceForm({ mode, initial }: PlaceFormProps) {
 
       <label>
         Описание
-        <textarea name="description" defaultValue={initial?.description ?? ""} style={{ ...inp, minHeight: 120 }} />
+        <textarea name="description" value={description} onChange={(e) => setDescription(e.target.value)} style={{ ...inp, minHeight: 120 }} />
         {state.errors?.description ? <span style={err}>{state.errors.description}</span> : null}
       </label>
 
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(2,minmax(0,1fr))" }}>
         <label>
           Категория
-          <select name="category" defaultValue={initial?.category ?? "nature"} style={inp}>
+          <select name="category" value={category} onChange={(e) => setCategory(e.target.value)} style={inp}>
             <option value="nature">Природа</option>
             <option value="history">История</option>
             <option value="castles">Замки</option>
@@ -93,25 +113,31 @@ export function PlaceForm({ mode, initial }: PlaceFormProps) {
         </label>
         <label>
           Город
-          <select name="city" defaultValue={initial?.city ?? CITIES[0]} style={inp}>
+          <select name="city" value={city} onChange={(e) => setCity(e.target.value)} style={inp}>
             {CITIES.map((city) => <option key={city} value={city}>{city}</option>)}
           </select>
         </label>
       </div>
 
-      <label>Адрес<input name="address" defaultValue={initial?.address ?? ""} style={inp} /></label>
+      <label>Адрес<input name="address" value={address} onChange={(e) => setAddress(e.target.value)} style={inp} /></label>
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(2,minmax(0,1fr))" }}>
-        <label>Lat<input name="lat" defaultValue={initial?.lat ?? ""} style={inp} /></label>
-        <label>Lng<input name="lng" defaultValue={initial?.lng ?? ""} style={inp} /></label>
+        <label>Lat<input name="lat" value={lat} onChange={(e) => setLat(e.target.value)} style={inp} /></label>
+        <label>Lng<input name="lng" value={lng} onChange={(e) => setLng(e.target.value)} style={inp} /></label>
       </div>
-      <label>Часы работы (JSON)<textarea name="working_hours" defaultValue={JSON.stringify(initial?.working_hours ?? {}, null, 2)} style={{ ...inp, minHeight: 110 }} /></label>
+      <label>Часы работы (JSON)<textarea name="working_hours" value={workingHours} onChange={(e) => setWorkingHours(e.target.value)} style={{ ...inp, minHeight: 110 }} /></label>
       <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(3,minmax(0,1fr))" }}>
-        <label>Цена входа<input name="entry_price" defaultValue={initial?.entry_price ?? ""} style={inp} /></label>
-        <label>Сайт<input name="website" defaultValue={initial?.website ?? ""} style={inp} /></label>
-        <label>Рейтинг<input name="rating" defaultValue={initial?.rating ?? 0} style={inp} /></label>
+        <label>Цена входа<input name="entry_price" value={entryPrice} onChange={(e) => setEntryPrice(e.target.value)} style={inp} /></label>
+        <label>Сайт<input name="website" value={website} onChange={(e) => setWebsite(e.target.value)} style={inp} /></label>
+        <label>Рейтинг<input name="rating" value={rating} onChange={(e) => setRating(e.target.value)} style={inp} /></label>
       </div>
 
-      <ImageUpload folder="places" slug={slug} value={images} onChange={setImages} />
+      <ImageUpload
+        folder="places"
+        slug={slug}
+        value={images}
+        initialImages={initial?.image_url ? [initial.image_url] : []}
+        onChange={setImages}
+      />
 
       {state.message ? <div style={{ color: state.success ? "#1a7f37" : "#c22", fontSize: 13 }}>{state.message}</div> : null}
 

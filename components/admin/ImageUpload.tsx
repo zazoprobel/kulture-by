@@ -1,22 +1,29 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { deleteImageAction, uploadImageAction } from "@/app/admin/actions";
 
 type Props = {
   folder: "places" | "venues" | "contractors" | "avatars" | "stories" | "events" | "tours";
   slug: string;
   value: string[];
+  initialImages?: string[];
   onChange: (next: string[]) => void;
 };
 
-export function ImageUpload({ folder, slug, value, onChange }: Props) {
+export function ImageUpload({ folder, slug, value, initialImages = [], onChange }: Props) {
   const [drag, setDrag] = useState(false);
   const [error, setError] = useState("");
   const [pending, startTransition] = useTransition();
   const [progress, setProgress] = useState(0);
 
   const preview = useMemo(() => value[0] ?? "", [value]);
+
+  useEffect(() => {
+    if (value.length === 0 && initialImages.length > 0) {
+      onChange(initialImages);
+    }
+  }, [initialImages, onChange, value.length]);
 
   const handleFiles = (files: FileList | null) => {
     if (!files || !slug) return;
