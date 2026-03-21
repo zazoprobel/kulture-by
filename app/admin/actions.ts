@@ -470,6 +470,14 @@ export async function uploadImageAction(_: ActionState, formData: FormData): Pro
     const slug = String(formData.get("slug") ?? "").trim();
     const index = Number(formData.get("index") ?? "1");
 
+    console.log("[admin][uploadImageAction][incoming]", {
+      fileType: file instanceof File ? file.type : typeof file,
+      fileSize: file instanceof File ? file.size : null,
+      folder,
+      slug,
+      index,
+    });
+
     if (!(file instanceof File)) return { success: false, message: "Файл не выбран" };
     if (!ALLOWED_TYPES.has(file.type)) return { success: false, message: "Допустимы jpg/png/webp/heic" };
     if (file.size > MAX_SIZE_BYTES) return { success: false, message: "Максимальный размер 10MB" };

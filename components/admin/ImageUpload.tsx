@@ -51,10 +51,10 @@ export function ImageUpload({ folder, slug, value, initialImages = [], onChange 
       }, 120);
 
       const form = new FormData();
-      form.set("file", file);
-      form.set("folder", folder);
-      form.set("slug", slug);
-      form.set("index", String(value.length + 1));
+      form.append("file", file, file.name);
+      form.append("folder", folder);
+      form.append("slug", slug);
+      form.append("index", String(value.length + 1));
 
       const result = await uploadImageAction({ success: false, message: "" }, form);
       clearInterval(timer);
