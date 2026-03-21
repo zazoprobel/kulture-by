@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/layout/Header";
@@ -6,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Container } from "@/components/layout/Container";
 import { createClient } from "@/lib/supabase/server";
 import { PlacesCatalogClient, type PlaceItem } from "@/components/places/PlacesCatalogClient";
+import { PlaceGallery } from "@/components/places/PlaceGallery";
 import { fetchPlacesListing, fetchPlacesListingCount } from "@/lib/seo/placesData";
 import { getSiteUrl } from "@/lib/seo/siteUrl";
 import {
@@ -191,6 +191,7 @@ export default async function PlacePage({ params }: PageProps) {
   const primaryImage = gallery[0] || imageByCategory[place.category] || "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=1400";
   const secondImage = gallery[1] || "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=700";
   const thirdImage = gallery[2] || "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=700";
+  const galleryImages = [primaryImage, secondImage, thirdImage, ...gallery.slice(3)];
   const shortMeta = `${categoryLabel[place.category] ?? place.category} · ${place.city}`;
   const entryPriceText = place.entry_price && place.entry_price > 0 ? `от ${Math.round(place.entry_price)} BYN` : "Бесплатно";
   const workingHoursText = place.working_hours && Object.keys(place.working_hours).length > 0 ? "По расписанию" : "Круглосуточно";
@@ -238,17 +239,7 @@ export default async function PlacePage({ params }: PageProps) {
             <strong>{place.name}</strong>
           </div>
 
-          <section className="gallery">
-            <div className="gMain">
-              <Image src={primaryImage} alt={place.name} fill unoptimized style={{ objectFit: "cover" }} />
-            </div>
-            <div className="gSm">
-              <Image src={secondImage} alt={`${place.name} photo 2`} fill unoptimized style={{ objectFit: "cover" }} />
-            </div>
-            <div className="gSm">
-              <Image src={thirdImage} alt={`${place.name} photo 3`} fill unoptimized style={{ objectFit: "cover" }} />
-            </div>
-          </section>
+          <PlaceGallery images={galleryImages} placeName={place.name} />
 
           <div className="layout">
             <main>
