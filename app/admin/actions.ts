@@ -4,6 +4,7 @@ import sharp from "sharp";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 import { ActionState, contractorSchema, eventSchema, placeSchema, storySchema, tourSchema, venueSchema } from "@/lib/admin/shared";
 
 const BUCKET = "kulture-media";
@@ -463,7 +464,7 @@ export async function signOutAdminAction() {
 
 export async function uploadImageAction(_: ActionState, formData: FormData): Promise<ActionState> {
   try {
-    const { supabase } = await requireAdmin();
+    await requireAdmin();
 
     const file = formData.get("file");
     const folder = String(formData.get("folder") ?? "");
@@ -482,20 +483,6 @@ export async function uploadImageAction(_: ActionState, formData: FormData): Pro
     if (!ALLOWED_TYPES.has(file.type)) return { success: false, message: "Допустимы jpg/png/webp/heic" };
     if (file.size > MAX_SIZE_BYTES) return { success: false, message: "Максимальный размер 10MB" };
     if (!folder || !slug) return { success: false, message: "Не указан путь загрузки" };
-
-    const { data: bucketList, error: bucketError } = await supabase.storage.listBuckets();
-    if (bucketError) {
-      console.error("[admin][uploadImageAction] listBuckets error", bucketError.message);
-      return { success: false, message: bucketError.message };
-    }
-    const mediaBucket = (bucketList ?? []).find((b) => b.id === BUCKET);
-    if (!mediaBucket) {
-      console.error("[admin][uploadImageAction] bucket missing", { bucket: BUCKET });
-      return { success: false, message: `Bucket ${BUCKET} не найден` };
-    }
-    if (!mediaBucket.public) {
-      console.error("[admin][uploadImageAction] bucket not public", { bucket: BUCKET });
-    }
 
     const arrayBuffer = await file.arrayBuffer();
     const source = Buffer.from(arrayBuffer);
@@ -523,19 +510,19 @@ export async function uploadImageAction(_: ActionState, formData: FormData): Pro
       .webp({ quality: 85 })
       .toBuffer();
 
-    const uploadOriginal = await supabase.storage.from(BUCKET).upload(originalPath, fullBuffer, {
+    const uploadOriginal = await supabaseAdmin.storage.from(BUCKET).upload(originalPath, fullBuffer, {
       contentType: "image/webp",
       upsert: false,
     });
     if (uploadOriginal.error) return { success: false, message: uploadOriginal.error.message };
 
-    const uploadThumb = await supabase.storage.from(BUCKET).upload(thumbPath, thumbBuffer, {
+    const uploadThumb = await supabaseAdmin.storage.from(BUCKET).upload(thumbPath, thumbBuffer, {
       contentType: "image/webp",
       upsert: false,
     });
     if (uploadThumb.error) return { success: false, message: uploadThumb.error.message };
 
-    const { data: publicData } = supabase.storage.from(BUCKET).getPublicUrl(originalPath);
+    const { data: publicData } = supabaseAdmin.storage.from(BUCKET).getPublicUrl(originalPath);
     return { success: true, message: "Загрузка завершена", imageUrl: publicData.publicUrl };
   } catch (error) {
     return { success: false, message: error instanceof Error ? error.message : "Ошибка загрузки" };
