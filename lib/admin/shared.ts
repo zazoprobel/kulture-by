@@ -19,6 +19,7 @@ export const placeSchema = z.object({
   website: z.string().url("Некорректный URL").optional().or(z.literal("")),
   rating: z.coerce.number().min(0, "Рейтинг 0..5").max(5, "Рейтинг 0..5"),
   image_url: z.string().url().optional().or(z.literal("")),
+  image_urls: z.string().optional(),
 });
 
 export const venueSchema = z.object({

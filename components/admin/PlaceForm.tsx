@@ -25,6 +25,7 @@ type PlaceFormProps = {
     website: string | null;
     rating: number | null;
     image_url: string | null;
+    image_urls?: string[] | null;
   };
 };
 
@@ -66,7 +67,7 @@ export function PlaceForm({ mode, initial }: PlaceFormProps) {
       setEntryPrice(initial.entry_price?.toString() ?? "");
       setWebsite(initial.website ?? "");
       setRating((initial.rating ?? 0).toString());
-      setImages(initial.image_url ? [initial.image_url] : []);
+      setImages(initial.image_urls && initial.image_urls.length > 0 ? initial.image_urls : initial.image_url ? [initial.image_url] : []);
     }
   }, [initial]);
 
@@ -78,6 +79,7 @@ export function PlaceForm({ mode, initial }: PlaceFormProps) {
     <form action={formAction} style={{ display: "grid", gap: 14, maxWidth: 900 }}>
       {initial?.id ? <input type="hidden" name="id" value={initial.id} /> : null}
       <input type="hidden" name="image_url" value={firstImage} />
+      <input type="hidden" name="image_urls" value={JSON.stringify(images)} />
 
       <label>
         Название
@@ -135,7 +137,7 @@ export function PlaceForm({ mode, initial }: PlaceFormProps) {
         folder="places"
         slug={slug}
         value={images}
-        initialImages={initial?.image_url ? [initial.image_url] : []}
+        initialImages={initial?.image_urls && initial.image_urls.length > 0 ? initial.image_urls : initial?.image_url ? [initial.image_url] : []}
         onChange={setImages}
       />
 

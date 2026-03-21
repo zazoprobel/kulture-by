@@ -17,6 +17,7 @@ export type PlaceItem = {
   rating: number | null;
   entry_price: number | null;
   image_url?: string | null;
+  image_urls?: string[] | null;
 };
 
 type Filters = {
@@ -136,7 +137,7 @@ export function PlacesCatalogClient({
 
         let query = supabase
           .from("places")
-          .select("id,slug,name,category,city,address,rating,entry_price,image_url", { count: "exact" });
+          .select("id,slug,name,category,city,address,rating,entry_price,image_url,image_urls", { count: "exact" });
 
         if (filters.category !== "all") query = query.eq("category", filters.category);
         if (filters.cities.length > 0) query = query.in("city", filters.cities);
@@ -331,7 +332,7 @@ export function PlacesCatalogClient({
               {items.map((place) => (
                 <Link key={place.id} href={`/places/${place.slug}`} className="card">
                   <div className="thumb">
-                    <Image src={place.image_url || placeImageByCategory[place.category] || "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=900"} alt={place.name} fill unoptimized style={{ objectFit: "cover" }} sizes="(max-width: 767px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+                    <Image src={place.image_url || place.image_urls?.[0] || placeImageByCategory[place.category] || "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=900"} alt={place.name} fill unoptimized style={{ objectFit: "cover" }} sizes="(max-width: 767px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                   </div>
                   <div className="body">
                     <div className="title">{place.name}</div>
@@ -348,7 +349,7 @@ export function PlacesCatalogClient({
               {items.map((place) => (
                 <Link key={place.id} href={`/places/${place.slug}`} className="listCard">
                   <div className="listThumb">
-                    <Image src={place.image_url || placeImageByCategory[place.category] || "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=900"} alt={place.name} fill unoptimized style={{ objectFit: "cover" }} />
+                    <Image src={place.image_url || place.image_urls?.[0] || placeImageByCategory[place.category] || "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=900"} alt={place.name} fill unoptimized style={{ objectFit: "cover" }} />
                   </div>
                   <div className="listBody">
                     <div className="title">{place.name}</div>

@@ -47,6 +47,15 @@ export async function createPlaceAction(_: ActionState, formData: FormData): Pro
     const parsed = placeSchema.parse(Object.fromEntries(formData.entries()));
 
     const workingHours = parsed.working_hours ? JSON.parse(parsed.working_hours) : {};
+    const imageUrls = (() => {
+      try {
+        if (!parsed.image_urls) return parsed.image_url ? [parsed.image_url] : [];
+        const arr = JSON.parse(parsed.image_urls) as string[];
+        return Array.isArray(arr) ? arr.filter(Boolean) : [];
+      } catch {
+        return parsed.image_url ? [parsed.image_url] : [];
+      }
+    })();
 
     const { error } = await supabase.from("places").insert({
       name: parsed.name,
@@ -62,6 +71,7 @@ export async function createPlaceAction(_: ActionState, formData: FormData): Pro
       website: parsed.website || null,
       rating: parsed.rating,
       image_url: parsed.image_url || null,
+      image_urls: imageUrls,
       created_by: userId,
     });
 
@@ -82,6 +92,15 @@ export async function updatePlaceAction(_: ActionState, formData: FormData): Pro
     if (!parsed.id) return { success: false, message: "Не найден ID записи" };
 
     const workingHours = parsed.working_hours ? JSON.parse(parsed.working_hours) : {};
+    const imageUrls = (() => {
+      try {
+        if (!parsed.image_urls) return parsed.image_url ? [parsed.image_url] : [];
+        const arr = JSON.parse(parsed.image_urls) as string[];
+        return Array.isArray(arr) ? arr.filter(Boolean) : [];
+      } catch {
+        return parsed.image_url ? [parsed.image_url] : [];
+      }
+    })();
     const payload = {
       name: parsed.name,
       slug: parsed.slug,
@@ -95,7 +114,8 @@ export async function updatePlaceAction(_: ActionState, formData: FormData): Pro
       entry_price: parsed.entry_price ?? null,
       website: parsed.website || null,
       rating: parsed.rating,
-      image_url: parsed.image_url || null,
+      image_url: imageUrls[0] ?? parsed.image_url ?? null,
+      image_urls: imageUrls,
     };
 
     console.log("[admin][updatePlaceAction][payload]", {

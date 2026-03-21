@@ -29,6 +29,7 @@ type Place = {
   rating: number | null;
   entry_price: number | null;
   image_url: string | null;
+  image_urls?: string[] | null;
   website: string | null;
   working_hours: Record<string, string> | null;
 };
@@ -59,7 +60,7 @@ export async function generateMetadata({ params }: PageProps) {
 
   const { data: placeData } = await supabase
     .from("places")
-    .select("id,slug,name,description,category,city,image_url")
+    .select("id,slug,name,description,category,city,image_url,image_urls")
     .eq("slug", slug)
     .single();
 
@@ -96,7 +97,7 @@ export default async function PlacePage({ params }: PageProps) {
 
   const { data: placeData } = await supabase
     .from("places")
-    .select("id,slug,name,description,category,city,address,rating,entry_price,image_url,website,working_hours")
+    .select("id,slug,name,description,category,city,address,rating,entry_price,image_url,image_urls,website,working_hours")
     .eq("slug", slug)
     .single();
 
@@ -182,7 +183,14 @@ export default async function PlacePage({ params }: PageProps) {
     entry_price: number | null;
   }>;
 
-  const primaryImage = place.image_url || imageByCategory[place.category] || "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=1400";
+  const gallery = place.image_urls && place.image_urls.length > 0
+    ? place.image_urls
+    : place.image_url
+      ? [place.image_url]
+      : [];
+  const primaryImage = gallery[0] || imageByCategory[place.category] || "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=1400";
+  const secondImage = gallery[1] || "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=700";
+  const thirdImage = gallery[2] || "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=700";
   const shortMeta = `${categoryLabel[place.category] ?? place.category} · ${place.city}`;
   const entryPriceText = place.entry_price && place.entry_price > 0 ? `от ${Math.round(place.entry_price)} BYN` : "Бесплатно";
   const workingHoursText = place.working_hours && Object.keys(place.working_hours).length > 0 ? "По расписанию" : "Круглосуточно";
@@ -235,10 +243,10 @@ export default async function PlacePage({ params }: PageProps) {
               <Image src={primaryImage} alt={place.name} fill unoptimized style={{ objectFit: "cover" }} />
             </div>
             <div className="gSm">
-              <Image src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=700" alt={`${place.name} photo 2`} fill unoptimized style={{ objectFit: "cover" }} />
+              <Image src={secondImage} alt={`${place.name} photo 2`} fill unoptimized style={{ objectFit: "cover" }} />
             </div>
             <div className="gSm">
-              <Image src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=700" alt={`${place.name} photo 3`} fill unoptimized style={{ objectFit: "cover" }} />
+              <Image src={thirdImage} alt={`${place.name} photo 3`} fill unoptimized style={{ objectFit: "cover" }} />
             </div>
           </section>
 
