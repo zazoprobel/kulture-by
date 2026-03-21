@@ -20,7 +20,7 @@ export default function LoginPage() {
     setLoading("password");
     const supabase = createClient();
 
-    const { error: signInError } = await supabase.auth.signInWithPassword({
+    const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -32,8 +32,26 @@ export default function LoginPage() {
       return;
     }
 
-    router.push("/");
+    const sessionUser = signInData.user?.email ?? "<unknown>";
+    const sessionExists = Boolean(signInData.session);
+    console.log("[login] signInWithPassword success", {
+      email: sessionUser,
+      hasSession: sessionExists,
+    });
+
+    const { data: profileData } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", signInData.user?.id ?? "")
+      .single();
+
+    console.log("[login] profile role", {
+      email: sessionUser,
+      role: profileData?.role ?? null,
+    });
+
     router.refresh();
+    router.push(profileData?.role === "admin" ? "/admin" : "/");
   };
 
   const signInWithMagicLink = async () => {

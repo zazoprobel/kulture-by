@@ -46,11 +46,28 @@ export async function proxy(request: NextRequest) {
   }
 
   if (request.nextUrl.pathname.startsWith("/admin") && user) {
-    const { data: profile } = await supabase
+    const { data: profile, error: profileError } = await supabase
       .from("profiles")
       .select("role")
       .eq("id", user.id)
       .single();
+
+    if (profileError) {
+      console.error("[proxy][admin] profiles query error", {
+        path: request.nextUrl.pathname,
+        email: user.email ?? null,
+        error: profileError.message,
+      });
+      const url = request.nextUrl.clone();
+      url.pathname = "/login";
+      return NextResponse.redirect(url);
+    }
+
+    console.log("[proxy][admin]", {
+      path: request.nextUrl.pathname,
+      email: user.email ?? null,
+      role: profile?.role ?? null,
+    });
 
     if (!profile || profile.role !== "admin") {
       const url = request.nextUrl.clone();
