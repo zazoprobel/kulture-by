@@ -61,9 +61,12 @@ export function placesListingTitle(categoryDb: string | "all", cityDb: string | 
   const cityPart = cityDb ? ` ${cityDb}` : "";
   const brand = "kulture.by";
   // Keep title short enough for SERP.
-  return categoryDb === "all"
-    ? `Интересные места Беларуси для прогулок и поездок | ${brand}`
-    : `${catLabel} Беларуси для прогулок и поездок${cityPart} | ${brand}`;
+  if (categoryDb === "all") {
+    return cityDb
+      ? `Интересные места ${cityDb} — Беларусь | ${brand}`
+      : `Интересные места Беларуси для прогулок и поездок | ${brand}`;
+  }
+  return `${catLabel} Беларуси для прогулок и поездок${cityPart} | ${brand}`;
 }
 
 export function placesListingDescription(categoryDb: string | "all", cityDb: string | null) {
@@ -72,7 +75,7 @@ export function placesListingDescription(categoryDb: string | "all", cityDb: str
   return `Красивые ${catLabel} Беларуси ${cityPart}: цены, рейтинг и отзывы. Путеводитель, чтобы выбрать куда сходить и как спланировать маршрут.`;
 }
 
-/** Client/server: путь списка мест с учётом SEO-сегментов и `?city=` на /places */
+/** Client/server: ЧПУ списка мест; «все категории + город» → /places/minsk, /places/minsk/page/2 */
 export function buildPlacesListingPath(
   filters: { category: string; cities: string[] },
   page: number,
@@ -83,9 +86,9 @@ export function buildPlacesListingPath(
 
   if (!catSeg) {
     if (page > 1) {
-      return citySeg ? `/places/page/${page}?city=${citySeg}` : `/places/page/${page}`;
+      return citySeg ? `/places/${citySeg}/page/${page}` : `/places/page/${page}`;
     }
-    return citySeg ? `/places?city=${citySeg}` : "/places";
+    return citySeg ? `/places/${citySeg}` : "/places";
   }
 
   const base = citySeg ? `/places/${catSeg}/${citySeg}` : `/places/${catSeg}`;
@@ -104,9 +107,9 @@ export function placesCanonicalPath(args: {
   if (!catSeg) {
     const citySeg = cityDb ? getPlacesCityUrlSegment(cityDb) : null;
     if (page > 1) {
-      return citySeg ? `/places/page/${page}?city=${citySeg}` : `/places/page/${page}`;
+      return citySeg ? `/places/${citySeg}/page/${page}` : `/places/page/${page}`;
     }
-    return citySeg ? `/places?city=${citySeg}` : "/places";
+    return citySeg ? `/places/${citySeg}` : "/places";
   }
 
   if (!cityDb) {

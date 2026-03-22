@@ -9,6 +9,7 @@ import {
   placesListingDescription,
   placesListingTitle,
 } from "@/lib/seo/places";
+import { redirect } from "next/navigation";
 import { fetchPlacesListing, fetchPlacesListingCount } from "@/lib/seo/placesData";
 
 type PageProps = { searchParams: Promise<{ city?: string }> };
@@ -34,7 +35,10 @@ export default async function PlacesPage({ searchParams }: PageProps) {
   const isDev = process.env.NODE_ENV === "development";
   const sp = await searchParams;
   const citySlug = typeof sp.city === "string" ? sp.city : undefined;
-  const cityDb = citySlug ? getPlacesCityDbFromUrlSegment(citySlug) : null;
+  if (citySlug) {
+    const cityDbRedirect = getPlacesCityDbFromUrlSegment(citySlug);
+    if (cityDbRedirect) redirect(`/places/${citySlug}`);
+  }
 
   let places: PlaceItem[] = [];
   let totalCount = 0;
@@ -43,21 +47,21 @@ export default async function PlacesPage({ searchParams }: PageProps) {
   try {
     const { items, totalCount: count } = await fetchPlacesListing({
       categoryDb: "all",
-      cityDb,
+      cityDb: null,
       page: 1,
     });
     places = items as PlaceItem[];
     totalCount = count;
 
     if (isDev) {
-      console.log("[places] listing", { cityDb, placesCount: places.length, totalCount });
+      console.log("[places] listing", { placesCount: places.length, totalCount });
     }
   } catch (error) {
     console.error("Places page initialization error", error);
     debugError = error instanceof Error ? error.message : "Unknown Supabase error";
   }
 
-  const heroTitle = cityDb ? `Интересные места: ${cityDb}` : "Интересные места Беларуси";
+  const heroTitle = "Интересные места Беларуси";
 
   return (
     <>
@@ -136,12 +140,12 @@ export default async function PlacesPage({ searchParams }: PageProps) {
             </div>
           ) : null}
           <PlacesCatalogClient
-            key={`catalog-all-${cityDb ?? "none"}-1`}
+            key="catalog-all-none-1"
             initialItems={places}
             totalCount={totalCount}
             initialFilters={{
               category: "all",
-              cities: cityDb ? [cityDb] : [],
+              cities: [],
               entry: "all",
               ratings: [],
             }}

@@ -10,6 +10,7 @@ import {
 import { getSiteUrl } from "@/lib/seo/siteUrl";
 import { fetchPlacesListing, fetchPlacesListingCount, type PlacesListingItem } from "@/lib/seo/placesData";
 import { PlacesCatalogClient } from "@/components/places/PlacesCatalogClient";
+import { redirect } from "next/navigation";
 
 type PageProps = {
   params: Promise<{ page: string }>;
@@ -40,15 +41,18 @@ export default async function PlacesPageByNumber({ params, searchParams }: PageP
   const sp = await searchParams;
   const pageNum = Math.max(1, Number(page) || 1);
   const citySlug = typeof sp.city === "string" ? sp.city : undefined;
-  const cityDb = citySlug ? getPlacesCityDbFromUrlSegment(citySlug) : null;
+  if (citySlug) {
+    const cityDbRedirect = getPlacesCityDbFromUrlSegment(citySlug);
+    if (cityDbRedirect) redirect(`/places/${citySlug}/page/${pageNum}`);
+  }
 
   const { items, totalCount } = await fetchPlacesListing({
     categoryDb: "all",
-    cityDb,
+    cityDb: null,
     page: pageNum,
   });
 
-  const heroTitle = cityDb ? `Интересные места: ${cityDb}` : "Интересные места Беларуси";
+  const heroTitle = "Интересные места Беларуси";
   const heroSubtitle = "Каталог локаций для прогулок, поездок и открытий";
 
   return (
@@ -90,12 +94,12 @@ export default async function PlacesPageByNumber({ params, searchParams }: PageP
       <section className="section">
         <Container>
           <PlacesCatalogClient
-            key={`catalog-all-${cityDb ?? "none"}-${pageNum}`}
+            key={`catalog-all-none-${pageNum}`}
             initialItems={items as PlacesListingItem[]}
             totalCount={totalCount}
             initialFilters={{
               category: "all",
-              cities: cityDb ? [cityDb] : [],
+              cities: [],
               entry: "all",
               ratings: [],
             }}

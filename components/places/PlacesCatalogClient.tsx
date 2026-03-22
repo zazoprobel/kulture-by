@@ -233,16 +233,35 @@ export function PlacesCatalogClient({
 
       <div className="sb-group">
         <div className="sb-label">Город</div>
+        <label className="sb-opt">
+          <input
+            type="radio"
+            name="place-city"
+            checked={filters.cities.length === 0}
+            onChange={() =>
+              navToSeoPage(
+                {
+                  ...filters,
+                  cities: [],
+                  category: filters.category,
+                },
+                1,
+              )
+            }
+          />
+          Все города
+        </label>
         {cities.map((city) => (
           <label className="sb-opt" key={city}>
             <input
-              type="checkbox"
-              checked={filters.cities.includes(city)}
-              onChange={(e) =>
+              type="radio"
+              name="place-city"
+              checked={filters.cities.length > 0 && filters.cities[0] === city}
+              onChange={() =>
                 navToSeoPage(
                   {
                     ...filters,
-                    cities: e.target.checked ? [city] : [],
+                    cities: [city],
                     category: filters.category,
                   },
                   1,
