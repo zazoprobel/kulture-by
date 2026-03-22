@@ -1,40 +1,54 @@
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { Container } from "@/components/layout/Container";
-import { placesCanonicalPath, placesListingDescription, placesListingTitle } from "@/lib/seo/places";
+import {
+  getPlacesCityDbFromUrlSegment,
+  placesCanonicalPath,
+  placesListingDescription,
+  placesListingTitle,
+} from "@/lib/seo/places";
 import { getSiteUrl } from "@/lib/seo/siteUrl";
 import { fetchPlacesListing, fetchPlacesListingCount, type PlacesListingItem } from "@/lib/seo/placesData";
 import { PlacesCatalogClient } from "@/components/places/PlacesCatalogClient";
 
-type PageProps = { params: Promise<{ page: string }> };
+type PageProps = {
+  params: Promise<{ page: string }>;
+  searchParams: Promise<{ city?: string }>;
+};
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params, searchParams }: PageProps) {
   const { page } = await params;
+  const sp = await searchParams;
   const pageNum = Math.max(1, Number(page) || 1);
+  const citySlug = typeof sp.city === "string" ? sp.city : undefined;
+  const cityDb = citySlug ? getPlacesCityDbFromUrlSegment(citySlug) : null;
 
-  const totalCount = await fetchPlacesListingCount({ categoryDb: "all", cityDb: null });
-  const canonicalPath = placesCanonicalPath({ categoryDb: "all", cityDb: null, page: pageNum });
+  const totalCount = await fetchPlacesListingCount({ categoryDb: "all", cityDb });
+  const canonicalPath = placesCanonicalPath({ categoryDb: "all", cityDb, page: pageNum });
   const canonical = `${await getSiteUrl()}${canonicalPath}`;
 
   return {
-    title: placesListingTitle("all", null),
-    description: placesListingDescription("all", null),
+    title: placesListingTitle("all", cityDb),
+    description: placesListingDescription("all", cityDb),
     robots: { index: totalCount >= 12, follow: true },
     alternates: { canonical },
   };
 }
 
-export default async function PlacesPageByNumber({ params }: PageProps) {
+export default async function PlacesPageByNumber({ params, searchParams }: PageProps) {
   const { page } = await params;
+  const sp = await searchParams;
   const pageNum = Math.max(1, Number(page) || 1);
+  const citySlug = typeof sp.city === "string" ? sp.city : undefined;
+  const cityDb = citySlug ? getPlacesCityDbFromUrlSegment(citySlug) : null;
 
   const { items, totalCount } = await fetchPlacesListing({
     categoryDb: "all",
-    cityDb: null,
+    cityDb,
     page: pageNum,
   });
 
-  const heroTitle = "Интересные места Беларуси";
+  const heroTitle = cityDb ? `Интересные места: ${cityDb}` : "Интересные места Беларуси";
   const heroSubtitle = "Каталог локаций для прогулок, поездок и открытий";
 
   return (
@@ -76,9 +90,15 @@ export default async function PlacesPageByNumber({ params }: PageProps) {
       <section className="section">
         <Container>
           <PlacesCatalogClient
+            key={`catalog-all-${cityDb ?? "none"}-${pageNum}`}
             initialItems={items as PlacesListingItem[]}
             totalCount={totalCount}
-            initialFilters={{ category: "all", cities: [], entry: "all", ratings: [] }}
+            initialFilters={{
+              category: "all",
+              cities: cityDb ? [cityDb] : [],
+              entry: "all",
+              ratings: [],
+            }}
             initialPage={pageNum}
           />
         </Container>
@@ -87,4 +107,3 @@ export default async function PlacesPageByNumber({ params }: PageProps) {
     </>
   );
 }
-

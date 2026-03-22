@@ -31,7 +31,7 @@ export async function fetchPlacesListing(args: {
     .order("rating", { ascending: false });
 
   if (categoryDb !== "all") query = query.eq("category", categoryDb);
-  if (cityDb) query = query.eq("city", cityDb);
+  if (cityDb) query = query.ilike("city", `%${cityDb}%`);
 
   const { data, error, count } = await query.range(from, to);
   if (error) throw error;
@@ -51,7 +51,7 @@ export async function fetchPlacesListingCount(args: {
 
   let query = supabase.from("places").select("*", { count: "exact", head: true });
   if (categoryDb !== "all") query = query.eq("category", categoryDb);
-  if (cityDb) query = query.eq("city", cityDb);
+  if (cityDb) query = query.ilike("city", `%${cityDb}%`);
 
   const { count } = await query;
   return count ?? 0;

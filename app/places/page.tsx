@@ -1,74 +1,63 @@
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { Container } from "@/components/layout/Container";
-import { createClient } from "@/lib/supabase/server";
 import { PlacesCatalogClient, type PlaceItem } from "@/components/places/PlacesCatalogClient";
 import { getSiteUrl } from "@/lib/seo/siteUrl";
-import { placesCanonicalPath, placesListingDescription, placesListingTitle, PLACES_PAGE_SIZE } from "@/lib/seo/places";
+import {
+  getPlacesCityDbFromUrlSegment,
+  placesCanonicalPath,
+  placesListingDescription,
+  placesListingTitle,
+} from "@/lib/seo/places";
+import { fetchPlacesListing, fetchPlacesListingCount } from "@/lib/seo/placesData";
 
-export async function generateMetadata() {
-  const supabase = await createClient();
-  const { count } = await supabase.from("places").select("*", { count: "exact", head: true });
+type PageProps = { searchParams: Promise<{ city?: string }> };
 
-  const totalCount = count ?? 0;
-  const canonicalPath = placesCanonicalPath({ categoryDb: "all", cityDb: null, page: 1 });
+export async function generateMetadata({ searchParams }: PageProps) {
+  const sp = await searchParams;
+  const citySlug = typeof sp.city === "string" ? sp.city : undefined;
+  const cityDb = citySlug ? getPlacesCityDbFromUrlSegment(citySlug) : null;
+
+  const totalCount = await fetchPlacesListingCount({ categoryDb: "all", cityDb });
+  const canonicalPath = placesCanonicalPath({ categoryDb: "all", cityDb, page: 1 });
   const canonical = `${await getSiteUrl()}${canonicalPath}`;
 
   return {
-    title: placesListingTitle("all", null),
-    description: placesListingDescription("all", null),
+    title: placesListingTitle("all", cityDb),
+    description: placesListingDescription("all", cityDb),
     robots: { index: totalCount >= 12, follow: true },
     alternates: { canonical },
   };
 }
 
-export default async function PlacesPage() {
+export default async function PlacesPage({ searchParams }: PageProps) {
   const isDev = process.env.NODE_ENV === "development";
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const PAGE_SIZE = PLACES_PAGE_SIZE;
+  const sp = await searchParams;
+  const citySlug = typeof sp.city === "string" ? sp.city : undefined;
+  const cityDb = citySlug ? getPlacesCityDbFromUrlSegment(citySlug) : null;
 
   let places: PlaceItem[] = [];
   let totalCount = 0;
   let debugError: string | null = null;
 
   try {
-    if (isDev) {
-      console.log("[places] Supabase URL:", supabaseUrl ?? "<empty>");
-    }
-
-    const supabase = await createClient();
-
-    const [placesResult, countResult] = await Promise.all([
-      supabase
-        .from("places")
-        .select("id,name,slug,category,city,address,rating,entry_price,image_url")
-        .order("rating", { ascending: false })
-        .limit(PAGE_SIZE),
-      supabase.from("places").select("*", { count: "exact", head: true }),
-    ]);
-
-    if (placesResult.error || countResult.error) {
-      console.error("Places page supabase query error", {
-        places: placesResult.error?.message ?? null,
-        count: countResult.error?.message ?? null,
-      });
-      debugError = placesResult.error?.message ?? countResult.error?.message ?? null;
-    }
-
-    places = (placesResult.data ?? []) as PlaceItem[];
-    totalCount = countResult.count ?? 0;
+    const { items, totalCount: count } = await fetchPlacesListing({
+      categoryDb: "all",
+      cityDb,
+      page: 1,
+    });
+    places = items as PlaceItem[];
+    totalCount = count;
 
     if (isDev) {
-      console.log("[places] Query result:", {
-        placesCount: places.length,
-        totalCount,
-        sample: places.slice(0, 2),
-      });
+      console.log("[places] listing", { cityDb, placesCount: places.length, totalCount });
     }
   } catch (error) {
     console.error("Places page initialization error", error);
     debugError = error instanceof Error ? error.message : "Unknown Supabase error";
   }
+
+  const heroTitle = cityDb ? `Интересные места: ${cityDb}` : "Интересные места Беларуси";
 
   return (
     <>
@@ -118,7 +107,7 @@ export default async function PlacesPage() {
         <Container>
           <div className="hero">
             <div>
-              <h1>Интересные места Беларуси</h1>
+              <h1>{heroTitle}</h1>
               <p>Каталог локаций для прогулок, поездок и открытий</p>
             </div>
             <div>
@@ -147,9 +136,15 @@ export default async function PlacesPage() {
             </div>
           ) : null}
           <PlacesCatalogClient
+            key={`catalog-all-${cityDb ?? "none"}-1`}
             initialItems={places}
             totalCount={totalCount}
-            initialFilters={{ category: "all", cities: [], entry: "all", ratings: [] }}
+            initialFilters={{
+              category: "all",
+              cities: cityDb ? [cityDb] : [],
+              entry: "all",
+              ratings: [],
+            }}
             initialPage={1}
           />
         </Container>

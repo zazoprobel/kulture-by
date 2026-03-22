@@ -22,6 +22,8 @@ type Place = {
   id: string;
   slug: string;
   name: string;
+  name_ru?: string | null;
+  name_be?: string | null;
   description: string;
   category: string;
   city: string;
@@ -60,7 +62,7 @@ export async function generateMetadata({ params }: PageProps) {
 
   const { data: placeData } = await supabase
     .from("places")
-    .select("id,slug,name,description,category,city,image_url,image_urls")
+    .select("id,slug,name,name_ru,name_be,description,category,city,image_url,image_urls")
     .eq("slug", slug)
     .single();
 
@@ -97,7 +99,7 @@ export default async function PlacePage({ params }: PageProps) {
 
   const { data: placeData } = await supabase
     .from("places")
-    .select("id,slug,name,description,category,city,address,rating,entry_price,image_url,image_urls,website,working_hours")
+    .select("id,slug,name,name_ru,name_be,description,category,city,address,rating,entry_price,image_url,image_urls,website,working_hours")
     .eq("slug", slug)
     .single();
 
@@ -195,6 +197,8 @@ export default async function PlacePage({ params }: PageProps) {
   const shortMeta = `${categoryLabel[place.category] ?? place.category} · ${place.city}`;
   const entryPriceText = place.entry_price && place.entry_price > 0 ? `от ${Math.round(place.entry_price)} BYN` : "Бесплатно";
   const workingHoursText = place.working_hours && Object.keys(place.working_hours).length > 0 ? "По расписанию" : "Круглосуточно";
+  const placeNameRu = place.name_ru || place.name;
+  const placeNameBe = place.name_be || "";
 
   return (
     <>
@@ -208,6 +212,7 @@ export default async function PlacePage({ params }: PageProps) {
         .layout{display:grid;grid-template-columns:1fr 340px;gap:30px;margin-top:28px}
         .box{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:20px;padding:22px;margin-bottom:18px}
         .placeName{font-family:"Unbounded",sans-serif;font-size:30px;line-height:1.1}
+        .placeNameBe{margin-top:8px;color:#8b8b8b;font-size:14px}
         .meta{margin-top:10px;color:#666;display:flex;gap:12px;flex-wrap:wrap;font-size:13px}
         .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
         .stat{background:#F7F6F2;border-radius:14px;padding:14px;text-align:center}
@@ -236,15 +241,16 @@ export default async function PlacePage({ params }: PageProps) {
             <span>›</span>
             <Link href="/places">Места</Link>
             <span>›</span>
-            <strong>{place.name}</strong>
+            <strong>{placeNameRu}</strong>
           </div>
 
-          <PlaceGallery images={galleryImages} placeName={place.name} />
+          <PlaceGallery images={galleryImages} placeName={placeNameRu} />
 
           <div className="layout">
             <main>
               <div className="box">
-                <h1 className="placeName">{place.name}</h1>
+                <h1 className="placeName">{placeNameRu}</h1>
+                {placeNameBe ? <div className="placeNameBe">{placeNameBe}</div> : null}
                 <div className="meta">
                   <span>⭐ {place.rating ?? 0}</span>
                   <span>📍 {place.city}</span>

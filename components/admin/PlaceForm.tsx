@@ -13,6 +13,8 @@ type PlaceFormProps = {
   initial?: {
     id: string;
     name: string;
+    name_ru?: string | null;
+    name_be?: string | null;
     slug: string;
     description: string;
     category: string;
@@ -33,7 +35,8 @@ export function PlaceForm({ mode, initial }: PlaceFormProps) {
   const router = useRouter();
   const action = mode === "create" ? createPlaceAction : updatePlaceAction;
   const [state, formAction, pending] = useActionState(action, initialActionState);
-  const [name, setName] = useState(initial?.name ?? "");
+  const [nameRu, setNameRu] = useState(initial?.name_ru ?? initial?.name ?? "");
+  const [nameBe, setNameBe] = useState(initial?.name_be ?? "");
   const [slug, setSlug] = useState(initial?.slug ?? "");
   const [description, setDescription] = useState(initial?.description ?? "");
   const [category, setCategory] = useState(initial?.category ?? "nature");
@@ -48,14 +51,15 @@ export function PlaceForm({ mode, initial }: PlaceFormProps) {
   const [images, setImages] = useState<string[]>(initial?.image_url ? [initial.image_url] : []);
 
   useEffect(() => {
-    if (!initial?.slug) setSlug(slugify(name));
-  }, [name, initial?.slug]);
+    if (!initial?.slug) setSlug(slugify(nameRu));
+  }, [nameRu, initial?.slug]);
 
   const firstImage = useMemo(() => images[0] ?? "", [images]);
 
   useEffect(() => {
     if (initial) {
-      setName(initial.name ?? "");
+      setNameRu(initial.name_ru ?? initial.name ?? "");
+      setNameBe(initial.name_be ?? "");
       setSlug(initial.slug ?? "");
       setDescription(initial.description ?? "");
       setCategory(initial.category ?? "nature");
@@ -78,13 +82,19 @@ export function PlaceForm({ mode, initial }: PlaceFormProps) {
   return (
     <form action={formAction} style={{ display: "grid", gap: 14, maxWidth: 900 }}>
       {initial?.id ? <input type="hidden" name="id" value={initial.id} /> : null}
+      <input type="hidden" name="name" value={nameRu} />
       <input type="hidden" name="image_url" value={firstImage} />
       <input type="hidden" name="image_urls" value={JSON.stringify(images)} />
 
       <label>
-        Название
-        <input name="name" value={name} onChange={(e) => setName(e.target.value)} style={inp} />
-        {state.errors?.name ? <span style={err}>{state.errors.name}</span> : null}
+        Название (русский)
+        <input name="name_ru" value={nameRu} onChange={(e) => setNameRu(e.target.value)} style={inp} />
+        {state.errors?.name_ru ? <span style={err}>{state.errors.name_ru}</span> : state.errors?.name ? <span style={err}>{state.errors.name}</span> : null}
+      </label>
+
+      <label>
+        Название (белорусский)
+        <input name="name_be" value={nameBe} onChange={(e) => setNameBe(e.target.value)} style={inp} />
       </label>
 
       <label>

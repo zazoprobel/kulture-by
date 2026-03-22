@@ -58,7 +58,9 @@ export async function createPlaceAction(_: ActionState, formData: FormData): Pro
     })();
 
     const { error } = await supabase.from("places").insert({
-      name: parsed.name,
+      name: parsed.name_ru || parsed.name,
+      name_ru: parsed.name_ru || parsed.name,
+      name_be: parsed.name_be || null,
       slug: parsed.slug,
       description: parsed.description,
       category: parsed.category,
@@ -102,7 +104,9 @@ export async function updatePlaceAction(_: ActionState, formData: FormData): Pro
       }
     })();
     const payload = {
-      name: parsed.name,
+      name: parsed.name_ru || parsed.name,
+      name_ru: parsed.name_ru || parsed.name,
+      name_be: parsed.name_be || null,
       slug: parsed.slug,
       description: parsed.description,
       category: parsed.category,

@@ -5,7 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
-import { getPlacesCategoryUrlSegment, getPlacesCityUrlSegment } from "@/lib/seo/places";
+import { buildPlacesListingPath } from "@/lib/seo/places";
+import { PlacesCategoryMap } from "@/components/places/PlacesCategoryMap";
 
 export type PlaceItem = {
   id: string;
@@ -90,21 +91,12 @@ export function PlacesCatalogClient({
     ratings: [],
   });
 
-  const buildSeoBasePath = (f: Filters): string => {
-    const catSeg = getPlacesCategoryUrlSegment(f.category);
-    if (!catSeg) return "/places";
-
-    const cityDb = f.cities.length > 0 ? f.cities[0] : null;
-    if (!cityDb) return `/places/${catSeg}`;
-
-    const citySeg = getPlacesCityUrlSegment(cityDb);
-    return citySeg ? `/places/${catSeg}/${citySeg}` : `/places/${catSeg}`;
-  };
-
   const navToSeoPage = (nextFilters: Filters, nextPage: number) => {
     const seoFilters = stripNonSeoFilters(nextFilters);
-    const basePath = buildSeoBasePath(seoFilters);
-    const href = nextPage <= 1 ? basePath : `${basePath}/page/${nextPage}`;
+    const href = buildPlacesListingPath(
+      { category: seoFilters.category, cities: seoFilters.cities },
+      nextPage,
+    );
 
     skipPageResetRef.current = true;
     setFilters(seoFilters);
@@ -140,7 +132,10 @@ export function PlacesCatalogClient({
           .select("id,slug,name,category,city,address,rating,entry_price,image_url,image_urls", { count: "exact" });
 
         if (filters.category !== "all") query = query.eq("category", filters.category);
-        if (filters.cities.length > 0) query = query.in("city", filters.cities);
+        if (filters.cities.length > 0) {
+          const cityLabel = filters.cities[0];
+          query = query.ilike("city", `%${cityLabel}%`);
+        }
         if (filters.entry === "free") query = query.or("entry_price.is.null,entry_price.eq.0");
         if (filters.entry === "paid") query = query.gt("entry_price", 0);
         if (filters.ratings.length > 0) query = query.gte("rating", Math.min(...filters.ratings.map(Number)));
@@ -173,7 +168,8 @@ export function PlacesCatalogClient({
   const chips = useMemo(() => {
     const list: Array<{ key: keyof Filters; label: string }> = [];
     if (filters.category !== "all") list.push({ key: "category", label: `Категория: ${categories.find((x) => x.value === filters.category)?.label ?? filters.category}` });
-    if (filters.cities.length > 0) list.push({ key: "cities", label: `Город: ${filters.cities.length}` });
+    if (filters.cities.length > 0)
+      list.push({ key: "cities", label: `Город: ${filters.cities[0]}` });
     if (filters.entry !== "all") list.push({ key: "entry", label: `Вход: ${filters.entry === "free" ? "Бесплатно" : "Платно"}` });
     if (filters.ratings.length > 0) list.push({ key: "ratings", label: `Рейтинг: ${filters.ratings.join(", ")}` });
     return list;
@@ -188,7 +184,7 @@ export function PlacesCatalogClient({
     const maxButtons = 5;
     const half = Math.floor(maxButtons / 2);
     let start = Math.max(1, page - half);
-    let end = Math.min(pageCount, start + maxButtons - 1);
+    const end = Math.min(pageCount, start + maxButtons - 1);
     start = Math.max(1, end - maxButtons + 1);
     const pages: number[] = [];
     for (let p = start; p <= end; p++) pages.push(p);
@@ -224,7 +220,7 @@ export function PlacesCatalogClient({
                   {
                     ...filters,
                     category: item.value,
-                    cities: item.value === "all" ? [] : filters.cities,
+                    cities: filters.cities,
                   },
                   1,
                 )
@@ -246,7 +242,7 @@ export function PlacesCatalogClient({
                 navToSeoPage(
                   {
                     ...filters,
-                    cities: filters.category === "all" ? [] : e.target.checked ? [city] : [],
+                    cities: e.target.checked ? [city] : [],
                     category: filters.category,
                   },
                   1,
@@ -323,6 +319,13 @@ export function PlacesCatalogClient({
               </button>
             ))}
           </div>
+
+          {filters.category !== "all" ? (
+            <PlacesCategoryMap
+              category={filters.category}
+              cityContains={filters.cities.length > 0 ? filters.cities[0] : null}
+            />
+          ) : null}
 
           {loading ? <div className="empty">Загрузка...</div> : null}
           {!loading && items.length === 0 ? <div className="empty">По выбранным фильтрам мест не найдено.</div> : null}

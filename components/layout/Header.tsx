@@ -5,6 +5,7 @@ import { Container } from "@/components/layout/Container";
 
 const navItems = [
   { href: "/places", label: "Места" },
+  { href: "/maps", label: "Карта" },
   { href: "/venues", label: "Площадки" },
   { href: "/guide", label: "Путеводитель" },
   { href: "#", label: "О нас" },

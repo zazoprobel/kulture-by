@@ -5,6 +5,8 @@ export const CITIES = ["Минск", "Брест", "Гродно", "Витебс
 export const placeSchema = z.object({
   id: z.string().uuid().optional(),
   name: z.string().min(2, "Введите название"),
+  name_ru: z.string().optional(),
+  name_be: z.string().optional(),
   slug: z.string().min(2, "Введите slug"),
   description: z.string().min(10, "Описание слишком короткое"),
   category: z.enum(["nature", "history", "castles", "museums", "gastro", "activity", "kids"], {

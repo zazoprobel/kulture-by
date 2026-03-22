@@ -9,7 +9,7 @@ export default async function AdminPlaceEditPage({ params }: Props) {
   const supabase = await createClient();
   const { data } = await supabase
     .from("places")
-    .select("id,name,slug,description,category,city,address,lat,lng,working_hours,entry_price,website,rating,image_url,image_urls")
+    .select("id,name,name_ru,name_be,slug,description,category,city,address,lat,lng,working_hours,entry_price,website,rating,image_url,image_urls")
     .eq("id", id)
     .single();
 

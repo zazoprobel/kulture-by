@@ -72,24 +72,55 @@ export function placesListingDescription(categoryDb: string | "all", cityDb: str
   return `Красивые ${catLabel} Беларуси ${cityPart}: цены, рейтинг и отзывы. Путеводитель, чтобы выбрать куда сходить и как спланировать маршрут.`;
 }
 
+/** Client/server: путь списка мест с учётом SEO-сегментов и `?city=` на /places */
+export function buildPlacesListingPath(
+  filters: { category: string; cities: string[] },
+  page: number,
+): string {
+  const catSeg = getPlacesCategoryUrlSegment(filters.category);
+  const cityDb = filters.cities.length > 0 ? filters.cities[0] : null;
+  const citySeg = cityDb ? getPlacesCityUrlSegment(cityDb) : null;
+
+  if (!catSeg) {
+    if (page > 1) {
+      return citySeg ? `/places/page/${page}?city=${citySeg}` : `/places/page/${page}`;
+    }
+    return citySeg ? `/places?city=${citySeg}` : "/places";
+  }
+
+  const base = citySeg ? `/places/${catSeg}/${citySeg}` : `/places/${catSeg}`;
+  if (page <= 1) return base;
+  return citySeg ? `${base}/page/${page}` : `/places/${catSeg}/page/${page}`;
+}
+
 export function placesCanonicalPath(args: {
   categoryDb: string | "all";
   cityDb: string | null;
   page: number;
 }): string {
   const { categoryDb, cityDb, page } = args;
+  const catSeg = getPlacesCategoryUrlSegment(categoryDb);
 
-  const base = (() => {
-    const catSeg = getPlacesCategoryUrlSegment(categoryDb);
-    // Per your request: city is not combined alone; city segment only makes sense under a category.
-    if (!catSeg) return "/places";
-    if (!cityDb) return `/places/${catSeg}`;
-    const citySeg = getPlacesCityUrlSegment(cityDb);
-    if (!citySeg) return `/places/${catSeg}`;
-    return `/places/${catSeg}/${citySeg}`;
-  })();
+  if (!catSeg) {
+    const citySeg = cityDb ? getPlacesCityUrlSegment(cityDb) : null;
+    if (page > 1) {
+      return citySeg ? `/places/page/${page}?city=${citySeg}` : `/places/page/${page}`;
+    }
+    return citySeg ? `/places?city=${citySeg}` : "/places";
+  }
 
-  if (page <= 1) return base;
-  return `${base}/page/${page}`;
+  if (!cityDb) {
+    const base = `/places/${catSeg}`;
+    return page <= 1 ? base : `/places/${catSeg}/page/${page}`;
+  }
+
+  const citySeg = getPlacesCityUrlSegment(cityDb);
+  if (!citySeg) {
+    const base = `/places/${catSeg}`;
+    return page <= 1 ? base : `/places/${catSeg}/page/${page}`;
+  }
+
+  const base = `/places/${catSeg}/${citySeg}`;
+  return page <= 1 ? base : `${base}/page/${page}`;
 }
 
