@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "data:venues:osm": "node scripts/generate_belarus_venues_from_osm.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.9.0",

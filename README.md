@@ -101,8 +101,19 @@ npm run start
 - `osm_belarus_scraper.js`
 - `osm_belarus_scraper_v2.js`
 - `belarus_osm_places.sql`
+- `scripts/generate_belarus_venues_from_osm.mjs`
 
 Эти файлы нужны для наполнения базы, а не для runtime-логики фронтенда.
+
+### Импорт площадок и ресторанов по крупным городам
+
+Сгенерировать SQL по OSM для `venues` (рестораны/отели/ивент-площадки):
+
+```bash
+npm run data:venues:osm
+```
+
+После выполнения появится файл `belarus_osm_venues.sql`, который можно применить в Supabase SQL Editor.
 
 ## Важные замечания
 
