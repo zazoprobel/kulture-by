@@ -11,7 +11,8 @@ export default async function VenuesPage() {
   const [venuesResult, countResult] = await Promise.all([
     supabase
       .from("venues")
-      .select("id,slug,name,city,type,rating,capacity_banquet,capacity_buffet,price_from")
+      .select("id,slug,name,city,type,rating,capacity_banquet,capacity_buffet,price_from,is_featured,is_verified")
+      .order("is_featured", { ascending: false })
       .order("rating", { ascending: false })
       .limit(PAGE_SIZE),
     supabase.from("venues").select("*", { count: "exact", head: true }),

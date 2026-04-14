@@ -1,36 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# kulture-by
 
-## Getting Started
+Портал для поиска интересных мест Беларуси: каталог мест и площадок, карта с кластеризацией, фильтры, SEO-страницы категорий/городов и админка для управления контентом.
 
-First, run the development server:
+Прод: `https://kulture-by.vercel.app/`
+
+## Технологии
+
+- `Next.js 16` (App Router)
+- `React 19` + `TypeScript`
+- `Supabase` (Postgres, Auth, Storage, RLS)
+- `zod` для валидации форм
+- `sharp` для обработки изображений
+- `Tailwind CSS v4` (в проекте также используются inline/CSS-in-JSX стили)
+- `Leaflet` + `markercluster` (подключаются с CDN в рантайме)
+
+## Быстрый старт
+
+1. Установить зависимости:
+
+```bash
+npm install
+```
+
+2. Создать `.env.local` и задать переменные:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+SUPABASE_SERVICE_ROLE_KEY=...
+# необязательно, но желательно для корректных canonical URL
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
+
+3. Подготовить базу данных (Supabase):
+
+- применить SQL из `supabase/migrations/` по порядку;
+- при необходимости загрузить seed-данные из SQL-файлов.
+
+4. Запуск в dev-режиме:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Production-проверка:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm run start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Скрипты
 
-## Learn More
+- `npm run dev` - запуск локального сервера Next.js
+- `npm run build` - production-сборка
+- `npm run start` - запуск собранного приложения
+- `npm run lint` - проверка линтером (`eslint`)
 
-To learn more about Next.js, take a look at the following resources:
+## Основные разделы приложения
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Публичные
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `/` - главная страница
+- `/places` - каталог мест с фильтрами и пагинацией
+- `/places/[slug]` - SEO-страница категории/города или карточка места (в зависимости от slug)
+- `/venues` - каталог площадок
+- `/venues/[slug]` - карточка площадки
+- `/maps` - карта мест с поиском, слоями категорий, кластеризацией и геолокацией
 
-## Deploy on Vercel
+### Авторизация
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `/login`
+- `/register`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Админка
+
+- `/admin` - dashboard
+- CRUD-разделы:
+  - `/admin/places`
+  - `/admin/venues`
+  - `/admin/contractors`
+  - `/admin/stories`
+  - `/admin/events`
+  - `/admin/tours`
+  - `/admin/users`
+
+Доступ в админку ограничен ролью `admin`.
+
+## Данные и инфраструктура
+
+- Основные сущности: `places`, `venues`, `contractors`, `events`, `stories`, `tours`, `profiles`
+- SQL-миграции: `supabase/migrations/`
+- Медиафайлы админки: Supabase Storage bucket `kulture-media`
+- RLS-политики и доступы задаются миграциями
+
+## Импорт контента
+
+В репозитории есть утилиты для генерации SQL из OSM/Wikipedia:
+
+- `osm_belarus_scraper.js`
+- `osm_belarus_scraper_v2.js`
+- `belarus_osm_places.sql`
+
+Эти файлы нужны для наполнения базы, а не для runtime-логики фронтенда.
+
+## Важные замечания
+
+- Без `NEXT_PUBLIC_SUPABASE_URL` и `NEXT_PUBLIC_SUPABASE_ANON_KEY` часть страниц не работает.
+- Для загрузки изображений в админке нужен `SUPABASE_SERVICE_ROLE_KEY`.
+- Карта зависит от внешних ресурсов (`unpkg` и OpenStreetMap tiles), без сети может не отображаться.
+- В проекте могут встречаться ссылки на маршруты, которых нет в `app/` (например `/guide`).

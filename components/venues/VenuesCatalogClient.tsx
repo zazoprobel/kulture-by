@@ -15,6 +15,8 @@ export type VenueItem = {
   capacity_banquet: number | null;
   capacity_buffet: number | null;
   price_from: number | null;
+  is_featured?: boolean | null;
+  is_verified?: boolean | null;
 };
 
 type Filters = {
@@ -85,7 +87,7 @@ export function VenuesCatalogClient({ initialItems, totalCount }: { initialItems
         const to = from + PAGE_SIZE - 1;
         let query = supabase
           .from("venues")
-          .select("id,slug,name,city,type,rating,capacity_banquet,capacity_buffet,price_from", { count: "exact" });
+          .select("id,slug,name,city,type,rating,capacity_banquet,capacity_buffet,price_from,is_featured,is_verified", { count: "exact" });
 
         if (filters.types.length > 0) {
           const mapped = Array.from(new Set(filters.types.map((value) => (value === "estate" ? "outdoor" : value))));
@@ -101,7 +103,11 @@ export function VenuesCatalogClient({ initialItems, totalCount }: { initialItems
         if (filters.cities.length > 0) query = query.in("city", filters.cities);
         if (filters.ratings.length > 0) query = query.gte("rating", Math.min(...filters.ratings.map(Number)));
 
-        query = sortBy === "price" ? query.order("price_from", { ascending: true }) : query.order("rating", { ascending: false });
+        if (sortBy === "price") {
+          query = query.order("is_featured", { ascending: false }).order("price_from", { ascending: true });
+        } else {
+          query = query.order("is_featured", { ascending: false }).order("rating", { ascending: false });
+        }
         const { data, error, count: nextCount } = await query.range(from, to);
         if (error) throw error;
 
@@ -148,7 +154,7 @@ export function VenuesCatalogClient({ initialItems, totalCount }: { initialItems
     const maxButtons = 5;
     const half = Math.floor(maxButtons / 2);
     let start = Math.max(1, page - half);
-    let end = Math.min(pageCount, start + maxButtons - 1);
+    const end = Math.min(pageCount, start + maxButtons - 1);
     start = Math.max(1, end - maxButtons + 1);
     const pages: number[] = [];
     for (let p = start; p <= end; p++) pages.push(p);
@@ -288,6 +294,11 @@ export function VenuesCatalogClient({ initialItems, totalCount }: { initialItems
                   <div className="body">
                     <div className="title">{venue.name}</div>
                     <div className="meta">📍 {venue.city}</div>
+                    <div className="meta">
+                      {venue.is_featured ? "🔥 Featured" : ""}
+                      {venue.is_featured && venue.is_verified ? " · " : ""}
+                      {venue.is_verified ? "✅ Проверено" : ""}
+                    </div>
                     <div className="meta">⭐ {venue.rating ?? 0} · 👥 {venue.capacity_banquet ?? 0}</div>
                   </div>
                 </Link>
@@ -305,6 +316,11 @@ export function VenuesCatalogClient({ initialItems, totalCount }: { initialItems
                   <div className="listBody">
                     <div className="title">{venue.name}</div>
                     <div className="meta">📍 {venue.city}</div>
+                    <div className="meta">
+                      {venue.is_featured ? "🔥 Featured" : ""}
+                      {venue.is_featured && venue.is_verified ? " · " : ""}
+                      {venue.is_verified ? "✅ Проверено" : ""}
+                    </div>
                     <div className="meta">⭐ {venue.rating ?? 0} · Банкет: {venue.capacity_banquet ?? 0} · Фуршет: {venue.capacity_buffet ?? 0}</div>
                     <div className="price">от {Math.round(venue.price_from ?? 0)} BYN</div>
                   </div>

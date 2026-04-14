@@ -20,6 +20,8 @@ type Venue = {
   capacity_banquet: number | null;
   capacity_buffet: number | null;
   price_from: number | null;
+  is_featured?: boolean | null;
+  is_verified?: boolean | null;
 };
 
 export default async function VenuePage({ params }: PageProps) {
@@ -28,7 +30,7 @@ export default async function VenuePage({ params }: PageProps) {
 
   const { data: venueData } = await supabase
     .from("venues")
-    .select("id,slug,name,city,description,type,rating,capacity_banquet,capacity_buffet,price_from")
+    .select("id,slug,name,city,description,type,rating,capacity_banquet,capacity_buffet,price_from,is_featured,is_verified")
     .eq("slug", slug)
     .single();
 
@@ -109,6 +111,8 @@ export default async function VenuePage({ params }: PageProps) {
                   <span>⭐ {venue.rating ?? 0}</span>
                   <span>📍 {venue.city}</span>
                   <span>Тип: {venue.type}</span>
+                  {venue.is_featured ? <span>🔥 Featured</span> : null}
+                  {venue.is_verified ? <span>✅ Проверено</span> : null}
                 </div>
               </div>
 
@@ -162,7 +166,7 @@ export default async function VenuePage({ params }: PageProps) {
               </div>
             </main>
             <aside>
-              <VenueBookingCard basePrice={Math.round(venue.price_from ?? 0)} />
+              <VenueBookingCard basePrice={Math.round(venue.price_from ?? 0)} venueId={venue.id} city={venue.city} />
             </aside>
           </div>
         </div>

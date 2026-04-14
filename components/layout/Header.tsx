@@ -8,6 +8,7 @@ const navItems = [
   { href: "/maps", label: "Карта" },
   { href: "/venues", label: "Площадки" },
   { href: "/guide", label: "Путеводитель" },
+  { href: "/planner", label: "AI-маршрут" },
   { href: "#", label: "О нас" },
 ] as const;
 

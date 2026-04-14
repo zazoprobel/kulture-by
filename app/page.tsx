@@ -290,6 +290,17 @@ export default async function HomePage() {
         </section>
 
         <section className="sec">
+          <div className="mapPromo" style={{ background: "var(--yellow)" }}>
+            <div style={{ flex: 1 }}>
+              <h2 className="mapT">AI-планировщик поездок</h2>
+              <p className="mapS">Опиши город, интересы и бюджет — получи персональный маршрут по дням с практическими советами.</p>
+              <Link href="/planner" className="heroCta">Собрать маршрут →</Link>
+            </div>
+            <div className="mapVis" style={{ fontSize: "54px" }}>🤖🗺️</div>
+          </div>
+        </section>
+
+        <section className="sec">
           <div className="secH"><h2 className="secT">По регионам</h2></div>
           <div className="regions">
             {cityCounts.map((item) => (
